@@ -18,7 +18,7 @@ class OpeningViewBody extends StatelessWidget {
         ),
         CustomButton(
           onTap: () {
-            GoRouter.of(context).push('loginView');
+            GoRouter.of(context).push('/loginView');
           },
           width: 147,
           height: 40,
