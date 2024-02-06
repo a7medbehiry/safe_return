@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/opening_view_body.dart';
 
 class OpeningView extends StatelessWidget {
   const OpeningView({super.key});
@@ -6,7 +7,7 @@ class OpeningView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      
+      body: OpeningViewBody(),
     );
   }
 }
