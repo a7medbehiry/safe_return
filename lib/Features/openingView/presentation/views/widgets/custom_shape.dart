@@ -13,14 +13,14 @@ class CustomShape extends StatelessWidget {
       children: [
         SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: 180,
+          height: 600,
         ),
         Positioned(
           right: -45,
-          top: -35,
+          top: -25,
           child: Container(
-            width: 200,
-            height: 150,
+            width: 171,
+            height: 132,
             decoration: const BoxDecoration(
               color: kPrimaryColor,
               shape: BoxShape.circle,
@@ -29,7 +29,7 @@ class CustomShape extends StatelessWidget {
         ),
         Positioned(
           right: 30,
-          top: -20,
+          top: -35,
           child: Container(
             width: 189,
             height: 134,
@@ -40,8 +40,8 @@ class CustomShape extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 90,
-          top: -20,
+          left: 100,
+          top: -30,
           child: Container(
             width: 189,
             height: 134,
@@ -52,11 +52,11 @@ class CustomShape extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: -15,
-          top: -40,
+          left: -20,
+          top: -30,
           child: Container(
-            width: 171,
-            height: 150,
+            width: 189,
+            height: 160,
             decoration: const BoxDecoration(
               color: kPrimaryColor,
               shape: BoxShape.circle,
@@ -65,7 +65,7 @@ class CustomShape extends StatelessWidget {
         ),
         Positioned(
           left: -110,
-          top: 40,
+          top: 50,
           child: Container(
             width: 171,
             height: 132,
@@ -77,10 +77,28 @@ class CustomShape extends StatelessWidget {
         ),
         const Positioned(
           left: 135,
-          bottom: 20,
+          top: 120,
           child: Text(
             'Safe Return',
             style: Styles.textStyle24,
+          ),
+        ),
+        const Positioned(
+          left: .1,
+          right: .1,
+          top: 120,
+          child: Image(
+            image: AssetImage(
+              'assets/openingViewPhoto.png',
+            ),
+          ),
+        ),
+        const Positioned(
+          left: 76,
+          bottom: 1,
+          child: Text(
+            'Bring Lost Smiles Home & Reunite Hearts',
+            style: Styles.textStyle12,
           ),
         ),
       ],
