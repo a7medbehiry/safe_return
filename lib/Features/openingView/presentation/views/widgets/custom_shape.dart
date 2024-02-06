@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safe_return/core/utils/styles.dart';
 import '../../../../../constants.dart';
 
 class CustomShape extends StatelessWidget {
@@ -12,7 +13,7 @@ class CustomShape extends StatelessWidget {
       children: [
         SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          height: 180,
         ),
         Positioned(
           right: -45,
@@ -72,6 +73,14 @@ class CustomShape extends StatelessWidget {
               color: kPrimaryColor,
               shape: BoxShape.circle,
             ),
+          ),
+        ),
+        const Positioned(
+          left: 135,
+          bottom: 20,
+          child: Text(
+            'Safe Return',
+            style: Styles.textStyle24,
           ),
         ),
       ],

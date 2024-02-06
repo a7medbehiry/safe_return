@@ -6,6 +6,10 @@ class OpeningViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomShape();
+    return const Column(
+      children: [
+        CustomShape(),
+      ],
+    );
   }
 }
