@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'custom_bottom_part.dart';
 import 'custom_top_part.dart';
 
 class LoginViewBody extends StatelessWidget {
@@ -9,6 +10,7 @@ class LoginViewBody extends StatelessWidget {
     return const Column(
       children: [
         CustomTopPart(),
+        CustomBottomPart(),
       ],
     );
   }

@@ -8,7 +8,10 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: LoginViewBody(),
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: LoginViewBody(),
+      ),
     );
   }
 }

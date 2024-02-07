@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safe_return/core/utils/styles.dart';
-import '../../../../../widgets/custom_button.dart';
+import 'package:safe_return/core/utils/widgets/custom_shield.dart';
+import '../../../../../core/utils/widgets/custom_button.dart';
 import 'custom_shape.dart';
 
 class OpeningViewBody extends StatelessWidget {
@@ -29,27 +29,12 @@ class OpeningViewBody extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(
+        const Padding(
+          padding:  EdgeInsets.only(
             top: 80,
             left: 28,
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                'assets/shield.svg',
-                height: 16,
-              ),
-              const SizedBox(
-                width: 2,
-              ),
-              const Text(
-                'Always there to help',
-                style: Styles.textStyle8,
-              )
-            ],
-          ),
+          child: CustomShield()
         )
       ],
     );

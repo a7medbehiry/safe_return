@@ -4,16 +4,21 @@ import 'package:safe_return/core/utils/styles.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
-      {super.key, required this.hintText, required this.prefixIcon});
+      {super.key,
+      required this.hintText,
+      required this.prefixIcon,
+      required this.width,
+      required this.height});
   final String hintText;
   final Widget prefixIcon;
+  final double width, height;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
-        width: 350,
-        height: 60,
+        width: width,
+        height: height,
         child: TextField(
           style: Styles.textStyleReg16.copyWith(
             color: Colors.black,

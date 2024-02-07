@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:safe_return/Features/loginView/presentation/views/widgets/custom_text_field.dart';
-import 'package:safe_return/widgets/custom_button.dart';
+import 'package:safe_return/core/utils/widgets/custom_text_field.dart';
+import 'package:safe_return/core/utils/widgets/custom_button.dart';
 import '../../../../../core/utils/styles.dart';
 
 class CustomTopPart extends StatelessWidget {
@@ -16,7 +16,7 @@ class CustomTopPart extends StatelessWidget {
       children: [
         SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          height: 460,
         ),
         Positioned(
           top: 40,
@@ -62,6 +62,8 @@ class CustomTopPart extends StatelessWidget {
           left: 5,
           top: 230,
           child: CustomTextField(
+            width: 350,
+            height: 60,
             hintText: 'Email',
             prefixIcon: Icon(
               Icons.email,
@@ -72,6 +74,8 @@ class CustomTopPart extends StatelessWidget {
           left: 5,
           top: 315,
           child: CustomTextField(
+            width: 350,
+            height: 60,
             hintText: 'Password',
             prefixIcon: Icon(
               Icons.lock,
@@ -81,10 +85,13 @@ class CustomTopPart extends StatelessWidget {
         Positioned(
           right: 25,
           top: 380,
-          child: Text(
-            'Forget Password',
-            style: Styles.textStyle12.copyWith(
-              decoration: TextDecoration.underline,
+          child: GestureDetector(
+            onTap: () {},
+            child: Text(
+              'Forget Password',
+              style: Styles.textStyle12.copyWith(
+                decoration: TextDecoration.underline,
+              ),
             ),
           ),
         ),
@@ -92,6 +99,7 @@ class CustomTopPart extends StatelessWidget {
           left: 150,
           top: 420,
           child: CustomButton(
+            onTap: () {},
             width: 96,
             height: 40,
             text: Text(
