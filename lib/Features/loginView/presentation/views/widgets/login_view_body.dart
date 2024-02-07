@@ -18,18 +18,18 @@ class LoginViewBody extends StatelessWidget {
         Positioned(
           top: 40,
           child: SvgPicture.asset(
-            'assets/loginViewPhoto/rect3.svg',
+            'assets/loginViewPhotos/rect3.svg',
           ),
         ),
         Positioned(
           left: -2,
           child: SvgPicture.asset(
-            'assets/loginViewPhoto/rect2.svg',
+            'assets/loginViewPhotos/rect2.svg',
           ),
         ),
         Positioned(
           child: SvgPicture.asset(
-            'assets/loginViewPhoto/rect1.svg',
+            'assets/loginViewPhotos/rect1.svg',
           ),
         ),
         Positioned(
