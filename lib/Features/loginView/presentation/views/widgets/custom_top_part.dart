@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:safe_return/core/utils/widgets/custom_text_field.dart';
+import 'package:safe_return/core/utils/widgets/custom_text_field_with_icon.dart';
 import 'package:safe_return/core/utils/widgets/custom_button.dart';
 import '../../../../../core/utils/styles.dart';
 
@@ -58,25 +58,28 @@ class CustomTopPart extends StatelessWidget {
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           left: 5,
           top: 230,
-          child: CustomTextField(
+          child: CustomTextFieldWithIcon(
+            onChanged: (data) {},
             width: 350,
             height: 60,
             hintText: 'Email',
-            prefixIcon: Icon(
+            prefixIcon: const Icon(
               Icons.email,
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           left: 5,
           top: 315,
-          child: CustomTextField(
+          child: CustomTextFieldWithIcon(
+            onChanged: (data) {},
             width: 350,
             height: 60,
             hintText: 'Password',
+            obscureText: true,
             prefixIcon: Icon(
               Icons.lock,
             ),
