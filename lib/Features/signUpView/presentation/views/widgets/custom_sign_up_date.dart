@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/widgets/custom_text_field.dart';
 
 class CustomSignUpDate extends StatefulWidget {
@@ -13,18 +14,24 @@ class CustomSignUpDate extends StatefulWidget {
 }
 
 class _CustomSignUpDateState extends State<CustomSignUpDate> {
-  TextEditingController dateInput = TextEditingController();
+  TextEditingController dateController = TextEditingController();
 
   @override
   void initState() {
-    dateInput.text = ""; //set the initial value of text field
+    dateController.text = ""; //set the initial value of text field
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    dateController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
-      controller: dateInput,
+      controller: dateController,
       readOnly: true,
       prefixIcon: Padding(
         padding: const EdgeInsets.only(left: 110),
@@ -52,13 +59,25 @@ class _CustomSignUpDateState extends State<CustomSignUpDate> {
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime(2080),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: kSecondColor,
+              onPrimary: kPrimaryColor,
+              onSurface: kPrimaryColor,
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (pickedDate != null) {
       String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
       setState(
         () {
-          dateInput.text = formattedDate;
+          dateController.text = formattedDate;
         },
       );
     }
