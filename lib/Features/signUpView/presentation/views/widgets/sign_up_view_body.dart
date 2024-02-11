@@ -21,18 +21,20 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         const SizedBox(
           height: 40,
         ),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomTextField(
+              onChanged: (data) {},
               hintText: 'First Name',
               width: 160,
               height: 45,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             CustomTextField(
+              onChanged: (data) {},
               hintText: 'Last Name',
               width: 160,
               height: 45,
@@ -53,7 +55,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         const SizedBox(
           height: 24,
         ),
-        const CustomTextField(
+        CustomTextField(
+          onChanged: (data) {},
           hintText: 'Email',
           width: 330,
           height: 45,
@@ -61,7 +64,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         const SizedBox(
           height: 24,
         ),
-        const CustomTextField(
+        CustomTextField(
+          onChanged: (data) {},
           hintText: 'Password',
           width: 330,
           height: 45,
@@ -69,7 +73,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         const SizedBox(
           height: 24,
         ),
-        const CustomTextField(
+        CustomTextField(
+          onChanged: (data) {},
           hintText: 'Confirm Password',
           width: 330,
           height: 45,

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safe_return/core/utils/widgets/custom_text_field.dart';
 import 'package:safe_return/core/utils/widgets/custom_button.dart';
 import '../../../../../core/utils/styles.dart';
@@ -107,7 +108,9 @@ class CustomTopPart extends StatelessWidget {
           left: 150,
           top: 420,
           child: CustomButton(
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context).push('/homeView');
+            },
             width: 96,
             height: 40,
             text: Text(
