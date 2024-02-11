@@ -27,9 +27,8 @@ class HomeViewBody extends StatelessWidget {
                 left: (MediaQuery.of(context).size.width - 300) / 2,
                 top: 40,
                 child: CustomReportsContainer(
-                  onTap: () {
-                    GoRouter.of(context).push('/missingPersonFormView');
-                  },
+                  onTap: () =>
+                      GoRouter.of(context).push('/missingPersonFormView'),
                   image: 'assets/homeViewPhotos/missingPersonReport.svg',
                   text: 'Report of a missing person',
                 ),
@@ -39,7 +38,7 @@ class HomeViewBody extends StatelessWidget {
                 left: (MediaQuery.of(context).size.width - 310) / 2,
                 top: 300,
                 child: CustomReportsContainer(
-                  onTap: () {},
+                  onTap: () => GoRouter.of(context).push('/findPersonFormView'),
                   image: 'assets/homeViewPhotos/findPersonReport.svg',
                   text: 'Report of a missing person found',
                 ),

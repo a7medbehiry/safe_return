@@ -62,7 +62,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
         children: [
           Center(
             child: SvgPicture.asset(
-              'assets/missingPersonFormViewPhotos/location.svg',
+              'assets/FormsViewPhotos/location.svg',
             ),
           ),
           const SizedBox(
@@ -77,7 +77,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
               style: Styles.textStyleReg16,
             ),
             icon: SvgPicture.asset(
-              'assets/missingPersonFormViewPhotos/dropDown.svg',
+              'assets/FormsViewPhotos/dropDown.svg',
             ),
             items: governorate.map(
               (String city) {

@@ -59,7 +59,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
           prefixIcon: Padding(
             padding: const EdgeInsets.all(12),
             child: SvgPicture.asset(
-              'assets/missingPersonFormViewPhotos/phone.svg',
+              'assets/FormsViewPhotos/phone.svg',
             ),
           ),
           width: 330,
@@ -84,7 +84,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
           prefixIcon: Padding(
             padding: const EdgeInsets.all(12),
             child: SvgPicture.asset(
-              'assets/missingPersonFormViewPhotos/id.svg',
+              'assets/FormsViewPhotos/id.svg',
             ),
           ),
           width: 330,
@@ -112,7 +112,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
         CustomButton(
           onTap: () {},
           width: 330,
-          height: 45,
+          height: 50,
           text: Text(
             'Confirm',
             style: Styles.textStyleSemi14.copyWith(

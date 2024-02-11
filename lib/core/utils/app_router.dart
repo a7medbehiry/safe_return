@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:safe_return/Features/homeView/presentation/views/find_person_form_view.dart';
 import 'package:safe_return/Features/homeView/presentation/views/home_view.dart';
 import 'package:safe_return/Features/homeView/presentation/views/missing_person_form_view.dart';
 import 'package:safe_return/Features/signUpView/presentation/views/sign_up_view.dart';
@@ -28,6 +29,10 @@ abstract class AppRouter {
       GoRoute(
         path: '/missingPersonFormView',
         builder: (context, state) => const MissingPersonFormView(),
+      ),
+      GoRoute(
+        path: '/findPersonFormView',
+        builder: (context, state) => const FindPersonFormView(),
       ),
     ],
   );
