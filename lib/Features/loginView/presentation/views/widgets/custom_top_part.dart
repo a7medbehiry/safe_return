@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:safe_return/core/utils/widgets/custom_text_field_with_icon.dart';
+import 'package:safe_return/core/utils/widgets/custom_text_field.dart';
 import 'package:safe_return/core/utils/widgets/custom_button.dart';
 import '../../../../../core/utils/styles.dart';
 
@@ -39,7 +39,10 @@ class CustomTopPart extends StatelessWidget {
           left: 105,
           top: 45,
           child: ImageFiltered(
-            imageFilter: ImageFilter.blur(sigmaX: .1, sigmaY: .1),
+            imageFilter: ImageFilter.blur(
+              sigmaX: .1,
+              sigmaY: .1,
+            ),
             child: Text(
               'Safe Return',
               style: Styles.textStyle32.copyWith(
@@ -59,10 +62,11 @@ class CustomTopPart extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 5,
+          left: 20,
           top: 230,
-          child: CustomTextFieldWithIcon(
+          child: CustomTextField(
             onChanged: (data) {},
+            fillColor: const Color(0xffF3F6F6),
             width: 350,
             height: 60,
             hintText: 'Email',
@@ -72,15 +76,16 @@ class CustomTopPart extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 5,
+          left: 20,
           top: 315,
-          child: CustomTextFieldWithIcon(
+          child: CustomTextField(
             onChanged: (data) {},
+            fillColor: const Color(0xffF3F6F6),
             width: 350,
             height: 60,
             hintText: 'Password',
             obscureText: true,
-            prefixIcon: Icon(
+            prefixIcon: const Icon(
               Icons.lock,
             ),
           ),

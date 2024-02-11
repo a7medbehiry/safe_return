@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safe_return/core/utils/styles.dart';
 
 import '../../../../../constants.dart';
@@ -9,7 +10,9 @@ class CustomSignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        GoRouter.of(context).push('/signUpView');
+      },
       child: Container(
         width: 64,
         height: 38,

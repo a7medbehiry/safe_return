@@ -36,6 +36,11 @@ abstract class Styles {
     fontWeight: FontWeight.normal,
   );
 
+  static const textStyleSemi14 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+  );
+
   static const textStyleMed15 = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w500,

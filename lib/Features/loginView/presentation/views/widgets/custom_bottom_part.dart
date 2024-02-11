@@ -72,7 +72,9 @@ class CustomBottomPart extends StatelessWidget {
         const Positioned(
           left: 160,
           bottom: 93,
-          child: CustomSignUpButton(),
+          child: CustomSignUpButton(
+            
+          ),
         ),
         const Positioned(
           left: 30,
