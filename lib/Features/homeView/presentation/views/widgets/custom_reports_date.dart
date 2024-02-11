@@ -4,19 +4,16 @@ import 'package:intl/intl.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/widgets/custom_text_field.dart';
 
-class CustomSignUpDate extends StatefulWidget {
-  const CustomSignUpDate({
+class CustomReportsDate extends StatefulWidget {
+  const CustomReportsDate({
     Key? key,
-
   }) : super(key: key);
 
-
-
   @override
-  State<CustomSignUpDate> createState() => _CustomSignUpDateState();
+  State<CustomReportsDate> createState() => _CustomReportsDateState();
 }
 
-class _CustomSignUpDateState extends State<CustomSignUpDate> {
+class _CustomReportsDateState extends State<CustomReportsDate> {
   TextEditingController dateController = TextEditingController();
 
   @override
@@ -36,20 +33,17 @@ class _CustomSignUpDateState extends State<CustomSignUpDate> {
     return CustomTextField(
       controller: dateController,
       readOnly: true,
-      prefixIcon: Padding(
-        padding: const EdgeInsets.only(left: 110),
-        child: SizedBox(
-          width: 30,
-          child: Center(
-            child: SvgPicture.asset(
-              'assets/signUpViewPhotos/date.svg',
-            ),
+      prefixIcon: SizedBox(
+        width: 30,
+        child: Center(
+          child: SvgPicture.asset(
+            'assets/missingPersonFormViewPhotos/date.svg',
           ),
         ),
       ),
-      hintText: 'Birth Date',
-      width: 330,
-      height: 50,
+      hintText: 'Date',
+      width: 160,
+      height: 45,
       onTap: () {
         customDatePicker();
       },

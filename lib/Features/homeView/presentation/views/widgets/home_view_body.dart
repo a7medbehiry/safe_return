@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_reports_container.dart';
 import '../../../../../core/utils/styles.dart';
 
@@ -26,7 +27,9 @@ class HomeViewBody extends StatelessWidget {
                 left: (MediaQuery.of(context).size.width - 300) / 2,
                 top: 40,
                 child: CustomReportsContainer(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push('/missingPersonFormView');
+                  },
                   image: 'assets/homeViewPhotos/missingPersonReport.svg',
                   text: 'Report of a missing person',
                 ),
