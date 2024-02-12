@@ -5,6 +5,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
 import '../../../../homeView/presentation/views/widgets/custom_text_container_with_radius.dart';
 import 'custom_profile_app_bar.dart';
@@ -110,7 +111,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
               ),
             ),
             ListTile(
-              leading: SvgPicture.asset('assets/profile.svg'),
+              leading: SvgPicture.asset('assets/profileEndDrawerPhotos/profile.svg'),
               title: const Text(
                 'My Profile',
                 style: Styles.textStyleMed15,
@@ -120,7 +121,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
               },
             ),
             ListTile(
-              leading: SvgPicture.asset('assets/report.svg'),
+              leading: SvgPicture.asset('assets/profileEndDrawerPhotos/report.svg'),
               title: const Text(
                 'My Reports',
                 style: Styles.textStyleMed15,
@@ -130,7 +131,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
               },
             ),
             ListTile(
-              leading: SvgPicture.asset('assets/mail.svg'),
+              leading: SvgPicture.asset('assets/profileEndDrawerPhotos/mail.svg'),
               title: const Text(
                 'Contact Us',
                 style: Styles.textStyleMed15,
@@ -138,7 +139,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
               onTap: () {},
             ),
             ListTile(
-              leading: SvgPicture.asset('assets/about.svg'),
+              leading: SvgPicture.asset('assets/profileEndDrawerPhotos/about.svg'),
               title: const Text(
                 'About Us',
                 style: Styles.textStyleMed15,
@@ -150,12 +151,20 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
             const SizedBox(
               height: 270,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 25, right: 160),
-              child: CustomTextContainerWithRadius(
-                width: double.infinity,
-                height: 35,
-                text: 'Log out',
+            Padding(
+              padding: const EdgeInsets.only(left: 25, right: 160),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).popUntil(
+                    ModalRoute.withName('/loginView'),
+                  );
+                },
+                child: CustomTextContainerWithRadius(
+                  style: Styles.textStyleSemi16.copyWith(color: Colors.white),
+                  width: double.infinity,
+                  height: 35,
+                  text: 'Log out',
+                ),
               ),
             ),
           ],
@@ -175,7 +184,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                   clipper: OvalBottomBorderClipper(),
                   child: Container(
                     height: 180,
-                    color: const Color(0xff17586E),
+                    color: kPrimaryColor,
                   ),
                 ),
                 const Positioned(

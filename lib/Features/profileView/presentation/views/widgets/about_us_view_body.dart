@@ -19,7 +19,7 @@ class AboutUsViewBody extends StatelessWidget {
               const SizedBox(
                 height: 60,
               ),
-              SvgPicture.asset('assets/about.svg'),
+              SvgPicture.asset('assets/aboutUsViewPhotos/about.svg'),
               const SizedBox(
                 width: 10,
               ),
@@ -66,7 +66,7 @@ class AboutUsViewBody extends StatelessWidget {
                     radius: 55,
                     child: ClipOval(
                       child: Image(
-                        image: AssetImage('assets/aboutUsAnimation.gif'),
+                        image: AssetImage('assets/aboutUsViewPhotos/aboutUsAnimation.gif'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -185,7 +185,7 @@ class AboutUsViewBody extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset('assets/team.svg'),
+              SvgPicture.asset('assets/aboutUsViewPhotos/team.svg'),
               const SizedBox(
                 width: 5,
               ),

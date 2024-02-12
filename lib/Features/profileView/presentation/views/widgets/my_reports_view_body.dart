@@ -38,7 +38,7 @@ class MyReportsViewBody extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundImage: AssetImage('assets/notification.jpg'),
+                  backgroundImage: AssetImage('assets/myReportsPhotos/girl.jpg'),
                 ),
                 SizedBox(
                   width: 10,
@@ -116,7 +116,7 @@ class MyReportsViewBody extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundImage: AssetImage('assets/reportPhoto.jpg'),
+                  backgroundImage: AssetImage('assets/myReportsPhotos/boy.jpg'),
                 ),
                 SizedBox(
                   width: 10,

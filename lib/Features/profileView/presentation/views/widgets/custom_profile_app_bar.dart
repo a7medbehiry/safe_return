@@ -16,7 +16,7 @@ class CustomProfileAppBar extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {},
-          child: SvgPicture.asset('assets/arrow.svg'),
+          child: SvgPicture.asset('assets/profileViewPhotos/arrow.svg'),
         ),
         const SizedBox(
           width: 130,
@@ -34,7 +34,7 @@ class CustomProfileAppBar extends StatelessWidget {
           onTap: () {
             Scaffold.of(context).openEndDrawer();
           },
-          child: SvgPicture.asset('assets/menu.svg'),
+          child: SvgPicture.asset('assets/profileViewPhotos/menu.svg'),
         ),
       ],
     );

@@ -29,7 +29,7 @@ class _CustomProfileTextFieldConditionState
           hintText: 'Ahmed Behiry',
           prefixIcon: Center(
             child: SvgPicture.asset(
-              'assets/person.svg',
+              'assets/profileViewPhotos/person.svg',
             ),
           ),
           width: MediaQuery.of(context).size.width,
@@ -44,7 +44,7 @@ class _CustomProfileTextFieldConditionState
           hintText: '01102485400',
           prefixIcon: Center(
             child: SvgPicture.asset(
-              'assets/phone.svg',
+              'assets/profileViewPhotos/phone.svg',
             ),
           ),
           width: MediaQuery.of(context).size.width,
@@ -58,7 +58,7 @@ class _CustomProfileTextFieldConditionState
           hintText: 'Egypt, Alexandria',
           prefixIcon: Center(
             child: SvgPicture.asset(
-              'assets/location.svg',
+              'assets/profileViewPhotos/location.svg',
             ),
           ),
           width: MediaQuery.of(context).size.width,
@@ -77,7 +77,7 @@ class _CustomProfileTextFieldConditionState
           enabled: isTextFieldEnabled,
           hintText: 'amb@gmail.com',
           prefixIcon: Center(
-            child: SvgPicture.asset('assets/mail.svg'),
+            child: SvgPicture.asset('assets/profileViewPhotos/mail.svg'),
           ),
           width: MediaQuery.of(context).size.width,
           height: 36,

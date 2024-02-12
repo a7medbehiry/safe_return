@@ -21,7 +21,7 @@ class _CustomProfileDateState extends State<CustomProfileDate> {
 
   @override
   void initState() {
-    dateInput.text = ""; //set the initial value of text field
+    dateInput.text = ""; 
     super.initState();
   }
 
@@ -34,7 +34,7 @@ class _CustomProfileDateState extends State<CustomProfileDate> {
       hintText: '15-5-2002',
       prefixIcon: Center(
         child: SvgPicture.asset(
-          'assets/date.svg',
+          'assets/profileViewPhotos/date.svg',
         ),
       ),
       width: MediaQuery.of(context).size.width,
