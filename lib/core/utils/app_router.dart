@@ -3,6 +3,9 @@ import 'package:safe_return/Features/homeView/presentation/views/find_person_for
 import 'package:safe_return/Features/homeView/presentation/views/home_view.dart';
 import 'package:safe_return/Features/homeView/presentation/views/missing_person_form_thank_you_view.dart';
 import 'package:safe_return/Features/homeView/presentation/views/missing_person_form_view.dart';
+import 'package:safe_return/Features/profileView/presentation/views/about_us_view.dart';
+import 'package:safe_return/Features/profileView/presentation/views/my_reports_view.dart';
+import 'package:safe_return/Features/profileView/presentation/views/profile_view.dart';
 import 'package:safe_return/Features/signUpView/presentation/views/sign_up_view.dart';
 import '../../Features/homeView/presentation/views/find_person_form_thank_you_view.dart';
 import '../../Features/loginView/presentation/views/login_view.dart';
@@ -43,6 +46,18 @@ abstract class AppRouter {
       GoRoute(
         path: '/findPersonFormThankYouView',
         builder: (context, state) => const FindPersonFormThankYouView(),
+      ),
+      GoRoute(
+        path: '/profileView',
+        builder: (context, state) => const ProfileView(),
+      ),
+      GoRoute(
+        path: '/aboutUsView',
+        builder: (context, state) => const AboutUsView(),
+      ),
+      GoRoute(
+        path: '/myReportsView',
+        builder: (context, state) => const MyReportsView(),
       ),
     ],
   );

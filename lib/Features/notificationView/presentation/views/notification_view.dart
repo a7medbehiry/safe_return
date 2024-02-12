@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/utils/widgets/custom_navigation_bottom_bar.dart';
+import 'package:safe_return/core/utils/widgets/custom_navigation_bottom_bar.dart';
 import 'widgets/notification_view_body.dart';
 
 class NotificationView extends StatelessWidget {

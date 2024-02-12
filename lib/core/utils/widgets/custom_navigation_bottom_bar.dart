@@ -2,6 +2,7 @@ import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_not
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/home_view_body.dart';
+import 'package:safe_return/Features/profileView/presentation/views/widgets/profile_view_body.dart';
 import '../../../Features/notificationView/presentation/views/widgets/notification_view_body.dart';
 import '../../../constants.dart';
 
@@ -25,7 +26,8 @@ class _CustomNavigationBottomBarState extends State<CustomNavigationBottomBar> {
 
   final List<Widget> bottomBarPages = [
     const HomeViewBody(),
-    const NotificationViewBody()
+    const NotificationViewBody(),
+    const ProfileViewBody()
   ];
 
   @override
