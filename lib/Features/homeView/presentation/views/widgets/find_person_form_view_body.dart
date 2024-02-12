@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_image_picker_function.dart';
 
 import '../../../../../core/utils/styles.dart';
@@ -137,7 +138,9 @@ class FindPersonFormViewBody extends StatelessWidget {
           height: 15,
         ),
         CustomButton(
-          onTap: () {},
+          onTap: () {
+            GoRouter.of(context).push('/findPersonFormThankYouView');
+          },
           width: 330,
           height: 50,
           text: Text(

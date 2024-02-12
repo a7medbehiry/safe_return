@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_drop_down.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_reports_date.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_text_container.dart';
@@ -113,7 +114,9 @@ class MissingPersonFormViewBody extends StatelessWidget {
           height: 20,
         ),
         CustomButton(
-          onTap: () {},
+          onTap: () {
+            GoRouter.of(context).push('/missingPersonFormThankYouView');
+          },
           width: 330,
           height: 50,
           text: Text(
