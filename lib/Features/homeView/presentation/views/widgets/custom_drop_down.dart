@@ -58,8 +58,10 @@ class _CustomDropDownState extends State<CustomDropDown> {
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(
+            width: 8,
+          ),
           Center(
             child: SvgPicture.asset(
               'assets/FormsViewPhotos/location.svg',

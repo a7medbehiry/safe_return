@@ -54,6 +54,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
           height: 20,
         ),
         CustomTextField(
+           onChanged: (data) {},
           keyboardType: TextInputType.phone,
           hintText: 'phone number',
           prefixIcon: Padding(
@@ -80,6 +81,8 @@ class MissingPersonFormViewBody extends StatelessWidget {
           height: 25,
         ),
         CustomTextField(
+           onChanged: (data) {},
+          keyboardType: TextInputType.number,
           hintText: 'National Id ',
           prefixIcon: Padding(
             padding: const EdgeInsets.all(12),

@@ -11,7 +11,13 @@ class CustomTextField extends StatelessWidget {
     required this.height,
     this.obscureText = false,
     this.onChanged,
-    this.fillColor = const Color(0xffEEE8D8), this.onTap, this.controller,  this.readOnly = false, this.keyboardType, 
+    this.fillColor = const Color(0xffEEE8D8),
+    this.onTap,
+    this.controller,
+    this.readOnly = false,
+    this.keyboardType,
+    this.maxLines = 1,
+    this.label,
   });
   final String hintText;
   final Widget? prefixIcon;
@@ -20,19 +26,19 @@ class CustomTextField extends StatelessWidget {
   final Color fillColor;
   final void Function(String)? onChanged;
   final void Function()? onTap;
-    final TextEditingController? controller;
-      final bool readOnly;
-        final TextInputType? keyboardType;
+  final TextEditingController? controller;
+  final bool readOnly;
+  final TextInputType? keyboardType;
 
-
-
-
+  final int? maxLines;
+  final Widget? label;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
       height: height,
       child: TextField(
+        maxLines: maxLines,
         onTap: onTap,
         controller: controller,
         readOnly: readOnly,
@@ -56,6 +62,7 @@ class CustomTextField extends StatelessWidget {
           ),
           prefixIcon: prefixIcon,
           prefixIconColor: kPrimaryColor,
+          label: label,
           hintText: hintText,
           hintStyle: Styles.textStyleReg16.copyWith(
             color: Colors.black,
