@@ -32,6 +32,7 @@ class CustomProfileAppBar extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
+
             Scaffold.of(context).openEndDrawer();
           },
           child: SvgPicture.asset('assets/profileViewPhotos/menu.svg'),

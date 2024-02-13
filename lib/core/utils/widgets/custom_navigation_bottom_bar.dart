@@ -33,50 +33,53 @@ class _CustomNavigationBottomBarState extends State<CustomNavigationBottomBar> {
         child: widget.navigationShell,
       ),
       extendBody: true,
-      bottomNavigationBar: AnimatedNotchBottomBar(
-        notchBottomBarController: _controller,
-        color: const Color(0xffF3F6F6),
-        showLabel: false,
-        shadowElevation: 5,
-        kBottomRadius: 28.0,
-        notchColor: kSecondColor,
-        removeMargins: false,
-        bottomBarWidth: 500,
-        durationInMilliSeconds: 300,
-        bottomBarItems: [
-          BottomBarItem(
-            inActiveItem: SvgPicture.asset(
-              'assets/navigationBottomBarPhotos/home_inActive.svg',
+      bottomNavigationBar: SizedBox(
+        height: 85,
+        child: AnimatedNotchBottomBar(
+          notchBottomBarController: _controller,
+          color: const Color(0xffF3F6F6),
+          showLabel: false,
+          shadowElevation: 5,
+          kBottomRadius: 0,
+          notchColor: kSecondColor,
+          removeMargins: false,
+          bottomBarWidth: 500,
+          durationInMilliSeconds: 300,
+          bottomBarItems: [
+            BottomBarItem(
+              inActiveItem: SvgPicture.asset(
+                'assets/navigationBottomBarPhotos/home_inActive.svg',
+              ),
+              activeItem: SvgPicture.asset(
+                'assets/navigationBottomBarPhotos/home_active.svg',
+              ),
+              itemLabel: 'Home',
             ),
-            activeItem: SvgPicture.asset(
-              'assets/navigationBottomBarPhotos/home_active.svg',
+            BottomBarItem(
+              inActiveItem: SvgPicture.asset(
+                'assets/navigationBottomBarPhotos/notification_inActive.svg',
+              ),
+              activeItem: SvgPicture.asset(
+                'assets/navigationBottomBarPhotos/notification_active.svg',
+              ),
+              itemLabel: 'Notification',
             ),
-            itemLabel: 'Home',
-          ),
-          BottomBarItem(
-            inActiveItem: SvgPicture.asset(
-              'assets/navigationBottomBarPhotos/notification_inActive.svg',
+            BottomBarItem(
+              inActiveItem: SvgPicture.asset(
+                'assets/navigationBottomBarPhotos/profile_inActive.svg',
+              ),
+              activeItem: SvgPicture.asset(
+                'assets/navigationBottomBarPhotos/profile_active.svg',
+              ),
+              itemLabel: 'Profile',
             ),
-            activeItem: SvgPicture.asset(
-              'assets/navigationBottomBarPhotos/notification_active.svg',
-            ),
-            itemLabel: 'Notification',
-          ),
-          BottomBarItem(
-            inActiveItem: SvgPicture.asset(
-              'assets/navigationBottomBarPhotos/profile_inActive.svg',
-            ),
-            activeItem: SvgPicture.asset(
-              'assets/navigationBottomBarPhotos/profile_active.svg',
-            ),
-            itemLabel: 'Profile',
-          ),
-        ],
-        onTap: (index) {
-          selectedIndex = index;
-          goToBranch(selectedIndex);
-        },
-        kIconSize: 24.0,
+          ],
+          onTap: (index) {
+            selectedIndex = index;
+            goToBranch(selectedIndex);
+          },
+          kIconSize: 24.0,
+        ),
       ),
     );
   }
