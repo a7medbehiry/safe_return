@@ -74,7 +74,9 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           height: 24,
         ),
         CustomTextField(
-          onChanged: (data) {},
+          onChanged: (data) {
+            
+          },
           hintText: 'Confirm Password',
           width: 330,
           height: 45,
