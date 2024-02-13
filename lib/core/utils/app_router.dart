@@ -24,7 +24,6 @@ abstract class AppRouter {
       GlobalKey<NavigatorState>(debugLabel: 'shellNotification');
   static final _rootNavigatorProfileView =
       GlobalKey<NavigatorState>(debugLabel: 'shellProfile');
-  // GoRouter configuration
   static final router = GoRouter(
     initialLocation: initR,
     navigatorKey: _rootNavigatorKey,
