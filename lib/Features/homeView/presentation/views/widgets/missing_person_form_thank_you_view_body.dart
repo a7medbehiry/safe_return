@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:safe_return/core/utils/widgets/custom_shield.dart';
-
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/utils/widgets/custom_button.dart';
 import 'custom_text_container_with_radius.dart';
@@ -21,7 +19,8 @@ class MissingPersonFormThankYouViewBody extends StatelessWidget {
           style: Styles.textStyle32,
         ),
         const Image(
-          image: AssetImage('assets/thankYouPhotos/animation.gif'),
+          image: AssetImage(
+              'assets/thankYouPhotos/missingPersonFormThankYouView.gif'),
         ),
         CustomTextContainerWithRadius(
           width: 300,
@@ -49,15 +48,6 @@ class MissingPersonFormThankYouViewBody extends StatelessWidget {
             'done',
             style: Styles.textStyleSemi16.copyWith(color: Colors.white),
           ),
-        ),
-        const SizedBox(
-          height: 135,
-        ),
-        const Padding(
-          padding: EdgeInsets.only(
-            left: 25,
-          ),
-          child: CustomShield(),
         ),
       ],
     );

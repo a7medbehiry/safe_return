@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/utils/widgets/custom_button.dart';
-import '../../../../../core/utils/widgets/custom_shield.dart';
 import 'custom_text_container_with_radius.dart';
 
 class FindPersonFormThankYouViewBody extends StatelessWidget {
@@ -12,16 +11,27 @@ class FindPersonFormThankYouViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(
           height: 40,
         ),
-        const Text(
-          'Safe Return',
-          style: Styles.textStyle32,
+        const Padding(
+          padding: EdgeInsets.only(left: 8),
+          child: Text(
+            'Safe Return',
+            style: Styles.textStyle32,
+          ),
         ),
-        const Image(
-          image: AssetImage('assets/thankYouPhotos/animation.gif'),
+        const SizedBox(
+          height: 25,
+        ),
+        SvgPicture.asset(
+          'assets/thankYouPhotos/findPersonFormThankYouView.svg',
+          height: 320,
+        ),
+        const SizedBox(
+          height: 30,
         ),
         CustomTextContainerWithRadius(
           width: 300,
@@ -55,15 +65,6 @@ class FindPersonFormThankYouViewBody extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-        ),
-        const SizedBox(
-          height: 135,
-        ),
-        const Padding(
-          padding: EdgeInsets.only(
-            left: 25,
-          ),
-          child: CustomShield(),
         ),
       ],
     );
