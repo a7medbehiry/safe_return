@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
-import '../../../../homeView/presentation/views/widgets/custom_text_container_with_radius.dart';
+import '../../../../homeView/presentation/views/widgets/custom_log_out.dart';
 import 'custom_profile_app_bar.dart';
 import 'custom_profile_text_field_condition.dart';
 
@@ -57,117 +57,111 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              accountName: Text(
-                'Ahmed Behiry',
-                style: Styles.textStyleSemi16.copyWith(
-                  color: Colors.black,
-                ),
-              ),
-              accountEmail: Text(
-                'amb@gmail.com',
-                style: Styles.textStyle12.copyWith(
-                  color: const Color(0xff9C9C9C),
-                ),
-              ),
-              currentAccountPicture: GestureDetector(
-                onDoubleTap: () {
-                  _pickImageFromGallery();
-                },
-                child: CircleAvatar(
-                  radius: 60,
-                  child: Stack(
-                    children: [
-                      if (_image != null)
-                        Positioned.fill(
-                          child: ClipOval(
-                            child: Image.memory(
-                              base64Decode(_image!),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                      if (_image == null)
-                        const Positioned.fill(
-                          child: CircleAvatar(
-                            backgroundColor: Colors.grey,
-                            child: Icon(
-                              Icons.person,
-                              color: Colors.white,
-                              size: 60,
-                            ),
-                          ),
-                        ),
-                    ],
+      endDrawer: SizedBox(
+        width: 240,
+        child: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              UserAccountsDrawerHeader(
+                accountName: Text(
+                  'Ahmed Behiry',
+                  style: Styles.textStyleSemi16.copyWith(
+                    color: Colors.black,
                   ),
                 ),
-              ),
-              decoration: const BoxDecoration(
-                color: Colors.transparent,
-              ),
-            ),
-            ListTile(
-              leading: SvgPicture.asset('assets/profileEndDrawerPhotos/profile.svg'),
-              title: const Text(
-                'My Profile',
-                style: Styles.textStyleMed15,
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: SvgPicture.asset('assets/profileEndDrawerPhotos/report.svg'),
-              title: const Text(
-                'My Reports',
-                style: Styles.textStyleMed15,
-              ),
-              onTap: () {
-                GoRouter.of(context).push('/myReportsView');
-              },
-            ),
-            ListTile(
-              leading: SvgPicture.asset('assets/profileEndDrawerPhotos/mail.svg'),
-              title: const Text(
-                'Contact Us',
-                style: Styles.textStyleMed15,
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: SvgPicture.asset('assets/profileEndDrawerPhotos/about.svg'),
-              title: const Text(
-                'About Us',
-                style: Styles.textStyleMed15,
-              ),
-              onTap: () {
-                GoRouter.of(context).push('/aboutUsView');
-              },
-            ),
-            const SizedBox(
-              height: 270,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 160),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).popUntil(
-                    ModalRoute.withName('/loginView'),
-                  );
-                },
-                child: CustomTextContainerWithRadius(
-                  style: Styles.textStyleSemi16.copyWith(color: Colors.white),
-                  width: double.infinity,
-                  height: 35,
-                  text: 'Log out',
+                accountEmail: Text(
+                  'amb@gmail.com',
+                  style: Styles.textStyle12.copyWith(
+                    color: const Color(0xff9C9C9C),
+                  ),
+                ),
+                currentAccountPicture: GestureDetector(
+                  onDoubleTap: () {
+                    _pickImageFromGallery();
+                  },
+                  child: CircleAvatar(
+                    radius: 60,
+                    child: Stack(
+                      children: [
+                        if (_image != null)
+                          Positioned.fill(
+                            child: ClipOval(
+                              child: Image.memory(
+                                base64Decode(_image!),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                        if (_image == null)
+                          const Positioned.fill(
+                            child: CircleAvatar(
+                              backgroundColor: Colors.grey,
+                              child: Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 60,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
                 ),
               ),
-            ),
-          ],
+              ListTile(
+                leading: SvgPicture.asset(
+                    'assets/profileEndDrawerPhotos/profile.svg'),
+                title: const Text(
+                  'My Profile',
+                  style: Styles.textStyleMed15,
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: SvgPicture.asset(
+                    'assets/profileEndDrawerPhotos/report.svg'),
+                title: const Text(
+                  'My Reports',
+                  style: Styles.textStyleMed15,
+                ),
+                onTap: () => context.goNamed('myReportsView'),
+              ),
+              ListTile(
+                leading:
+                    SvgPicture.asset('assets/profileEndDrawerPhotos/mail.svg'),
+                title: const Text(
+                  'Contact Us',
+                  style: Styles.textStyleMed15,
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                leading:
+                    SvgPicture.asset('assets/profileEndDrawerPhotos/about.svg'),
+                title: const Text(
+                  'About Us',
+                  style: Styles.textStyleMed15,
+                ),
+                onTap: () => context.goNamed('aboutUsView'),
+              ),
+              const SizedBox(
+                height: 270,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 25, right: 100),
+                child: GestureDetector(
+                  onTap: () => context.goNamed('loginView'),
+                  child: const CustomLogOut(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       body: SingleChildScrollView(

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_image_picker_function.dart';
-
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/utils/widgets/custom_button.dart';
-import '../../../../../core/utils/widgets/custom_shield.dart';
 import '../../../../../core/utils/widgets/custom_text_field.dart';
 import 'custom_drop_down.dart';
 import 'custom_reports_date.dart';
@@ -20,7 +18,7 @@ class FindPersonFormViewBody extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         CustomTextContainerWithRadius(
           width: 160,
@@ -31,7 +29,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +52,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         CustomTextField(
           onChanged: (data) {},
@@ -70,7 +68,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           height: 45,
         ),
         const SizedBox(
-          height: 20,
+          height: 15,
         ),
         CustomTextContainer(
           width: 330,
@@ -81,7 +79,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 20,
+          height: 15,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -105,7 +103,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         const Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -118,14 +116,14 @@ class FindPersonFormViewBody extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         const CustomDropDown(
           width: 330,
           height: 45,
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         CustomTextField(
           onChanged: (data) {},
@@ -135,12 +133,10 @@ class FindPersonFormViewBody extends StatelessWidget {
           maxLines: 30,
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         CustomButton(
-          onTap: () {
-            GoRouter.of(context).push('/findPersonFormThankYouView');
-          },
+          onTap: () => context.goNamed('findPersonFormThankYouView'),
           width: 330,
           height: 50,
           text: Text(
@@ -167,13 +163,6 @@ class FindPersonFormViewBody extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(
-          height: 30,
-        ),
-        const Padding(
-          padding: EdgeInsets.only(left: 30),
-          child: CustomShield(),
-        )
       ],
     );
   }

@@ -7,7 +7,6 @@ import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_text_container_with_radius.dart';
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/utils/widgets/custom_button.dart';
-import '../../../../../core/utils/widgets/custom_shield.dart';
 import '../../../../../core/utils/widgets/custom_text_field.dart';
 
 class MissingPersonFormViewBody extends StatelessWidget {
@@ -55,7 +54,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
           height: 20,
         ),
         CustomTextField(
-           onChanged: (data) {},
+          onChanged: (data) {},
           keyboardType: TextInputType.phone,
           hintText: 'phone number',
           prefixIcon: Padding(
@@ -82,7 +81,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
           height: 25,
         ),
         CustomTextField(
-           onChanged: (data) {},
+          onChanged: (data) {},
           keyboardType: TextInputType.number,
           hintText: 'National Id ',
           prefixIcon: Padding(
@@ -114,9 +113,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
           height: 20,
         ),
         CustomButton(
-          onTap: () {
-            GoRouter.of(context).push('/missingPersonFormThankYouView');
-          },
+          onTap: () => context.goNamed('missingPersonFormThankYouView'),
           width: 330,
           height: 50,
           text: Text(
@@ -143,13 +140,6 @@ class MissingPersonFormViewBody extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(
-          height: 135,
-        ),
-        const Padding(
-          padding: EdgeInsets.only(left: 30),
-          child: CustomShield(),
-        )
       ],
     );
   }

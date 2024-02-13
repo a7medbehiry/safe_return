@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safe_return/core/utils/widgets/custom_shield.dart';
 
 import '../../../../../core/utils/styles.dart';
@@ -41,11 +42,7 @@ class MissingPersonFormThankYouViewBody extends StatelessWidget {
           height: 40,
         ),
         CustomButton(
-          onTap: () {
-            Navigator.of(context).popUntil(
-              ModalRoute.withName('/homeView'),
-            );
-          },
+          onTap: () => context.goNamed('homeView'),
           width: 62,
           height: 44,
           text: Text(

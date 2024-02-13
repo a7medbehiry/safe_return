@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
-import 'package:safe_return/core/utils/widgets/custom_shield.dart';
 
 class AboutUsViewBody extends StatelessWidget {
   const AboutUsViewBody({super.key});
@@ -11,24 +10,25 @@ class AboutUsViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 60,
-              ),
-              SvgPicture.asset('assets/aboutUsViewPhotos/about.svg'),
-              const SizedBox(
-                width: 10,
-              ),
-              const Text(
-                'About Us',
-                style: Styles.textStyleMed22,
-              ),
-            ],
-          ),
+        const SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 60,
+            ),
+            SvgPicture.asset('assets/aboutUsViewPhotos/about.svg'),
+            const SizedBox(
+              width: 10,
+            ),
+            const Text(
+              'About Us',
+              style: Styles.textStyleMed22,
+            ),
+          ],
         ),
         SizedBox(
           height: 490,
@@ -66,7 +66,8 @@ class AboutUsViewBody extends StatelessWidget {
                     radius: 55,
                     child: ClipOval(
                       child: Image(
-                        image: AssetImage('assets/aboutUsViewPhotos/aboutUsAnimation.gif'),
+                        image: AssetImage(
+                            'assets/aboutUsViewPhotos/aboutUsAnimation.gif'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -195,13 +196,6 @@ class AboutUsViewBody extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        const SizedBox(
-          height: 170,
-        ),
-        const Padding(
-          padding: EdgeInsets.only(left: 25),
-          child: CustomShield(),
         ),
       ],
     );

@@ -108,9 +108,7 @@ class CustomTopPart extends StatelessWidget {
           left: 150,
           top: 420,
           child: CustomButton(
-            onTap: () {
-              GoRouter.of(context).push('/homeView');
-            },
+            onTap: () => context.goNamed('homeView'),
             width: 96,
             height: 40,
             text: Text(

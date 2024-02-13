@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/utils/widgets/custom_button.dart';
@@ -45,16 +46,14 @@ class FindPersonFormThankYouViewBody extends StatelessWidget {
           height: 20,
         ),
         CustomButton(
-          onTap: () {
-            Navigator.of(context).popUntil(
-              ModalRoute.withName('/homeView'),
-            );
-          },
+          onTap: () => context.goNamed('homeView'),
           width: 62,
           height: 44,
           text: Text(
             'done',
-            style: Styles.textStyleSemi16.copyWith(color: Colors.white),
+            style: Styles.textStyleSemi16.copyWith(
+              color: Colors.white,
+            ),
           ),
         ),
         const SizedBox(
