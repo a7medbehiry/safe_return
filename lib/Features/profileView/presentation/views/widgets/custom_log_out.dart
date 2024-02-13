@@ -23,7 +23,7 @@ class CustomLogOut extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset('assets/profileEndDrawerPhotos/logout.svg'),
+            SvgPicture.asset('assets/profileEndDrawerPhotos/logOut.svg'),
             const SizedBox(
               width: 5,
             ),

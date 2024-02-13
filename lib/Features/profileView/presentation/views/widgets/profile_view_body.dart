@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
-import '../../../../homeView/presentation/views/widgets/custom_log_out.dart';
+import 'custom_log_out.dart';
 import 'custom_profile_app_bar.dart';
 import 'custom_profile_text_field_condition.dart';
 
