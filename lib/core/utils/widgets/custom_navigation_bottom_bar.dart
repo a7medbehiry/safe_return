@@ -34,13 +34,13 @@ class _CustomNavigationBottomBarState extends State<CustomNavigationBottomBar> {
       ),
       extendBody: true,
       bottomNavigationBar: SizedBox(
-        height: 85,
+        height: 100,
         child: AnimatedNotchBottomBar(
           notchBottomBarController: _controller,
           color: const Color(0xffF3F6F6),
           showLabel: false,
           shadowElevation: 5,
-          kBottomRadius: 0,
+          kBottomRadius: 28,
           notchColor: kSecondColor,
           removeMargins: false,
           bottomBarWidth: 500,

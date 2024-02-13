@@ -73,7 +73,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
           DropdownButton(
             menuMaxHeight: 250,
             value: selectedGovernorate,
-            dropdownColor: kThirdColor,
+            dropdownColor: Colors.white,
             hint: const Text(
               'Governorate',
               style: Styles.textStyleReg16,
