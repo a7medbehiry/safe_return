@@ -114,29 +114,12 @@ class MissingPersonFormViewBody extends StatelessWidget {
         ),
         CustomButton(
           onTap: () => context.goNamed('missingPersonFormThankYouView'),
-          width: 330,
+          width: 340,
           height: 50,
           text: Text(
             'Confirm',
             style: Styles.textStyleSemi14.copyWith(
               color: Colors.white,
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 260),
-          child: CustomButton(
-            onTap: () => Navigator.of(context).pop(),
-            width: 65,
-            height: 32,
-            text: Text(
-              'Back',
-              style: Styles.textStyleSemi14.copyWith(
-                color: Colors.white,
-              ),
             ),
           ),
         ),

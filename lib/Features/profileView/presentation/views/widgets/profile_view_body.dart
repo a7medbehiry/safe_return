@@ -26,7 +26,13 @@ class ProfileViewBody extends StatefulWidget {
 
 class ProfileViewBodyState extends State<ProfileViewBody> {
   String? _image;
-  bool isTextFieldEnabled = false;
+  bool isImageEnabled = false;
+
+  void toggleImageEnabled() {
+    setState(() {
+      isImageEnabled = !isImageEnabled;
+    });
+  }
 
   Future _pickImageFromGallery() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -57,116 +63,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: SizedBox(
-        width: 240,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 15),
-          child: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                UserAccountsDrawerHeader(
-                  accountName: Text(
-                    'Ahmed Behiry',
-                    style: Styles.textStyleSemi16.copyWith(
-                      color: Colors.black,
-                    ),
-                  ),
-                  accountEmail: Text(
-                    'amb@gmail.com',
-                    style: Styles.textStyle12.copyWith(
-                      color: const Color(0xff9C9C9C),
-                    ),
-                  ),
-                  currentAccountPicture: GestureDetector(
-                    onDoubleTap: () {
-                      _pickImageFromGallery();
-                    },
-                    child: CircleAvatar(
-                      radius: 60,
-                      child: Stack(
-                        children: [
-                          if (_image != null)
-                            Positioned.fill(
-                              child: ClipOval(
-                                child: Image.memory(
-                                  base64Decode(_image!),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                          if (_image == null)
-                            const Positioned.fill(
-                              child: CircleAvatar(
-                                backgroundColor: Colors.grey,
-                                child: Icon(
-                                  Icons.person,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  decoration: const BoxDecoration(
-                    color: Colors.transparent,
-                  ),
-                ),
-                ListTile(
-                  leading: SvgPicture.asset(
-                      'assets/profileEndDrawerPhotos/profile.svg'),
-                  title: const Text(
-                    'My Profile',
-                    style: Styles.textStyleMed15,
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ListTile(
-                  leading: SvgPicture.asset(
-                      'assets/profileEndDrawerPhotos/report.svg'),
-                  title: const Text(
-                    'My Reports',
-                    style: Styles.textStyleMed15,
-                  ),
-                  onTap: () => context.goNamed('myReportsView'),
-                ),
-                ListTile(
-                  leading: SvgPicture.asset(
-                      'assets/profileEndDrawerPhotos/mail.svg'),
-                  title: const Text(
-                    'Contact Us',
-                    style: Styles.textStyleMed15,
-                  ),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: SvgPicture.asset(
-                      'assets/profileEndDrawerPhotos/about.svg'),
-                  title: const Text(
-                    'About Us',
-                    style: Styles.textStyleMed15,
-                  ),
-                  onTap: () => context.goNamed('aboutUsView'),
-                ),
-                const SizedBox(
-                  height: 240,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 25, right: 100),
-                  child: GestureDetector(
-                    onTap: () => context.goNamed('loginView'),
-                    child: const CustomLogOut(),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      endDrawer: customEndDrawer(context),
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Column(
@@ -188,46 +85,163 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                   top: 35,
                   child: CustomProfileAppBar(),
                 ),
-                Positioned(
-                  left: 140,
-                  top: 110,
-                  child: GestureDetector(
-                    onDoubleTap: () {
-                      _pickImageFromGallery();
-                    },
-                    child: CircleAvatar(
-                      radius: 60,
-                      child: Stack(
-                        children: [
-                          if (_image != null)
-                            Positioned.fill(
-                              child: ClipOval(
-                                child: Image.memory(
-                                  base64Decode(_image!),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
+                customProfilePhoto(),
+              ],
+            ),
+            CustomProfileTextFieldCondition(
+              isImageEnabled: isImageEnabled,
+              onButtonClicked: toggleImageEnabled,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SizedBox customEndDrawer(BuildContext context) {
+    return SizedBox(
+      width: 240,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 15),
+        child: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              UserAccountsDrawerHeader(
+                accountName: Text(
+                  'Ahmed Behiry',
+                  style: Styles.textStyleSemi16.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
+                accountEmail: Text(
+                  'amb@gmail.com',
+                  style: Styles.textStyle12.copyWith(
+                    color: const Color(0xff9C9C9C),
+                  ),
+                ),
+                currentAccountPicture: CircleAvatar(
+                  radius: 60,
+                  child: Stack(
+                    children: [
+                      if (_image != null)
+                        Positioned.fill(
+                          child: ClipOval(
+                            child: Image.memory(
+                              base64Decode(_image!),
+                              fit: BoxFit.fill,
                             ),
-                          if (_image == null)
-                            const Positioned.fill(
-                              child: CircleAvatar(
-                                backgroundColor: Colors.grey,
-                                child: Icon(
-                                  Icons.person,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                              ),
+                          ),
+                        ),
+                      if (_image == null)
+                        const Positioned.fill(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.grey,
+                            child: Icon(
+                              Icons.person,
+                              color: Colors.white,
+                              size: 60,
                             ),
-                        ],
-                      ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                ),
+              ),
+              ListTile(
+                leading: SvgPicture.asset(
+                    'assets/profileEndDrawerPhotos/profile.svg'),
+                title: const Text(
+                  'My Profile',
+                  style: Styles.textStyleMed15,
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: SvgPicture.asset(
+                    'assets/profileEndDrawerPhotos/report.svg'),
+                title: const Text(
+                  'My Reports',
+                  style: Styles.textStyleMed15,
+                ),
+                onTap: () => context.goNamed('myReportsView'),
+              ),
+              ListTile(
+                leading:
+                    SvgPicture.asset('assets/profileEndDrawerPhotos/mail.svg'),
+                title: const Text(
+                  'Contact Us',
+                  style: Styles.textStyleMed15,
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                leading:
+                    SvgPicture.asset('assets/profileEndDrawerPhotos/about.svg'),
+                title: const Text(
+                  'About Us',
+                  style: Styles.textStyleMed15,
+                ),
+                onTap: () => context.goNamed('aboutUsView'),
+              ),
+              const SizedBox(
+                height: 240,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 25, right: 100),
+                child: GestureDetector(
+                  onTap: () => context.goNamed('loginView'),
+                  child: const CustomLogOut(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Positioned customProfilePhoto() {
+    return Positioned(
+      left: 140,
+      top: 110,
+      child: GestureDetector(
+        onTap: () {
+          if (isImageEnabled) {
+            _pickImageFromGallery();
+          }
+        },
+        child: CircleAvatar(
+          radius: 60,
+          child: Stack(
+            children: [
+              if (_image != null)
+                Positioned.fill(
+                  child: ClipOval(
+                    child: Image.memory(
+                      base64Decode(_image!),
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
-              ],
-            ),
-            const CustomProfileTextFieldCondition(),
-          ],
+              if (_image == null)
+                const Positioned.fill(
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey,
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 60,
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

@@ -14,7 +14,6 @@ class FindPersonFormView extends StatelessWidget {
         title: 'Report of a missing person found',
       ),
       body: const SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
         child: FindPersonFormViewBody(),
       ),
     );

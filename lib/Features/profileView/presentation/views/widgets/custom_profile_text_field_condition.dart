@@ -7,7 +7,10 @@ import 'package:safe_return/core/utils/widgets/custom_button.dart';
 import 'custom_profile_text_field.dart';
 
 class CustomProfileTextFieldCondition extends StatefulWidget {
-  const CustomProfileTextFieldCondition({super.key});
+  const CustomProfileTextFieldCondition(
+      {super.key, required this.isImageEnabled, required this.onButtonClicked});
+  final bool isImageEnabled;
+  final VoidCallback onButtonClicked;
 
   @override
   State<CustomProfileTextFieldCondition> createState() =>
@@ -17,6 +20,7 @@ class CustomProfileTextFieldCondition extends StatefulWidget {
 class _CustomProfileTextFieldConditionState
     extends State<CustomProfileTextFieldCondition> {
   bool isTextFieldEnabled = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -89,6 +93,7 @@ class _CustomProfileTextFieldConditionState
           onTap: () {
             setState(() {
               isTextFieldEnabled = !isTextFieldEnabled;
+              widget.onButtonClicked();
             });
           },
           width: 105,

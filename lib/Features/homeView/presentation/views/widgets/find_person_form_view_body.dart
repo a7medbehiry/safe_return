@@ -29,7 +29,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +52,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
         CustomTextField(
           onChanged: (data) {},
@@ -77,6 +77,9 @@ class FindPersonFormViewBody extends StatelessWidget {
           style: Styles.textStyleLight14.copyWith(
             color: Colors.white,
           ),
+        ),
+        const SizedBox(
+          height: 5,
         ),
         const Row(
           children: [
@@ -118,7 +121,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
         const Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -131,24 +134,24 @@ class FindPersonFormViewBody extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
         const CustomDropDown(
           width: 330,
           height: 45,
         ),
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
         CustomTextField(
           onChanged: (data) {},
-          label: const Text('Additional information'),
+          hintText: 'Additional information',
           width: 330,
           height: 110,
           maxLines: 30,
         ),
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
         CustomButton(
           onTap: () => context.goNamed('findPersonFormThankYouView'),
@@ -158,23 +161,6 @@ class FindPersonFormViewBody extends StatelessWidget {
             'Confirm',
             style: Styles.textStyleSemi14.copyWith(
               color: Colors.white,
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 260),
-          child: CustomButton(
-            onTap: () => Navigator.of(context).pop(),
-            width: 65,
-            height: 32,
-            text: Text(
-              'Back',
-              style: Styles.textStyleSemi14.copyWith(
-                color: Colors.white,
-              ),
             ),
           ),
         ),

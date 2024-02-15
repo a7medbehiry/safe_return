@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../constants.dart';
 
 class CustomButton extends StatelessWidget {
@@ -34,3 +33,4 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
+

@@ -12,14 +12,7 @@ class CustomProfileAppBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
-          width: 18,
-        ),
-        GestureDetector(
-          onTap: () {},
-          child: SvgPicture.asset('assets/profileViewPhotos/arrow.svg'),
-        ),
-        const SizedBox(
-          width: 130,
+          width: 175,
         ),
         Text(
           'Profile',
@@ -32,7 +25,6 @@ class CustomProfileAppBar extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-
             Scaffold.of(context).openEndDrawer();
           },
           child: SvgPicture.asset('assets/profileViewPhotos/menu.svg'),
