@@ -49,7 +49,7 @@ class CustomImagePicker extends StatelessWidget {
                       style: Styles.textStyleReg16,
                     ),
                     const SizedBox(
-                      width: 35,
+                      width: 30,
                     ),
                     CircleAvatar(
                         radius: 15,

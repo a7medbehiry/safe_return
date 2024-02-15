@@ -33,6 +33,7 @@ class CustomProfileTextField extends StatelessWidget {
         width: width,
         height: height,
         child: TextField(
+          cursorColor: kPrimaryColor,
           controller: controller,
           readOnly: readOnly,
           onTap: onTap,
