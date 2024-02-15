@@ -5,6 +5,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:safe_return/Features/profileView/presentation/views/widgets/custom_about_us_bottom_sheet.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
 import 'custom_log_out.dart';
@@ -187,7 +188,8 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                   'About Us',
                   style: Styles.textStyleMed15,
                 ),
-                onTap: () => context.goNamed('aboutUsView'),
+                // onTap: () => context.goNamed('aboutUsView'),
+                onTap: () => customAboutUsBottomSheet(context),
               ),
               const SizedBox(
                 height: 240,

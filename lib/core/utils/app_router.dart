@@ -7,7 +7,6 @@ import 'package:safe_return/Features/homeView/presentation/views/missing_person_
 import 'package:safe_return/Features/loginView/presentation/views/login_view.dart';
 import 'package:safe_return/Features/notificationView/presentation/views/notification_view.dart';
 import 'package:safe_return/Features/openingView/presentation/views/opening_view.dart';
-import 'package:safe_return/Features/profileView/presentation/views/about_us_view.dart';
 import 'package:safe_return/Features/profileView/presentation/views/my_reports_view.dart';
 import 'package:safe_return/Features/profileView/presentation/views/profile_view.dart';
 import 'package:safe_return/Features/signUpView/presentation/views/sign_up_view.dart';
@@ -140,15 +139,6 @@ abstract class AppRouter {
                   );
                 },
                 routes: [
-                  GoRoute(
-                    path: 'aboutUsView',
-                    name: 'aboutUsView',
-                    builder: (context, state) {
-                      return AboutUsView(
-                        key: state.pageKey,
-                      );
-                    },
-                  ),
                   GoRoute(
                     path: 'myReportsView',
                     name: 'myReportsView',
