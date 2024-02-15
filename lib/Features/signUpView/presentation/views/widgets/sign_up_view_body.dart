@@ -26,7 +26,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           children: [
             CustomTextField(
               onChanged: (data) {},
-              hintText: 'First Name',
+              label: const Text('First Name'),
               width: 160,
               height: 45,
             ),
@@ -35,7 +35,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             ),
             CustomTextField(
               onChanged: (data) {},
-              hintText: 'Last Name',
+              label: const Text('Last Name'),
               width: 160,
               height: 45,
             ),
@@ -57,7 +57,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         ),
         CustomTextField(
           onChanged: (data) {},
-          hintText: 'Email',
+          label: const Text('Email'),
           width: 330,
           height: 45,
         ),
@@ -66,7 +66,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         ),
         CustomTextField(
           onChanged: (data) {},
-          hintText: 'Password',
+          label: const Text('Password'),
           width: 330,
           height: 45,
         ),
@@ -74,10 +74,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           height: 24,
         ),
         CustomTextField(
-          onChanged: (data) {
-            
-          },
-          hintText: 'Confirm Password',
+          onChanged: (data) {},
+          label: const Text('Confirm Password'),
           width: 330,
           height: 45,
         ),
@@ -108,7 +106,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             height: 32,
             text: Text(
               'Back',
-              style: Styles.textStyleReg13.copyWith(
+              style: Styles.textStyleSemi14.copyWith(
                 color: Colors.white,
               ),
             ),

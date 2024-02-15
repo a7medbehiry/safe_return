@@ -76,6 +76,7 @@ class _CustomMyReportsDropDownState extends State<CustomMyReportsDropDown> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 DropdownButton<String>(
+                  borderRadius: BorderRadius.circular(16),
                   dropdownColor: Colors.white,
                   value: selectedOption,
                   icon: SvgPicture.asset('assets/myReportsPhotos/dropDown.svg'),

@@ -18,7 +18,7 @@ class CustomAnimatedContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(
-        milliseconds: 300,
+        milliseconds: 150,
       ),
       width: 150,
       height: 62,

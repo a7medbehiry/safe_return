@@ -31,7 +31,7 @@ class AboutUsViewBody extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 490,
+          height: 570,
           child: Stack(
             children: [
               Positioned(
@@ -78,7 +78,7 @@ class AboutUsViewBody extends StatelessWidget {
                 left: 20,
                 top: 200,
                 child: Container(
-                  height: 260,
+                  height: 350,
                   width: 355,
                   decoration: const BoxDecoration(
                     color: kSecondColor,
@@ -95,6 +95,9 @@ class AboutUsViewBody extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const SizedBox(
+                          height: 5,
+                        ),
                         Text(
                           'the leading mobile application that is dedicated to',
                           style: Styles.textStyleMed12.copyWith(
@@ -102,7 +105,7 @@ class AboutUsViewBody extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
                           'finding lost people in public places or on the streets',
@@ -111,7 +114,7 @@ class AboutUsViewBody extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
                           'and expediting the search and reunification process.',
@@ -120,7 +123,7 @@ class AboutUsViewBody extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
                           'Our smart system leverages advanced technologies',
@@ -129,7 +132,7 @@ class AboutUsViewBody extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
                           'to provide a seamless and efficient experience for',
@@ -138,7 +141,7 @@ class AboutUsViewBody extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
                           ' both finders and the families of the lost individuals.',
@@ -147,7 +150,7 @@ class AboutUsViewBody extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
                           'Thank you for choosing Safe Return and joining us',
@@ -156,7 +159,7 @@ class AboutUsViewBody extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
                           'on our mission to ensure the safe return of lost',
@@ -165,7 +168,7 @@ class AboutUsViewBody extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
                           'individuals and the peace of mind of their loved ones',

@@ -5,7 +5,7 @@ import 'package:safe_return/core/utils/styles.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
-    required this.hintText,
+    this.hintText,
     this.prefixIcon,
     required this.width,
     required this.height,
@@ -19,7 +19,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLines = 1,
     this.label,
   });
-  final String hintText;
+  final String? hintText;
   final Widget? prefixIcon;
   final double width, height;
   final bool obscureText;
@@ -38,6 +38,7 @@ class CustomTextField extends StatelessWidget {
       width: width,
       height: height,
       child: TextField(
+        cursorColor: kPrimaryColor,
         maxLines: maxLines,
         onTap: onTap,
         controller: controller,
@@ -63,6 +64,9 @@ class CustomTextField extends StatelessWidget {
           prefixIcon: prefixIcon,
           prefixIconColor: kPrimaryColor,
           label: label,
+          labelStyle: Styles.textStyleReg16.copyWith(
+            color: Colors.black,
+          ),
           hintText: hintText,
           hintStyle: Styles.textStyleReg16.copyWith(
             color: Colors.black,

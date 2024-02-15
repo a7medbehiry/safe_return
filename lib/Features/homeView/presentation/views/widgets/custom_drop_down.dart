@@ -71,6 +71,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
             width: 8,
           ),
           DropdownButton(
+            borderRadius: BorderRadius.circular(16),
             menuMaxHeight: 250,
             value: selectedGovernorate,
             dropdownColor: Colors.white,

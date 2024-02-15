@@ -70,7 +70,7 @@ class CustomTopPart extends StatelessWidget {
             fillColor: const Color(0xffF3F6F6),
             width: 350,
             height: 60,
-            hintText: 'Email',
+            label: const Text('Email'),
             prefixIcon: const Icon(
               Icons.email,
             ),
@@ -84,7 +84,7 @@ class CustomTopPart extends StatelessWidget {
             fillColor: const Color(0xffF3F6F6),
             width: 350,
             height: 60,
-            hintText: 'Password',
+            label: const Text('Password'),
             obscureText: true,
             prefixIcon: const Icon(
               Icons.lock,
@@ -93,7 +93,7 @@ class CustomTopPart extends StatelessWidget {
         ),
         Positioned(
           right: 25,
-          top: 380,
+          top: 370,
           child: GestureDetector(
             onTap: () {},
             child: Text(

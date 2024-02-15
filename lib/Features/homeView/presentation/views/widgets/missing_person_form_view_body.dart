@@ -35,7 +35,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
           children: [
             CustomTextField(
               onChanged: (data) {},
-              hintText: 'First Name',
+              label: const Text('First Name'),
               width: 160,
               height: 45,
             ),
@@ -44,7 +44,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
             ),
             CustomTextField(
               onChanged: (data) {},
-              hintText: 'Last Name',
+              label: const Text('Last Name'),
               width: 160,
               height: 45,
             ),
@@ -56,7 +56,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
         CustomTextField(
           onChanged: (data) {},
           keyboardType: TextInputType.phone,
-          hintText: 'phone number',
+          label: const Text('Phone Number'),
           prefixIcon: Padding(
             padding: const EdgeInsets.all(12),
             child: SvgPicture.asset(
@@ -83,7 +83,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
         CustomTextField(
           onChanged: (data) {},
           keyboardType: TextInputType.number,
-          hintText: 'National Id ',
+          label: const Text('National ID'),
           prefixIcon: Padding(
             padding: const EdgeInsets.all(12),
             child: SvgPicture.asset(
@@ -134,7 +134,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
             height: 32,
             text: Text(
               'Back',
-              style: Styles.textStyleReg13.copyWith(
+              style: Styles.textStyleSemi14.copyWith(
                 color: Colors.white,
               ),
             ),

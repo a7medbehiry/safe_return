@@ -36,7 +36,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           children: [
             CustomTextField(
               onChanged: (data) {},
-              hintText: 'First Name',
+              label: const Text('First Name'),
               width: 160,
               height: 45,
             ),
@@ -45,7 +45,7 @@ class FindPersonFormViewBody extends StatelessWidget {
             ),
             CustomTextField(
               onChanged: (data) {},
-              hintText: 'Last Name',
+              label: const Text('Last Name'),
               width: 160,
               height: 45,
             ),
@@ -57,7 +57,7 @@ class FindPersonFormViewBody extends StatelessWidget {
         CustomTextField(
           onChanged: (data) {},
           keyboardType: TextInputType.phone,
-          hintText: 'phone number',
+          label: const Text('Phone Number'),
           prefixIcon: Padding(
             padding: const EdgeInsets.all(12),
             child: SvgPicture.asset(
@@ -78,15 +78,30 @@ class FindPersonFormViewBody extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        const SizedBox(
-          height: 15,
+        const Row(
+          children: [
+            SizedBox(
+              width: 130,
+            ),
+            Text(
+              'Option',
+              style: Styles.textStyle12,
+            ),
+            SizedBox(
+              width: 135,
+            ),
+            Text(
+              'Option',
+              style: Styles.textStyle12,
+            ),
+          ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomTextField(
               onChanged: (data) {},
-              hintText: 'Name',
+              label: const Text('Name'),
               width: 160,
               height: 45,
             ),
@@ -96,7 +111,7 @@ class FindPersonFormViewBody extends StatelessWidget {
             CustomTextField(
               onChanged: (data) {},
               keyboardType: TextInputType.number,
-              hintText: 'Age',
+              label: const Text('Age'),
               width: 160,
               height: 45,
             ),
@@ -127,7 +142,7 @@ class FindPersonFormViewBody extends StatelessWidget {
         ),
         CustomTextField(
           onChanged: (data) {},
-          hintText: 'Additional information',
+          label: const Text('Additional information'),
           width: 330,
           height: 110,
           maxLines: 30,
@@ -157,7 +172,7 @@ class FindPersonFormViewBody extends StatelessWidget {
             height: 32,
             text: Text(
               'Back',
-              style: Styles.textStyleReg13.copyWith(
+              style: Styles.textStyleSemi14.copyWith(
                 color: Colors.white,
               ),
             ),
