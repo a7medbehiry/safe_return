@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:safe_return/Features/profileView/presentation/views/widgets/custom_about_us_bottom_sheet.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
+import 'custom_contact_us_bottom_sheet.dart';
 import 'custom_log_out.dart';
 import 'custom_profile_app_bar.dart';
 import 'custom_profile_text_field_condition.dart';
@@ -154,7 +155,8 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
               ),
               ListTile(
                 leading: SvgPicture.asset(
-                    'assets/profileEndDrawerPhotos/profile.svg'),
+                  'assets/profileEndDrawerPhotos/profile.svg',
+                ),
                 title: const Text(
                   'My Profile',
                   style: Styles.textStyleMed15,
@@ -165,7 +167,8 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
               ),
               ListTile(
                 leading: SvgPicture.asset(
-                    'assets/profileEndDrawerPhotos/report.svg'),
+                  'assets/profileEndDrawerPhotos/report.svg',
+                ),
                 title: const Text(
                   'My Reports',
                   style: Styles.textStyleMed15,
@@ -179,7 +182,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                   'Contact Us',
                   style: Styles.textStyleMed15,
                 ),
-                onTap: () {},
+                onTap: () => customContactUsBottomSheet(context),
               ),
               ListTile(
                 leading:
@@ -188,7 +191,6 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                   'About Us',
                   style: Styles.textStyleMed15,
                 ),
-                // onTap: () => context.goNamed('aboutUsView'),
                 onTap: () => customAboutUsBottomSheet(context),
               ),
               const SizedBox(
