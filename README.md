@@ -1,7 +1,7 @@
 # safe_return
 
 A new Flutter project.
-
+Using Pixel 4 API 33 size 5.7 resolution 1080x2280 Density 440dpi
 ## Getting Started
 
 This project is a starting point for a Flutter application.
