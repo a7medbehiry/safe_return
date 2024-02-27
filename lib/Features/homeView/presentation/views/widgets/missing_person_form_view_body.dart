@@ -7,7 +7,7 @@ import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_text_container_with_radius.dart';
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/utils/widgets/custom_button.dart';
-import '../../../../../core/utils/widgets/custom_text_field.dart';
+import '../../../../../core/utils/widgets/custom_text_form_field.dart';
 
 class MissingPersonFormViewBody extends StatelessWidget {
   const MissingPersonFormViewBody({super.key});
@@ -33,8 +33,8 @@ class MissingPersonFormViewBody extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomTextField(
-              onChanged: (data) {},
+            CustomTextFormField(
+              onFieldSubmitted: (data) {},
               label: const Text('First Name'),
               width: 160,
               height: 45,
@@ -42,8 +42,8 @@ class MissingPersonFormViewBody extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            CustomTextField(
-              onChanged: (data) {},
+            CustomTextFormField(
+              onFieldSubmitted: (data) {},
               label: const Text('Last Name'),
               width: 160,
               height: 45,
@@ -53,8 +53,8 @@ class MissingPersonFormViewBody extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        CustomTextField(
-          onChanged: (data) {},
+        CustomTextFormField(
+          onFieldSubmitted: (data) {},
           keyboardType: TextInputType.phone,
           label: const Text('Phone Number'),
           prefixIcon: Padding(
@@ -80,8 +80,8 @@ class MissingPersonFormViewBody extends StatelessWidget {
         const SizedBox(
           height: 25,
         ),
-        CustomTextField(
-          onChanged: (data) {},
+        CustomTextFormField(
+          onFieldSubmitted: (data) {},
           keyboardType: TextInputType.number,
           label: const Text('National ID'),
           prefixIcon: Padding(

@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:safe_return/core/utils/widgets/custom_text_field.dart';
+import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 import 'package:safe_return/core/utils/widgets/custom_button.dart';
 import '../../../../../core/utils/styles.dart';
 
@@ -65,8 +65,8 @@ class CustomTopPart extends StatelessWidget {
         Positioned(
           left: 20,
           top: 230,
-          child: CustomTextField(
-            onChanged: (data) {},
+          child: CustomTextFormField(
+            onFieldSubmitted: (data) {},
             fillColor: const Color(0xffF3F6F6),
             width: 350,
             height: 60,
@@ -79,8 +79,8 @@ class CustomTopPart extends StatelessWidget {
         Positioned(
           left: 20,
           top: 315,
-          child: CustomTextField(
-            onChanged: (data) {},
+          child: CustomTextFormField(
+            onFieldSubmitted: (data) {},
             fillColor: const Color(0xffF3F6F6),
             width: 350,
             height: 60,

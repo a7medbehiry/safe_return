@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safe_return/Features/signUpView/presentation/views/widgets/custom_animated_container_activation.dart';
 import 'package:safe_return/core/utils/styles.dart';
-import 'package:safe_return/core/utils/widgets/custom_text_field.dart';
+import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 import '../../../../../core/utils/widgets/custom_button.dart';
 import '../../../../../core/utils/widgets/custom_shield.dart';
 import 'custom_sign_up_date.dart';
@@ -24,8 +24,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomTextField(
-              onChanged: (data) {},
+            CustomTextFormField(
+              onFieldSubmitted: (data) {},
               label: const Text('First Name'),
               width: 160,
               height: 45,
@@ -33,8 +33,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             const SizedBox(
               width: 10,
             ),
-            CustomTextField(
-              onChanged: (data) {},
+            CustomTextFormField(
+              onFieldSubmitted: (data) {},
               label: const Text('Last Name'),
               width: 160,
               height: 45,
@@ -55,8 +55,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         const SizedBox(
           height: 24,
         ),
-        CustomTextField(
-          onChanged: (data) {},
+        CustomTextFormField(
+          onFieldSubmitted: (data) {},
           label: const Text('Email'),
           width: 330,
           height: 45,
@@ -64,8 +64,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         const SizedBox(
           height: 24,
         ),
-        CustomTextField(
-          onChanged: (data) {},
+        CustomTextFormField(
+          onFieldSubmitted: (data) {},
           label: const Text('Password'),
           width: 330,
           height: 45,
@@ -73,8 +73,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         const SizedBox(
           height: 24,
         ),
-        CustomTextField(
-          onChanged: (data) {},
+        CustomTextFormField(
+          onFieldSubmitted: (data) {},
           label: const Text('Confirm Password'),
           width: 330,
           height: 45,

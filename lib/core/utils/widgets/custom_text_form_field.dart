@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
 
-class CustomTextField extends StatefulWidget {
-  const CustomTextField({
+class CustomTextFormField extends StatefulWidget {
+  const CustomTextFormField({
     super.key,
     this.hintText,
     this.prefixIcon,
     required this.width,
     required this.height,
     this.obscureText = false,
-    this.onChanged,
+    this.onFieldSubmitted,
     this.fillColor = const Color(0xffEEE8D8),
     this.onTap,
     this.controller,
     this.readOnly = false,
     this.keyboardType,
     this.maxLines = 1,
-    this.label,
+    this.label, 
   });
   final String? hintText;
   final Widget? prefixIcon;
   final double width, height;
   final bool obscureText;
   final Color fillColor;
-  final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
   final void Function()? onTap;
   final TextEditingController? controller;
   final bool readOnly;
@@ -34,10 +34,10 @@ class CustomTextField extends StatefulWidget {
   final Widget? label;
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
   late FocusNode _focusNode;
   bool _isPrefixIconVisible = true;
 
@@ -66,7 +66,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SizedBox(
       width: widget.width,
       height: widget.height,
-      child: TextField(
+      child: TextFormField(
+        validator: (value) {
+        if (value?.isEmpty ?? true) {
+          return 'Field is required';
+        } else {
+          return null;
+        }
+      },
         focusNode: _focusNode,
         cursorColor: kPrimaryColor,
         maxLines: widget.maxLines,
@@ -74,7 +81,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         controller: widget.controller,
         readOnly: widget.readOnly,
         keyboardType: widget.keyboardType,
-        onChanged: widget.onChanged,
+        onFieldSubmitted: widget.onFieldSubmitted,
         style: Styles.textStyleReg16.copyWith(
           color: Colors.black,
         ),

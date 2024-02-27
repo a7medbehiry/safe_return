@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:safe_return/constants.dart';
-import 'package:safe_return/core/utils/widgets/custom_text_field.dart';
+import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 
 class CustomReportsDate extends StatefulWidget {
   const CustomReportsDate({
@@ -30,7 +30,7 @@ class _CustomReportsDateState extends State<CustomReportsDate> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextField(
+    return CustomTextFormField(
       controller: dateController,
       readOnly: true,
       prefixIcon: SizedBox(

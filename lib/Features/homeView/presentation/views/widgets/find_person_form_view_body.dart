@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_image_picker_function.dart';
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/utils/widgets/custom_button.dart';
-import '../../../../../core/utils/widgets/custom_text_field.dart';
+import '../../../../../core/utils/widgets/custom_text_form_field.dart';
 import 'custom_drop_down.dart';
 import 'custom_reports_date.dart';
 import 'custom_text_container.dart';
@@ -34,8 +34,8 @@ class FindPersonFormViewBody extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomTextField(
-              onChanged: (data) {},
+            CustomTextFormField(
+              onFieldSubmitted: (data) {},
               label: const Text('First Name'),
               width: 160,
               height: 45,
@@ -43,8 +43,8 @@ class FindPersonFormViewBody extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            CustomTextField(
-              onChanged: (data) {},
+            CustomTextFormField(
+              onFieldSubmitted: (data) {},
               label: const Text('Last Name'),
               width: 160,
               height: 45,
@@ -54,8 +54,8 @@ class FindPersonFormViewBody extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        CustomTextField(
-          onChanged: (data) {},
+        CustomTextFormField(
+          onFieldSubmitted: (data) {},
           keyboardType: TextInputType.phone,
           label: const Text('Phone Number'),
           prefixIcon: Padding(
@@ -102,8 +102,8 @@ class FindPersonFormViewBody extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomTextField(
-              onChanged: (data) {},
+            CustomTextFormField(
+              onFieldSubmitted: (data) {},
               label: const Text('Name'),
               width: 160,
               height: 45,
@@ -111,8 +111,8 @@ class FindPersonFormViewBody extends StatelessWidget {
             const SizedBox(
               width: 15,
             ),
-            CustomTextField(
-              onChanged: (data) {},
+            CustomTextFormField(
+              onFieldSubmitted: (data) {},
               keyboardType: TextInputType.number,
               label: const Text('Age'),
               width: 160,
@@ -143,8 +143,8 @@ class FindPersonFormViewBody extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        CustomTextField(
-          onChanged: (data) {},
+        CustomTextFormField(
+          onFieldSubmitted: (data) {},
           hintText: 'Additional information',
           width: 330,
           height: 110,
