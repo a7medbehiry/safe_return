@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safe_return/Features/loginView/manager/login_cubit/login_cubit.dart';
-import 'package:safe_return/core/utils/helper/custom_snack_bar.dart';
+import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 import 'package:safe_return/core/utils/widgets/custom_button.dart';
 import '../../../../../core/utils/styles.dart';
@@ -35,7 +35,10 @@ class _CustomTopPartState extends State<CustomTopPart> {
           context.goNamed('homeView');
           isLoading = false;
         } else if (state is LoginFailure) {
-          SnackBarManager.showSnackBar(context, state.errorMessage);
+          for (var errorMessage in state.errorMessages) {
+            LoginSnackBarManager.showSnackBar(
+                context, errorMessage['message'].toString());
+          }
           isLoading = false;
         }
       },
@@ -98,6 +101,13 @@ class _CustomTopPartState extends State<CustomTopPart> {
                   onChanged: (data) {
                     email = data;
                   },
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return 'Field is required';
+                    } else {
+                      return null;
+                    }
+                  },
                   fillColor: const Color(0xffF3F6F6),
                   width: 350,
                   height: 85,
@@ -113,6 +123,13 @@ class _CustomTopPartState extends State<CustomTopPart> {
                 child: CustomTextFormField(
                   onChanged: (data) {
                     password = data;
+                  },
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return 'Field is required';
+                    } else {
+                      return null;
+                    }
                   },
                   fillColor: const Color(0xffF3F6F6),
                   width: 350,
@@ -144,8 +161,7 @@ class _CustomTopPartState extends State<CustomTopPart> {
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
                       if (EmailValidator.validate(email!) == false) {
-                        SnackBarManager.showSnackBar(
-                            context, 'In-Valid Email');
+                        LoginSnackBarManager.showSnackBar(context, 'In-Valid Email');
                         return;
                       }
                       BlocProvider.of<LoginCubit>(context).userLogin(

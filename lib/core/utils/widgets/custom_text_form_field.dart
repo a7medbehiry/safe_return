@@ -17,7 +17,8 @@ class CustomTextFormField extends StatefulWidget {
     this.readOnly = false,
     this.keyboardType,
     this.maxLines = 1,
-    this.label, this.onSaved, 
+    this.label,
+    this.onSaved, this.validator,
   });
   final String? hintText;
   final Widget? prefixIcon;
@@ -26,6 +27,7 @@ class CustomTextFormField extends StatefulWidget {
   final Color fillColor;
   final void Function(String)? onChanged;
   final void Function(String?)? onSaved;
+  final String? Function(String?)? validator;
   final void Function()? onTap;
   final TextEditingController? controller;
   final bool readOnly;
@@ -68,13 +70,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       width: widget.width,
       height: widget.height,
       child: TextFormField(
-        validator: (value) {
-        if (value?.isEmpty ?? true) {
-          return 'Field is required';
-        } else {
-          return null;
-        }
-      },
+        validator: widget.validator,
         focusNode: _focusNode,
         cursorColor: kPrimaryColor,
         maxLines: widget.maxLines,

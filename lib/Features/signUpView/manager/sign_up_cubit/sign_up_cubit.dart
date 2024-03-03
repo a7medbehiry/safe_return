@@ -32,7 +32,13 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(SignUpSuccess());
     } catch (e) {
       final errorMessage = _getErrorMessage(e.toString());
-      emit(SignUpFailure(errorMessage: errorMessage));
+      emit(
+        SignUpFailure(
+          errorMessages: [
+            {'message': errorMessage},
+          ],
+        ),
+      );
     }
   }
 

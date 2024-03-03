@@ -6,7 +6,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:safe_return/Features/signUpView/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:safe_return/Features/signUpView/presentation/views/widgets/custom_animated_container_activation.dart';
 import 'package:safe_return/constants.dart';
-import 'package:safe_return/core/utils/helper/custom_snack_bar.dart';
+import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 import 'package:safe_return/core/utils/styles.dart';
 import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 import '../../../../../core/utils/widgets/custom_button.dart';
@@ -41,7 +41,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           SnackBarManager.showSnackBar(context, 'Please, verify your email');
           isLoading = false;
         } else if (state is SignUpFailure) {
-          SnackBarManager.showSnackBar(context, state.errorMessage);
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+                context, errorMessage['message'].toString());
+          }
           isLoading = false;
         }
       },
@@ -50,8 +53,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           width: double.infinity,
           height: 800,
           child: ModalProgressHUD(
-            progressIndicator: const CircularProgressIndicator(
-              color: kPrimaryColor,
+            progressIndicator: const Center(
+              child: CircularProgressIndicator(
+                color: kPrimaryColor,
+              ),
             ),
             inAsyncCall: isLoading,
             child: Form(
@@ -145,25 +150,59 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   CustomButton(
                     onTap: () async {
                       if (formKey.currentState!.validate()) {
-                        if (fName!.length < 2) {
+                        if (fName == null &&
+                            lName == null &&
+                            dob == null &&
+                            gender == null &&
+                            email == null &&
+                            password == null &&
+                            confirmPassword == null) {
+                          SnackBarManager.showSnackBar(
+                              context, 'Fields Required');
+                          return;
+                        } else if (fName == null) {
+                          SnackBarManager.showSnackBar(
+                              context, 'First Name Field Required');
+                          return;
+                        } else if (fName!.length < 2) {
                           SnackBarManager.showSnackBar(
                               context, 'First Name length must be at least 2');
+                          return;
+                        } else if (lName == null) {
+                          SnackBarManager.showSnackBar(
+                              context, 'Last Name Field Required');
                           return;
                         } else if (lName!.length < 2) {
                           SnackBarManager.showSnackBar(
                               context, 'Last Name length must be at least 2');
                           return;
+                        } else if (dob == null) {
+                          SnackBarManager.showSnackBar(
+                              context, 'Birth Date Field Required');
+                          return;
                         } else if (gender == null) {
                           SnackBarManager.showSnackBar(
                               context, 'Gender is required');
+                          return;
+                        } else if (email == null) {
+                          SnackBarManager.showSnackBar(
+                              context, 'Email Field Required');
                           return;
                         } else if (EmailValidator.validate(email!) == false) {
                           SnackBarManager.showSnackBar(
                               context, 'In-Valid Email');
                           return;
+                        } else if (password == null) {
+                          SnackBarManager.showSnackBar(
+                              context, 'Password Field Required');
+                          return;
                         } else if (password!.length < 5) {
                           SnackBarManager.showSnackBar(
                               context, 'Password length must be at least 5');
+                          return;
+                        } else if (confirmPassword == null) {
+                          SnackBarManager.showSnackBar(
+                              context, 'Confirm Password Field Required');
                           return;
                         } else if (confirmPassword != password) {
                           SnackBarManager.showSnackBar(

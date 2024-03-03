@@ -22,7 +22,13 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginSuccess());
     } catch (e) {
       final errorMessage = _getErrorMessage(e.toString());
-      emit(LoginFailure(errorMessage: errorMessage));
+      emit(
+        LoginFailure(
+          errorMessages: [
+            {'message': errorMessage},
+          ],
+        ),
+      );
     }
   }
 
