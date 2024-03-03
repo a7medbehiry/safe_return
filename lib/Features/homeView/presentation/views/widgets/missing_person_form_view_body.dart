@@ -34,7 +34,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomTextFormField(
-              onFieldSubmitted: (data) {},
+              onChanged: (data) {},
               label: const Text('First Name'),
               width: 160,
               height: 45,
@@ -43,7 +43,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
               width: 10,
             ),
             CustomTextFormField(
-              onFieldSubmitted: (data) {},
+              onChanged: (data) {},
               label: const Text('Last Name'),
               width: 160,
               height: 45,
@@ -54,7 +54,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
           height: 20,
         ),
         CustomTextFormField(
-          onFieldSubmitted: (data) {},
+          onChanged: (data) {},
           keyboardType: TextInputType.phone,
           label: const Text('Phone Number'),
           prefixIcon: Padding(
@@ -81,7 +81,7 @@ class MissingPersonFormViewBody extends StatelessWidget {
           height: 25,
         ),
         CustomTextFormField(
-          onFieldSubmitted: (data) {},
+          onChanged: (data) {},
           keyboardType: TextInputType.number,
           label: const Text('National ID'),
           prefixIcon: Padding(

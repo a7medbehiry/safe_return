@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:safe_return/Features/signUpView/presentation/views/widgets/custom_animated_container.dart';
+import 'package:safe_return/constants.dart';
 
 class CustomAnimatedContainerActivation extends StatefulWidget {
-  const CustomAnimatedContainerActivation({super.key});
-
+  const CustomAnimatedContainerActivation({super.key, required this.onGenderSelected});
+   final void Function(Gender) onGenderSelected;
   @override
   State<CustomAnimatedContainerActivation> createState() =>
       _CustomAnimatedContainerActivationState();
@@ -19,7 +20,7 @@ class _CustomAnimatedContainerActivationState
     'Female',
     'Male',
   ];
-  int? activeIndex;
+   Gender? selectedGender;
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +34,12 @@ class _CustomAnimatedContainerActivationState
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: GestureDetector(
               onTap: () {
-                activeIndex = index;
+                 selectedGender = index == 0 ? Gender.female : Gender.male;
+                widget.onGenderSelected(selectedGender!);
                 setState(() {});
               },
               child: CustomAnimatedContainer(
-                isActive: activeIndex == index,
+                isActive:  selectedGender == (index == 0 ? Gender.female : Gender.male),
                 text: animatedContainerTexts[index],
                 image: animatedContainerPhotos[index],
               ),

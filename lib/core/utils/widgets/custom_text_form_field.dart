@@ -10,21 +10,22 @@ class CustomTextFormField extends StatefulWidget {
     required this.width,
     required this.height,
     this.obscureText = false,
-    this.onFieldSubmitted,
+    this.onChanged,
     this.fillColor = const Color(0xffEEE8D8),
     this.onTap,
     this.controller,
     this.readOnly = false,
     this.keyboardType,
     this.maxLines = 1,
-    this.label, 
+    this.label, this.onSaved, 
   });
   final String? hintText;
   final Widget? prefixIcon;
   final double width, height;
   final bool obscureText;
   final Color fillColor;
-  final void Function(String)? onFieldSubmitted;
+  final void Function(String)? onChanged;
+  final void Function(String?)? onSaved;
   final void Function()? onTap;
   final TextEditingController? controller;
   final bool readOnly;
@@ -81,7 +82,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         controller: widget.controller,
         readOnly: widget.readOnly,
         keyboardType: widget.keyboardType,
-        onFieldSubmitted: widget.onFieldSubmitted,
+        onChanged: widget.onChanged,
+        onSaved: widget.onSaved,
         style: Styles.textStyleReg16.copyWith(
           color: Colors.black,
         ),

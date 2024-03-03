@@ -35,7 +35,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomTextFormField(
-              onFieldSubmitted: (data) {},
+              onChanged: (data) {},
               label: const Text('First Name'),
               width: 160,
               height: 45,
@@ -44,7 +44,7 @@ class FindPersonFormViewBody extends StatelessWidget {
               width: 10,
             ),
             CustomTextFormField(
-              onFieldSubmitted: (data) {},
+              onChanged: (data) {},
               label: const Text('Last Name'),
               width: 160,
               height: 45,
@@ -55,7 +55,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           height: 15,
         ),
         CustomTextFormField(
-          onFieldSubmitted: (data) {},
+          onChanged: (data) {},
           keyboardType: TextInputType.phone,
           label: const Text('Phone Number'),
           prefixIcon: Padding(
@@ -103,7 +103,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomTextFormField(
-              onFieldSubmitted: (data) {},
+              onChanged: (data) {},
               label: const Text('Name'),
               width: 160,
               height: 45,
@@ -112,7 +112,7 @@ class FindPersonFormViewBody extends StatelessWidget {
               width: 15,
             ),
             CustomTextFormField(
-              onFieldSubmitted: (data) {},
+              onChanged: (data) {},
               keyboardType: TextInputType.number,
               label: const Text('Age'),
               width: 160,
@@ -144,7 +144,7 @@ class FindPersonFormViewBody extends StatelessWidget {
           height: 15,
         ),
         CustomTextFormField(
-          onFieldSubmitted: (data) {},
+          onChanged: (data) {},
           hintText: 'Additional information',
           width: 330,
           height: 110,

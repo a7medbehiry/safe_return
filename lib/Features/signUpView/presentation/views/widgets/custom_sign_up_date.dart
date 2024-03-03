@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -6,15 +8,16 @@ import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 
 class CustomSignUpDate extends StatefulWidget {
   const CustomSignUpDate({
-    Key? key,
+    Key? key, this.onChanged,
   }) : super(key: key);
-
+  final void Function(DateTime)? onChanged;
   @override
   State<CustomSignUpDate> createState() => _CustomSignUpDateState();
 }
 
 class _CustomSignUpDateState extends State<CustomSignUpDate> {
   TextEditingController dateController = TextEditingController();
+  DateTime? dob;
 
   @override
   void initState() {
@@ -31,6 +34,16 @@ class _CustomSignUpDateState extends State<CustomSignUpDate> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
+      onChanged: (data) {
+        if (data is DateTime) {
+          dob = data as DateTime;
+          if (widget.onChanged != null) {
+            widget.onChanged!(dob!);
+          }
+        } else {
+          log('Invalid data type for date');
+        }
+      },
       controller: dateController,
       readOnly: true,
       prefixIcon: Padding(
@@ -80,6 +93,9 @@ class _CustomSignUpDateState extends State<CustomSignUpDate> {
           dateController.text = formattedDate;
         },
       );
+      if (widget.onChanged != null) {
+        widget.onChanged!(pickedDate);
+      }
     }
   }
 }
