@@ -18,7 +18,8 @@ class CustomTextFormField extends StatefulWidget {
     this.keyboardType,
     this.maxLines = 1,
     this.label,
-    this.onSaved, this.validator,
+    this.onSaved,
+    this.validator, this.enabled,
   });
   final String? hintText;
   final Widget? prefixIcon;
@@ -35,6 +36,7 @@ class CustomTextFormField extends StatefulWidget {
 
   final int? maxLines;
   final Widget? label;
+  final bool? enabled;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -70,6 +72,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       width: widget.width,
       height: widget.height,
       child: TextFormField(
+        enabled: widget.enabled,
         validator: widget.validator,
         focusNode: _focusNode,
         cursorColor: kPrimaryColor,

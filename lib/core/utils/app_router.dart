@@ -4,13 +4,16 @@ import 'package:safe_return/Features/homeView/presentation/views/find_person_for
 import 'package:safe_return/Features/homeView/presentation/views/home_view.dart';
 import 'package:safe_return/Features/homeView/presentation/views/missing_person_form_thank_you_view.dart';
 import 'package:safe_return/Features/homeView/presentation/views/missing_person_form_view.dart';
-import 'package:safe_return/Features/loginView/presentation/views/login_view.dart';
 import 'package:safe_return/Features/notificationView/presentation/views/notification_view.dart';
 import 'package:safe_return/Features/openingView/presentation/views/opening_view.dart';
 import 'package:safe_return/Features/profileView/presentation/views/my_reports_view.dart';
 import 'package:safe_return/Features/profileView/presentation/views/profile_view.dart';
-import 'package:safe_return/Features/signUpView/presentation/views/sign_up_view.dart';
 import 'package:safe_return/core/utils/widgets/custom_navigation_bottom_bar.dart';
+import '../../Features/auth/presentation/views/check_mail_view.dart';
+import '../../Features/auth/presentation/views/forget_password_view.dart';
+import '../../Features/auth/presentation/views/login_view.dart';
+import '../../Features/auth/presentation/views/reset_password_view.dart';
+import '../../Features/auth/presentation/views/sign_up_view.dart';
 import '../../Features/homeView/presentation/views/find_person_form_thank_you_view.dart';
 
 abstract class AppRouter {
@@ -41,6 +44,33 @@ abstract class AppRouter {
         name: 'loginView',
         builder: (context, state) {
           return LoginView(
+            key: state.pageKey,
+          );
+        },
+      ),
+      GoRoute(
+        path: '/forgetPassword',
+        name: 'forgetPassword',
+        builder: (context, state) {
+          return ForgetPasswordView(
+            key: state.pageKey,
+          );
+        },
+      ),
+      GoRoute(
+        path: '/checkMail',
+        name: 'checkMail',
+        builder: (context, state) {
+          return CheckMailView(
+            key: state.pageKey,
+          );
+        },
+      ),
+      GoRoute(
+        path: '/resetPassword',
+        name: 'resetPassword',
+        builder: (context, state) {
+          return ResetPasswordView(
             key: state.pageKey,
           );
         },

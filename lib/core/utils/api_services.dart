@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:safe_return/Features/loginView/presentation/data/models/login_error_message_model.dart';
-import 'package:safe_return/Features/signUpView/presentation/data/models/sign_up_error_message_model.dart';
+import '../../Features/auth/presentation/data/models/error_message_model.dart';
 import '../../constants.dart';
 
 class SignUpService {
@@ -36,7 +35,7 @@ class SignUpService {
       );
       if (response.statusCode == 200) {
         log(json.encode(response.data));
-        SignUPErrorMessageModel.fromJson(jsonDecode(response.data));
+        ErrorMessageModel.fromJson(jsonDecode(response.data));
       } else {
         log(json.encode(response.statusMessage));
       }
@@ -72,7 +71,7 @@ class LoginService {
       );
       if (response.statusCode == 200) {
         log(json.encode(response.data));
-        LoginErrorMessageModel.fromJson(jsonDecode(response.data));
+        ErrorMessageModel.fromJson(jsonDecode(response.data));
       } else {
         log(json.encode(response.statusMessage));
       }
@@ -83,6 +82,79 @@ class LoginService {
     } catch (e) {
       log(e.toString());
       throw Exception('oops there was an error, please try again');
+    }
+  }
+}
+
+class ForgetPasswordService {
+  final Dio dio;
+  ForgetPasswordService(this.dio);
+
+  Future<void> userForgetPassword({
+    required String email,
+  }) async {
+    try {
+      Response response = await dio.post(
+        '${baseUrl}auth/forgetpassword',
+        options: Options(
+          headers: {'Content-Type': 'application/json'},
+        ),
+        data: json.encode({
+          "email": email,
+        }),
+      );
+      if (response.statusCode == 200) {
+        log(json.encode(response.data));
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'oops there was an error, please try again';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error, please try again');
+    }
+  }
+}
+
+class ResetPasswordService {
+  final Dio dio;
+  ResetPasswordService(this.dio);
+
+  Future<void> userResetPassword({
+    required String password,
+    required String confirmPassword,
+    required String token,
+  }) async {
+    try {
+      Response response = await dio.post(
+        '${baseUrl}auth/resetpassword/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ijk5MWZhNjE1ZWZAZW1haWxhYm94LnBybyIsImlhdCI6MTcwOTU5MTg3MCwiZXhwIjoxNzA5NTkyNzcwfQ.NmLyKph_N8fDQULihoPepTDY5CuAh3cKpBG-HFpHPHw',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer $token",
+          },
+        ),
+        data: json.encode({
+          "password": password,
+          "confirmPassword": confirmPassword,
+        }),
+      );
+      if (response.statusCode == 200) {
+        log('Reset Password Success: ${json.encode(response.data)}');
+      } else {
+        log('Reset Password Failure: ${json.encode(response.statusMessage)}');
+        throw Exception(
+            'Reset Password failed with status ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      log('Dio error: ${e.message}');
+      throw Exception('Oops, there was an error, please try again');
+    } catch (e) {
+      log('Unexpected error: $e');
+      throw Exception('Oops, there was an unexpected error, please try again');
     }
   }
 }

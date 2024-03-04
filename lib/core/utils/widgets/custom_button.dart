@@ -7,11 +7,11 @@ class CustomButton extends StatelessWidget {
     required this.width,
     required this.height,
     this.onTap,
-    required this.text,
+    required this.text, this.color = kPrimaryColor,
   });
   final double width, height;
   final void Function()? onTap;
-
+  final Color color;
   final Text text;
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
         width: width,
         height: height,
         decoration: ShapeDecoration(
-          color: kPrimaryColor,
+          color: color,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
@@ -33,4 +33,3 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
-
