@@ -28,8 +28,8 @@ class _CustomNavigationBottomBarState extends State<CustomNavigationBottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: widget.navigationShell,
       ),
       extendBody: true,

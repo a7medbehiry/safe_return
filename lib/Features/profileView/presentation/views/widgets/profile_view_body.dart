@@ -73,7 +73,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
             Stack(
               children: [
                 SizedBox(
-                  height: 240,
+                  height: MediaQuery.of(context).size.width / 1.6,
                   width: MediaQuery.of(context).size.width,
                 ),
                 ClipPath(
