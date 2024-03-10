@@ -10,3 +10,8 @@ enum Gender { female, male }
 
 const resetPasswordToken =
     'sk_test_51OJwUCAy4SKSdPr37R4Ks7qGVZHi4pxIkviNNLoZrYpD1rCai1rJgJ0Ribtsd0hDUY5zTHTzUl3NZh9V850tceu100HEQ14QF8';
+
+const tokenAccess =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImE3bWVkYmVoaXJ5QGdtYWlsLmNvbSIsIm5hbWUiOiJBaG1lZCIsImlkIjoiNjVlYjg5MTI2ZWE3N2U5ZjZkMjJjMmM5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTAwOTU1Mjd9.0w65hhQs_i-RcToHNxx72zGSK6QzV9HRLQdTojQ2pVU';
+
+const kUserBox = 'userBox';

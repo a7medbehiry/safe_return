@@ -4,13 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:safe_return/Features/auth/manager/auth_cubit/auth_cubit.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 import 'package:safe_return/core/utils/styles.dart';
 import 'package:safe_return/core/utils/widgets/custom_button.dart';
 import 'package:safe_return/core/utils/widgets/custom_shield.dart';
 import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
+
+import '../../manager/auth_cubit/auth_cubit.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -36,7 +37,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           isLoading = false;
         } else if (state is LoginFailure) {
           for (var errorMessage in state.errorMessages) {
-            LoginSnackBarManager.showSnackBar(
+            SnackBarManager.showSnackBar(
                 context, errorMessage['message'].toString());
           }
           isLoading = false;
@@ -165,7 +166,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         if (formKey.currentState!.validate()) {
                           if (EmailValidator.validate(email!) == false) {
                             SnackBarManager.showSnackBar(
-                                context, 'In-Valid Email');
+                              context,
+                              'In-Valid Email',
+                            );
                             return;
                           }
                           BlocProvider.of<AuthCubit>(context).userLogin(

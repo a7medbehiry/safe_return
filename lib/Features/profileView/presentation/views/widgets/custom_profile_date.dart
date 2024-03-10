@@ -1,15 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:safe_return/constants.dart';
 
-import 'custom_profile_text_field.dart';
+import 'custom_profile_text_form_field.dart';
 
 class CustomProfileDate extends StatefulWidget {
   final bool enabled;
+  final void Function(DateTime)? onChanged;
+
   const CustomProfileDate({
     Key? key,
     this.enabled = false,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -18,20 +23,41 @@ class CustomProfileDate extends StatefulWidget {
 
 class _CustomProfileDateState extends State<CustomProfileDate> {
   TextEditingController dateInput = TextEditingController();
+  DateTime? dob;
 
   @override
   void initState() {
-    dateInput.text = ""; 
+    dateInput.text = "";
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomProfileTextField(
+      onChanged: (data) {
+        if (data is DateTime) {
+          dob = data as DateTime;
+          if (widget.onChanged != null) {
+            widget.onChanged!(dob!);
+          }
+        } else {
+          log('Invalid data type for date');
+        }
+      },
+      // onSaved: (data) {
+      //   if (data is DateTime) {
+      //     dob = data as DateTime;
+      //     if (widget.onChanged != null) {
+      //       widget.onChanged!(dob!);
+      //     }
+      //   } else {
+      //     log('Invalid data type for date');
+      //   }
+      // },
       controller: dateInput,
       enabled: widget.enabled,
       readOnly: true,
-      hintText: '15-5-2002',
+      hintText: 'Data of birth',
       prefixIcon: Center(
         child: SvgPicture.asset(
           'assets/profileViewPhotos/date.svg',
@@ -72,6 +98,9 @@ class _CustomProfileDateState extends State<CustomProfileDate> {
           dateInput.text = formattedDate;
         },
       );
+      if (widget.onChanged != null) {
+        widget.onChanged!(pickedDate);
+      }
     }
   }
 }

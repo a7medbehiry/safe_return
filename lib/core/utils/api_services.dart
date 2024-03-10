@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import '../../Features/auth/presentation/data/models/error_message_model.dart';
+import '../../Features/auth/data/models/error_message_model.dart';
 import '../../constants.dart';
 
 class SignUpService {
@@ -130,7 +130,7 @@ class ResetPasswordService {
   }) async {
     try {
       Response response = await dio.post(
-        '${baseUrl}auth/resetpassword/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ijk5MWZhNjE1ZWZAZW1haWxhYm94LnBybyIsImlhdCI6MTcwOTU5MTg3MCwiZXhwIjoxNzA5NTkyNzcwfQ.NmLyKph_N8fDQULihoPepTDY5CuAh3cKpBG-HFpHPHw',
+        '${baseUrl}auth/resetpassword/$resetPasswordToken',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -155,6 +155,75 @@ class ResetPasswordService {
     } catch (e) {
       log('Unexpected error: $e');
       throw Exception('Oops, there was an unexpected error, please try again');
+    }
+  }
+}
+
+class UpdateUserService {
+  final Dio dio;
+  UpdateUserService(this.dio);
+
+  Future<void> updateUser({
+    required String phoneNumber,
+    required String governorate,
+    required String userName,
+    required String mail,
+    required DateTime dob,
+  }) async {
+    try {
+      Response response = await dio.post(
+        '${baseUrl}user',
+        options: Options(
+          headers: {'token': tokenAccess},
+        ),
+        data: json.encode({
+          "userName": userName,
+          "phoneNumber": phoneNumber,
+          "goverenrate": governorate,
+          "DOB": dob.toIso8601String(),
+          "email": mail,
+        }),
+      );
+      if (response.statusCode == 200) {
+        log(json.encode(response.data));
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'oops there was an error, please try again';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error, please try again');
+    }
+  }
+}
+
+class UserLogOutService {
+  final Dio dio;
+  UserLogOutService(this.dio);
+
+  Future<void> userLogOut() async {
+    try {
+      Response response = await dio.post(
+        '${baseUrl}user',
+        options: Options(
+          headers: {'token': tokenAccess},
+        ),
+      );
+      if (response.statusCode == 200) {
+        log(json.encode(response.data));
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'oops there was an error, please try again';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error, please try again');
     }
   }
 }

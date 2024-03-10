@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:safe_return/Features/profileView/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:safe_return/Features/profileView/presentation/views/widgets/custom_about_us_bottom_sheet.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
+import '../../../../../core/utils/functions/custom_snack_bar.dart';
 import 'custom_contact_us_bottom_sheet.dart';
 import 'custom_log_out.dart';
 import 'custom_profile_app_bar.dart';
@@ -29,7 +33,7 @@ class ProfileViewBody extends StatefulWidget {
 class ProfileViewBodyState extends State<ProfileViewBody> {
   String? _image;
   bool isImageEnabled = false;
-
+  bool isLoading = false;
   void toggleImageEnabled() {
     setState(() {
       isImageEnabled = !isImageEnabled;
@@ -64,39 +68,69 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      endDrawer: customEndDrawer(context),
-      body: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.width / 1.6,
-                  width: MediaQuery.of(context).size.width,
-                ),
-                ClipPath(
-                  clipper: OvalBottomBorderClipper(),
-                  child: Container(
-                    height: 180,
-                    color: kPrimaryColor,
-                  ),
-                ),
-                const Positioned(
-                  top: 35,
-                  child: CustomProfileAppBar(),
-                ),
-                customProfilePhoto(),
-              ],
+    return BlocConsumer<UserCubit, UserState>(
+      listener: (context, state) {
+        if (state is UserLogOutLoading) {
+          isLoading = true;
+        } else if (state is UserLogOutSuccess) {
+          context.goNamed('loginView');
+          isLoading = false;
+        } else if (state is UserLogOutFailure) {
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+                context, errorMessage['message'].toString());
+          }
+          isLoading = false;
+        }
+      },
+      builder: (context, state) {
+        return SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: ModalProgressHUD(
+            progressIndicator: const Center(
+              child: CircularProgressIndicator(
+                color: kPrimaryColor,
+              ),
             ),
-            CustomProfileTextFieldCondition(
-              isImageEnabled: isImageEnabled,
-              onButtonClicked: toggleImageEnabled,
+            inAsyncCall: isLoading,
+            child: Scaffold(
+              endDrawer: customEndDrawer(context),
+              body: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.width / 1.6,
+                          width: MediaQuery.of(context).size.width,
+                        ),
+                        ClipPath(
+                          clipper: OvalBottomBorderClipper(),
+                          child: Container(
+                            height: 180,
+                            color: kPrimaryColor,
+                          ),
+                        ),
+                        const Positioned(
+                          top: 35,
+                          child: CustomProfileAppBar(),
+                        ),
+                        customProfilePhoto(),
+                      ],
+                    ),
+                    CustomProfileTextFieldCondition(
+                      isImageEnabled: isImageEnabled,
+                      onButtonClicked: toggleImageEnabled,
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -199,7 +233,9 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 100),
                 child: GestureDetector(
-                  onTap: () => context.goNamed('loginView'),
+                  onTap: () async {
+                    BlocProvider.of<UserCubit>(context).userLogOut();
+                  },
                   child: const CustomLogOut(),
                 ),
               ),

@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:safe_return/Features/auth/manager/auth_cubit/auth_cubit.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 import 'package:safe_return/core/utils/styles.dart';
 import 'package:safe_return/core/utils/widgets/custom_button.dart';
 import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
+
+import '../../manager/auth_cubit/auth_cubit.dart';
 
 class ForgetPasswordViewBody extends StatefulWidget {
   const ForgetPasswordViewBody({super.key});

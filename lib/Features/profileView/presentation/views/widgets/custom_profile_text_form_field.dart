@@ -14,7 +14,9 @@ class CustomProfileTextField extends StatelessWidget {
     this.enabled = true,
     this.keyboardType,
     this.onTap,
-    this.readOnly = false, this.controller,
+    this.readOnly = false,
+    this.controller,
+    this.onSaved,
   });
   final String hintText;
   final Widget prefixIcon;
@@ -25,6 +27,7 @@ class CustomProfileTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final void Function(String)? onChanged;
   final void Function()? onTap;
+  final void Function(String?)? onSaved;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,7 +35,8 @@ class CustomProfileTextField extends StatelessWidget {
       child: SizedBox(
         width: width,
         height: height,
-        child: TextField(
+        child: TextFormField(
+          onSaved: onSaved,
           cursorColor: kPrimaryColor,
           controller: controller,
           readOnly: readOnly,
@@ -47,7 +51,7 @@ class CustomProfileTextField extends StatelessWidget {
             border: const UnderlineInputBorder(),
             prefixIcon: Padding(
               padding: const EdgeInsetsDirectional.only(
-                start: 100,
+                start: 20,
               ),
               child: SizedBox(
                 width: 50,
