@@ -163,7 +163,7 @@ class _ResetPasswordViewBodyState extends State<ResetPasswordViewBody> {
                                 .userResetPassword(
                               password: password!,
                               confirmPassword: confirmPassword!,
-                              token:  "Bearer $resetPasswordToken",
+                              token: "Bearer $resetPasswordToken",
                             );
                           }
                         },

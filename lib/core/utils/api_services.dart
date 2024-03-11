@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:safe_return/Features/profileView/data/models/get_user_model/get_user_model.dart';
 import '../../Features/auth/data/models/error_message_model.dart';
@@ -257,9 +258,47 @@ class UpdateUserService {
   }
 }
 
-class UserLogOutService {
+class UserPictureService {
   final Dio dio;
-  UserLogOutService(this.dio);
+  UserPictureService(
+    this.dio,
+  );
+
+  Future<void> uploadProfilePicture(File imageFile) async {
+    try {
+      FormData formData = FormData.fromMap(
+        {
+          'files': await MultipartFile.fromFile(
+            imageFile.path,
+            filename: imageFile.path.split('/').last,
+          ),
+        },
+      );
+
+      Response response = await dio.patch(
+        '$baseUrl/user/profilePic',
+        data: formData,
+        options: Options(
+          headers: {'token': tokenAccess},
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        log('Profile picture uploaded successfully');
+        log(json.encode(response.data));
+      } else {
+        log('Failed to upload profile picture');
+        log(json.encode(response.statusMessage));
+      }
+    } catch (e) {
+      log('Error uploading profile picture: $e');
+    }
+  }
+}
+
+class LogOutService {
+  final Dio dio;
+  LogOutService(this.dio);
 
   Future<void> userLogOut() async {
     try {

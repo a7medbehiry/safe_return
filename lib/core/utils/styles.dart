@@ -85,7 +85,7 @@ abstract class Styles {
     fontSize: 16,
     fontWeight: FontWeight.w600,
   );
-  
+
   static const textStyleBlack17 = TextStyle(
     fontSize: 17,
     fontWeight: FontWeight.w900,

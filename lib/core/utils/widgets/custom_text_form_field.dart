@@ -19,7 +19,8 @@ class CustomTextFormField extends StatefulWidget {
     this.maxLines = 1,
     this.label,
     this.onSaved,
-    this.validator, this.enabled,
+    this.validator,
+    this.enabled,
   });
   final String? hintText;
   final Widget? prefixIcon;

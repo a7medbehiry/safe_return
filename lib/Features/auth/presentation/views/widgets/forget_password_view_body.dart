@@ -46,7 +46,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
           height: MediaQuery.of(context).size.height,
           child: ModalProgressHUD(
             progressIndicator: const Center(
-              child:  CircularProgressIndicator(
+              child: CircularProgressIndicator(
                 color: kPrimaryColor,
               ),
             ),

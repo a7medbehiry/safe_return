@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -55,8 +56,9 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
     final base64Image = base64Encode(imageBytes);
     setState(() {
       _image = base64Image;
-      imageChanged.add(_image as String);
+      imageChanged.add(_image!);
     });
+    BlocProvider.of<UserCubit>(context).userPicture(File(_image!));
   }
 
   @override
@@ -92,6 +94,23 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
           email.text = userModel?.user?.email ?? '';
           isLoading = false;
         } else if (state is GetUserFailure) {
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+              context,
+              errorMessage['message'].toString(),
+            );
+          }
+          isLoading = false;
+        }
+        if (state is UserPictureLoading) {
+          isLoading = true;
+        } else if (state is UserPictureSuccess) {
+          SnackBarManager.showSnackBar(
+            context,
+            'Profile Picture Changed Successfully',
+          );
+          isLoading = false;
+        } else if (state is UserPictureFailure) {
           for (var errorMessage in state.errorMessages) {
             SnackBarManager.showSnackBar(
               context,
@@ -190,7 +209,16 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                   radius: 60,
                   child: Stack(
                     children: [
-                      if (_image != null)
+                      if (userModel?.user?.profilePic?.secureUrl != null)
+                        Positioned.fill(
+                          child: ClipOval(
+                            child: Image.network(
+                              userModel!.user!.profilePic!.secureUrl!,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                      if (_image != null && isImageEnabled)
                         Positioned.fill(
                           child: ClipOval(
                             child: Image.memory(
@@ -199,7 +227,8 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                             ),
                           ),
                         ),
-                      if (_image == null)
+                      if (_image == null &&
+                          userModel?.user?.profilePic?.secureUrl == null)
                         const Positioned.fill(
                           child: CircleAvatar(
                             backgroundColor: Colors.grey,
@@ -276,56 +305,56 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
     );
   }
 
- Positioned customProfilePhoto() {
-  return Positioned(
-    left: 140,
-    top: 110,
-    child: GestureDetector(
-      onTap: () {
-        if (isImageEnabled) {
-          _pickImageFromGallery();
-        }
-      },
-      child: CircleAvatar(
-        radius: 60,
-        child: Stack(
-          children: [
-            if (userModel?.user?.profilePic?.secureUrl != null)
-              Positioned.fill(
-                child: ClipOval(
-                  child: Image.network(
-                    userModel!.user!.profilePic!.secureUrl!,
-                    fit: BoxFit.fill,
+  Positioned customProfilePhoto() {
+    return Positioned(
+      left: 140,
+      top: 110,
+      child: GestureDetector(
+        onTap: () {
+          if (isImageEnabled) {
+            _pickImageFromGallery();
+          }
+        },
+        child: CircleAvatar(
+          radius: 60,
+          child: Stack(
+            children: [
+              if (userModel?.user?.profilePic?.secureUrl != null)
+                Positioned.fill(
+                  child: ClipOval(
+                    child: Image.network(
+                      userModel!.user!.profilePic!.secureUrl!,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
-              ),
-            if (_image != null && isImageEnabled)
-              Positioned.fill(
-                child: ClipOval(
-                  child: Image.memory(
-                    base64Decode(_image!),
-                    fit: BoxFit.fill,
+              if (_image != null && isImageEnabled)
+                Positioned.fill(
+                  child: ClipOval(
+                    child: Image.memory(
+                      base64Decode(_image!),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
-              ),
-            if (_image == null && userModel?.user?.profilePic?.secureUrl == null)
-              const Positioned.fill(
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 60,
+              if (_image == null &&
+                  userModel?.user?.profilePic?.secureUrl == null)
+                const Positioned.fill(
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey,
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 60,
+                    ),
                   ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 }
 
 StreamController<String> imageChanged = StreamController<String>.broadcast();

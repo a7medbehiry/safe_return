@@ -6,10 +6,8 @@ import 'Features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'Features/profileView/presentation/manager/user_cubit/user_cubit.dart';
 
 void main() async {
-
   runApp(const SafeReturnApp());
 }
-
 
 class SafeReturnApp extends StatelessWidget {
   const SafeReturnApp({super.key});

@@ -31,6 +31,21 @@ final class UpdateUserFailure extends UserState {
   UpdateUserFailure({required this.errorMessages});
 }
 
+
+final class UserPictureInitial extends UserState {}
+
+final class UserPictureLoading extends UserState {}
+
+final class UserPictureSuccess extends UserState {}
+
+final class UserPictureFailure extends UserState {
+  final List<Map<String, dynamic>> errorMessages;
+  UserPictureFailure({required this.errorMessages});
+}
+
+
+
+
 final class UserLogOutInitial extends UserState {}
 
 final class UserLogOutLoading extends UserState {}

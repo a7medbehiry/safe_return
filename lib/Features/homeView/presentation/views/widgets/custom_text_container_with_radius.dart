@@ -6,7 +6,8 @@ class CustomTextContainerWithRadius extends StatelessWidget {
     super.key,
     required this.width,
     required this.height,
-    required this.text, this.style,
+    required this.text,
+    this.style,
   });
   final double width, height;
   final String text;

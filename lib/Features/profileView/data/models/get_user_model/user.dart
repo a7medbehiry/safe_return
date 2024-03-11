@@ -1,4 +1,3 @@
-
 import 'profile_pic.dart';
 
 class User {

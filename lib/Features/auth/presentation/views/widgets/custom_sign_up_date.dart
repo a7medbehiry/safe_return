@@ -8,7 +8,8 @@ import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 
 class CustomSignUpDate extends StatefulWidget {
   const CustomSignUpDate({
-    Key? key, this.onChanged,
+    Key? key,
+    this.onChanged,
   }) : super(key: key);
   final void Function(DateTime)? onChanged;
   @override
@@ -21,7 +22,7 @@ class _CustomSignUpDateState extends State<CustomSignUpDate> {
 
   @override
   void initState() {
-    dateController.text = ""; 
+    dateController.text = "";
     super.initState();
   }
 
