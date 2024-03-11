@@ -5,16 +5,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:safe_return/constants.dart';
 
+import '../../../data/models/get_user_model/get_user_model.dart';
 import 'custom_profile_text_form_field.dart';
 
 class CustomProfileDate extends StatefulWidget {
   final bool enabled;
   final void Function(DateTime)? onChanged;
-
+  final TextEditingController? controller;
   const CustomProfileDate({
     Key? key,
     this.enabled = false,
     this.onChanged,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -22,12 +24,11 @@ class CustomProfileDate extends StatefulWidget {
 }
 
 class _CustomProfileDateState extends State<CustomProfileDate> {
-  TextEditingController dateInput = TextEditingController();
+  GetUserModel? userModel;
   DateTime? dob;
 
   @override
   void initState() {
-    dateInput.text = "";
     super.initState();
   }
 
@@ -44,17 +45,7 @@ class _CustomProfileDateState extends State<CustomProfileDate> {
           log('Invalid data type for date');
         }
       },
-      // onSaved: (data) {
-      //   if (data is DateTime) {
-      //     dob = data as DateTime;
-      //     if (widget.onChanged != null) {
-      //       widget.onChanged!(dob!);
-      //     }
-      //   } else {
-      //     log('Invalid data type for date');
-      //   }
-      // },
-      controller: dateInput,
+      controller: widget.controller,
       enabled: widget.enabled,
       readOnly: true,
       hintText: 'Data of birth',
@@ -95,7 +86,7 @@ class _CustomProfileDateState extends State<CustomProfileDate> {
       String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
       setState(
         () {
-          dateInput.text = formattedDate;
+          widget.controller?.text = formattedDate;
         },
       );
       if (widget.onChanged != null) {

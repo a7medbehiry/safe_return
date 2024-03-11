@@ -32,11 +32,6 @@ class SafeReturnApp extends StatelessWidget {
         BlocProvider(
           create: (context) => UserCubit(),
         ),
-        // BlocProvider(
-        //   create: (context) => UserCubit(
-        //     getServiceLocator.get<UserRepoImpl>(),
-        //   )..getUser(),
-        // ),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,

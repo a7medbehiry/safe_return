@@ -12,6 +12,8 @@ import 'package:safe_return/Features/profileView/presentation/views/widgets/cust
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
 import '../../../../../core/utils/functions/custom_snack_bar.dart';
+import '../../../data/models/get_user_model/get_user_model.dart';
+import '../../../data/models/get_user_model/user.dart';
 import 'custom_contact_us_bottom_sheet.dart';
 import 'custom_log_out.dart';
 import 'custom_profile_app_bar.dart';
@@ -34,6 +36,12 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
   String? _image;
   bool isImageEnabled = false;
   bool isLoading = false;
+  GetUserModel? userModel;
+
+  TextEditingController userName = TextEditingController();
+  TextEditingController email = TextEditingController();
+  late Future<void> initialization;
+
   void toggleImageEnabled() {
     setState(() {
       isImageEnabled = !isImageEnabled;
@@ -56,6 +64,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
     super.initState();
     _image = widget._image;
     listenForStream();
+    initialization = initializeData();
   }
 
   void listenForStream() {
@@ -66,10 +75,31 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
     });
   }
 
+  Future<void> initializeData() async {
+    userModel = GetUserModel(message: 'initial message', user: User());
+    await BlocProvider.of<UserCubit>(context).getUser(userModel!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
+        if (state is GetUserLoading) {
+          isLoading = true;
+        } else if (state is GetUserSuccess) {
+          userModel = GetUserModel(message: 'success', user: state.user);
+          userName.text = userModel?.user?.userName ?? '';
+          email.text = userModel?.user?.email ?? '';
+          isLoading = false;
+        } else if (state is GetUserFailure) {
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+              context,
+              errorMessage['message'].toString(),
+            );
+          }
+          isLoading = false;
+        }
         if (state is UserLogOutLoading) {
           isLoading = true;
         } else if (state is UserLogOutSuccess) {
@@ -145,13 +175,13 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
             children: [
               UserAccountsDrawerHeader(
                 accountName: Text(
-                  'Ahmed Behiry',
+                  userModel?.user?.userName ?? 'User Name',
                   style: Styles.textStyleSemi16.copyWith(
                     color: Colors.black,
                   ),
                 ),
                 accountEmail: Text(
-                  'amb@gmail.com',
+                  userModel?.user?.email ?? 'Email',
                   style: Styles.textStyle12.copyWith(
                     color: const Color(0xff9C9C9C),
                   ),

@@ -9,7 +9,11 @@ final class GetUserInitial extends UserState {}
 
 final class GetUserLoading extends UserState {}
 
-final class GetUserSuccess extends UserState {}
+final class GetUserSuccess extends UserState {
+  final User? user;
+
+  GetUserSuccess({this.user});
+}
 
 final class GetUserFailure extends UserState {
   final List<Map<String, dynamic>> errorMessages;
@@ -26,21 +30,6 @@ final class UpdateUserFailure extends UserState {
   final List<Map<String, dynamic>> errorMessages;
   UpdateUserFailure({required this.errorMessages});
 }
-
-final class SaveUpdatedUserInitial extends UserState {}
-
-final class SaveUpdatedUserLoading extends UserState {}
-
-final class SaveUpdatedUserSuccess extends UserState {}
-
-final class SaveUpdatedUserFailure extends UserState {
-  final String errorMessages;
-  SaveUpdatedUserFailure({required this.errorMessages});
-}
-
-final class ReadUpdatedUserInitial extends UserState {}
-
-final class ReadUpdatedUserSuccess extends UserState {}
 
 final class UserLogOutInitial extends UserState {}
 

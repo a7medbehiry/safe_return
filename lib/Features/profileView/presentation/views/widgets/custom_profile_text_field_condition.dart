@@ -1,11 +1,13 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
+import 'package:safe_return/Features/profileView/data/models/get_user_model/get_user_model.dart';
 import 'package:safe_return/Features/profileView/presentation/views/widgets/custom_profile_date.dart';
 import 'package:safe_return/core/utils/styles.dart';
 import 'package:safe_return/core/utils/widgets/custom_button.dart';
 import '../../../../../core/utils/functions/custom_snack_bar.dart';
+import '../../../data/models/get_user_model/user.dart';
 import '../../manager/user_cubit/user_cubit.dart';
 import 'custom_profile_text_form_field.dart';
 
@@ -27,29 +29,58 @@ class _CustomProfileTextFieldConditionState
     extends State<CustomProfileTextFieldCondition> {
   bool isTextFieldEnabled = false;
   TextEditingController userName = TextEditingController();
-  TextEditingController email = TextEditingController();
   TextEditingController number = TextEditingController();
   TextEditingController city = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController date = TextEditingController();
+
   GlobalKey<FormState> formKey = GlobalKey();
+
+  GetUserModel? userModel;
   bool isLoading = false;
   String? name;
   String? phoneNumber;
   String? governorate;
   DateTime? dob;
-  String? mail;
+
+  late Future<void> initialization;
+
   @override
   void initState() {
-    userName.text = "";
-    email.text = "";
-    number.text = "";
-    city.text = "";
     super.initState();
+    initialization = initializeData();
+  }
+
+  Future<void> initializeData() async {
+    userModel = GetUserModel(message: 'initial message', user: User());
+    await BlocProvider.of<UserCubit>(context).getUser(userModel!);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
+        if (state is GetUserLoading) {
+          isLoading = true;
+        } else if (state is GetUserSuccess) {
+          userModel = GetUserModel(message: 'success', user: state.user);
+          userName.text = userModel?.user?.userName ?? '';
+          number.text = userModel?.user?.phoneNumber ?? '';
+          city.text = userModel?.user?.governorate ?? '';
+          date.text = userModel?.user?.dob != null
+              ? DateFormat('yyyy-MM-dd').format(userModel!.user!.dob!)
+              : '';
+          email.text = userModel?.user?.email ?? '';
+          isLoading = false;
+        } else if (state is GetUserFailure) {
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+              context,
+              errorMessage['message'].toString(),
+            );
+          }
+          isLoading = false;
+        }
         if (state is UpdateUserLoading) {
           isLoading = true;
         } else if (state is UpdateUserSuccess) {
@@ -82,7 +113,7 @@ class _CustomProfileTextFieldConditionState
                   name = data;
                 },
                 enabled: isTextFieldEnabled,
-                hintText: 'User Name',
+                hintText: userModel?.user?.userName ?? 'User Name',
                 prefixIcon: Center(
                   child: SvgPicture.asset(
                     'assets/profileViewPhotos/person.svg',
@@ -101,7 +132,7 @@ class _CustomProfileTextFieldConditionState
                 },
                 enabled: isTextFieldEnabled,
                 keyboardType: TextInputType.phone,
-                hintText: 'Phone Number',
+                hintText: userModel?.user?.phoneNumber ?? 'Phone Number',
                 prefixIcon: Center(
                   child: SvgPicture.asset(
                     'assets/profileViewPhotos/phone.svg',
@@ -118,11 +149,8 @@ class _CustomProfileTextFieldConditionState
                 onChanged: (data) {
                   governorate = data;
                 },
-                onSaved: (data) {
-                  governorate = data;
-                },
                 enabled: isTextFieldEnabled,
-                hintText: 'Governorate',
+                hintText: userModel?.user?.governorate ?? 'Governorate',
                 prefixIcon: Center(
                   child: SvgPicture.asset(
                     'assets/profileViewPhotos/location.svg',
@@ -135,6 +163,7 @@ class _CustomProfileTextFieldConditionState
                 height: 22,
               ),
               CustomProfileDate(
+                controller: date,
                 enabled: isTextFieldEnabled,
                 onChanged: (data) {
                   dob = data;
@@ -145,11 +174,8 @@ class _CustomProfileTextFieldConditionState
               ),
               CustomProfileTextField(
                 controller: email,
-                onChanged: (data) {
-                  mail = data;
-                },
-                enabled: isTextFieldEnabled,
-                hintText:  'Email',
+                enabled: false,
+                hintText: userModel?.user?.email ?? 'Email',
                 prefixIcon: Center(
                   child: SvgPicture.asset('assets/profileViewPhotos/mail.svg'),
                 ),
@@ -162,75 +188,33 @@ class _CustomProfileTextFieldConditionState
               CustomButton(
                 onTap: () {
                   setState(() {
-                    isTextFieldEnabled = !isTextFieldEnabled;
-                    widget.onButtonClicked();
+                    if (formKey.currentState!.validate()) {
+                      isTextFieldEnabled = !isTextFieldEnabled;
+                      widget.onButtonClicked();
+                    }
                   });
-                  if (name == null &&
-                      phoneNumber == null &&
-                      governorate == null &&
-                      dob == null &&
-                      mail == null) {
-                    SnackBarManager.showSnackBar(
-                      context,
-                      'Fields is required',
-                    );
-                    return;
-                  } else if (name == null) {
-                    SnackBarManager.showSnackBar(
-                      context,
-                      'User Name is required',
-                    );
-                    return;
-                  } else if (name!.length < 2) {
+                  if (userName.text.length < 2) {
                     SnackBarManager.showSnackBar(
                       context,
                       'User Name length must be at least 2',
                     );
+                    isTextFieldEnabled = true;
                     return;
-                  } else if (phoneNumber == null) {
-                    SnackBarManager.showSnackBar(
-                      context,
-                      'Phone Number is required',
-                    );
-                    return;
-                  } else if (phoneNumber!.length < 11) {
+                  } else if (number.text.length < 11) {
                     SnackBarManager.showSnackBar(
                       context,
                       'Phone Number length must be at least 11',
                     );
+                    isTextFieldEnabled = true;
                     return;
-                  } else if (governorate == null) {
-                    SnackBarManager.showSnackBar(
-                      context,
-                      'Governorate is required',
+                  } else if (isTextFieldEnabled == false) {
+                    BlocProvider.of<UserCubit>(context).updateUser(
+                      userName: userName.text,
+                      phoneNumber: number.text,
+                      governorate: city.text,
+                      dob: DateTime.parse(date.text),
                     );
-                    return;
-                  } else if (dob == null) {
-                    SnackBarManager.showSnackBar(
-                      context,
-                      'Date of birth is required',
-                    );
-                    return;
-                  } else if (mail == null) {
-                    SnackBarManager.showSnackBar(
-                      context,
-                      'Email is required',
-                    );
-                    return;
-                  } else if (EmailValidator.validate(mail!) == false) {
-                    SnackBarManager.showSnackBar(
-                      context,
-                      'In-Valid Email',
-                    );
-                    return;
                   }
-                  BlocProvider.of<UserCubit>(context).updateUser(
-                    userName: name!,
-                    phoneNumber: phoneNumber!,
-                    governorate: governorate!,
-                    mail: mail!,
-                    dob: dob!,
-                  );
                 },
                 width: 105,
                 height: 44,

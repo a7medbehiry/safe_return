@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:safe_return/Features/profileView/data/models/get_user_model/get_user_model.dart';
 import '../../Features/auth/data/models/error_message_model.dart';
 import '../../constants.dart';
 
@@ -159,29 +160,85 @@ class ResetPasswordService {
   }
 }
 
+class GetUserService {
+  final Dio dio;
+  GetUserService(this.dio) {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          log('Request: ${options.method} ${options.path}');
+          log('Headers: ${options.headers}');
+          log('Body: ${options.data}');
+          return handler.next(options);
+        },
+        onResponse: (response, handler) {
+          log('Response: ${response.statusCode}');
+          log('Data: ${response.data}');
+          return handler.next(response);
+        },
+        onError: (DioException e, handler) {
+          log('DioError: $e');
+          return handler.next(e);
+        },
+      ),
+    );
+  }
+
+  Future<GetUserModel> getUser() async {
+    try {
+      Response response = await dio.get(
+        '${baseUrl}user/',
+        options: Options(
+          headers: {
+            'token': tokenAccess,
+          },
+        ),
+      );
+      if (response.statusCode == 201) {
+        log(json.encode(response.data));
+        log('Response status code: ${response.statusCode}');
+        log('Response data: ${json.encode(response.data)}');
+        final Map<String, dynamic> jsonData = response.data;
+        return GetUserModel.fromJson(jsonData);
+      } else {
+        log('Response status code: ${response.statusCode}');
+        log(json.encode(response.statusMessage));
+        throw Exception('Failed to get user data');
+      }
+    } on DioException catch (e) {
+      log('DioException: ${e.message}');
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'Oops, there was an error. Please try again.';
+      throw Exception(errorMessage);
+    }
+  }
+}
+
 class UpdateUserService {
   final Dio dio;
   UpdateUserService(this.dio);
 
   Future<void> updateUser({
+    required String userName,
     required String phoneNumber,
     required String governorate,
-    required String userName,
-    required String mail,
     required DateTime dob,
   }) async {
     try {
-      Response response = await dio.post(
-        '${baseUrl}user',
+      Response response = await dio.request(
+        '${baseUrl}user/',
         options: Options(
-          headers: {'token': tokenAccess},
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'token': tokenAccess,
+          },
         ),
         data: json.encode({
           "userName": userName,
           "phoneNumber": phoneNumber,
-          "goverenrate": governorate,
+          "governorate": governorate,
           "DOB": dob.toIso8601String(),
-          "email": mail,
         }),
       );
       if (response.statusCode == 200) {
