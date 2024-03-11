@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
 
-PersistentBottomSheetController<dynamic> customAboutUsBottomSheet(
-    BuildContext context) {
+Future<PersistentBottomSheetController> customAboutUsBottomSheet(
+    BuildContext context) async {
   return showBottomSheet(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(16),

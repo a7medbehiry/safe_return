@@ -3,8 +3,9 @@ import 'user.dart';
 class GetUserModel {
   String? message;
   User? user;
+  String? token;
 
-  GetUserModel({this.message, this.user});
+  GetUserModel({this.message, this.user, this.token});
 
   factory GetUserModel.fromJson(Map<String, dynamic> json) {
     return GetUserModel(
@@ -12,6 +13,7 @@ class GetUserModel {
       user: json['User'] == null
           ? null
           : User.fromJson(json['User'] as Map<String, dynamic>),
+      token: json['token'] as String?,
     );
   }
 
@@ -19,6 +21,7 @@ class GetUserModel {
     return {
       'message': message,
       'User': user?.toJson(),
+      'token': token,
     };
   }
 }

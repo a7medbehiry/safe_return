@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:safe_return/core/utils/styles.dart';
 
-PersistentBottomSheetController<dynamic> customContactUsBottomSheet(
-    BuildContext context) {
+Future<PersistentBottomSheetController> customContactUsBottomSheet(
+    BuildContext context) async {
   return showBottomSheet(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(16),

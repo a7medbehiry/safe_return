@@ -276,46 +276,56 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
     );
   }
 
-  Positioned customProfilePhoto() {
-    return Positioned(
-      left: 140,
-      top: 110,
-      child: GestureDetector(
-        onTap: () {
-          if (isImageEnabled) {
-            _pickImageFromGallery();
-          }
-        },
-        child: CircleAvatar(
-          radius: 60,
-          child: Stack(
-            children: [
-              if (_image != null)
-                Positioned.fill(
-                  child: ClipOval(
-                    child: Image.memory(
-                      base64Decode(_image!),
-                      fit: BoxFit.fill,
-                    ),
+ Positioned customProfilePhoto() {
+  return Positioned(
+    left: 140,
+    top: 110,
+    child: GestureDetector(
+      onTap: () {
+        if (isImageEnabled) {
+          _pickImageFromGallery();
+        }
+      },
+      child: CircleAvatar(
+        radius: 60,
+        child: Stack(
+          children: [
+            if (userModel?.user?.profilePic?.secureUrl != null)
+              Positioned.fill(
+                child: ClipOval(
+                  child: Image.network(
+                    userModel!.user!.profilePic!.secureUrl!,
+                    fit: BoxFit.fill,
                   ),
                 ),
-              if (_image == null)
-                const Positioned.fill(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.grey,
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white,
-                      size: 60,
-                    ),
+              ),
+            if (_image != null && isImageEnabled)
+              Positioned.fill(
+                child: ClipOval(
+                  child: Image.memory(
+                    base64Decode(_image!),
+                    fit: BoxFit.fill,
                   ),
                 ),
-            ],
-          ),
+              ),
+            if (_image == null && userModel?.user?.profilePic?.secureUrl == null)
+              const Positioned.fill(
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 60,
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 }
 
 StreamController<String> imageChanged = StreamController<String>.broadcast();
