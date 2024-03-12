@@ -268,15 +268,15 @@ class UserPictureService {
     try {
       FormData formData = FormData.fromMap(
         {
-          'files': await MultipartFile.fromFile(
+          'file': await MultipartFile.fromFile(
             imageFile.path,
             filename: imageFile.path.split('/').last,
           ),
         },
       );
 
-      Response response = await dio.patch(
-        '$baseUrl/user/profilePic',
+      Response response = await dio.post(
+        'http://10.0.2.2:3000l/user/profilePic',
         data: formData,
         options: Options(
           headers: {'token': tokenAccess},
