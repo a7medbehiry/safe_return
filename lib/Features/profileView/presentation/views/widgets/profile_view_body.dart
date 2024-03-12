@@ -23,33 +23,21 @@ import 'custom_profile_app_bar.dart';
 import 'custom_profile_text_field_condition.dart';
 
 class ProfileViewBody extends StatefulWidget {
-  // final String? _image;
-
   const ProfileViewBody({
     Key? key,
-    //String? imageString,
-  }) : //_image = imageString,
-        super(key: key);
+  }) : super(key: key);
 
   @override
   ProfileViewBodyState createState() => ProfileViewBodyState();
 }
 
 class ProfileViewBodyState extends State<ProfileViewBody> {
-  // String? _image;
-  bool isImageEnabled = false;
   bool isLoading = false;
   GetUserModel? userModel;
 
   TextEditingController userName = TextEditingController();
   TextEditingController email = TextEditingController();
   late Future<void> initialization;
-
-  void toggleImageEnabled() {
-    setState(() {
-      isImageEnabled = !isImageEnabled;
-    });
-  }
 
   File? file;
 
@@ -82,15 +70,17 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
         log('File Name: $fileName');
 
         Dio dio = Dio();
-        dio.interceptors.add(InterceptorsWrapper(
-          onRequest: (options, handler) {
-            options.validateStatus = (status) => true;
-            handler.next(options);
-          },
-        ));
+        dio.interceptors.add(
+          InterceptorsWrapper(
+            onRequest: (options, handler) {
+              options.validateStatus = (status) => true;
+              handler.next(options);
+            },
+          ),
+        );
 
         Response response = await dio.patch(
-          'http://10.0.2.2:3000/api/v1/user/profilePic',
+          '${baseUrl}user/profilePic',
           data: formData,
           options: Options(
             headers: {
@@ -116,23 +106,11 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
     }
   }
 
-  
-
   @override
   void initState() {
     super.initState();
-    // _image = widget._image;
-    // listenForStream();
     initialization = initializeData();
   }
-
-  // void listenForStream() {
-  //   imageChanged.stream.listen((onData) {
-  //     setState(() {
-  //       _image = onData;
-  //     });
-  //   });
-  // }
 
   Future<void> initializeData() async {
     userModel = GetUserModel(message: 'initial message', user: User());
@@ -151,23 +129,6 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
           email.text = userModel?.user?.email ?? '';
           isLoading = false;
         } else if (state is GetUserFailure) {
-          for (var errorMessage in state.errorMessages) {
-            SnackBarManager.showSnackBar(
-              context,
-              errorMessage['message'].toString(),
-            );
-          }
-          isLoading = false;
-        }
-        if (state is UserPictureLoading) {
-          isLoading = true;
-        } else if (state is UserPictureSuccess) {
-          SnackBarManager.showSnackBar(
-            context,
-            'Profile Picture Changed Successfully',
-          );
-          isLoading = false;
-        } else if (state is UserPictureFailure) {
           for (var errorMessage in state.errorMessages) {
             SnackBarManager.showSnackBar(
               context,
@@ -226,10 +187,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                         customProfilePhoto(),
                       ],
                     ),
-                    CustomProfileTextFieldCondition(
-                      isImageEnabled: isImageEnabled,
-                      onButtonClicked: toggleImageEnabled,
-                    ),
+                    const CustomProfileTextFieldCondition(),
                   ],
                 ),
               ),
@@ -275,7 +233,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                             ),
                           ),
                         ),
-                      if (file != null && isImageEnabled)
+                      if (file != null)
                         Positioned.fill(
                           child: ClipOval(
                             child: Image.file(
@@ -367,11 +325,8 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
       left: 140,
       top: 110,
       child: GestureDetector(
-        onTap: () {
-          if (isImageEnabled) {
-            // _pickImageFromGallery();
-            uploadUserPicture();
-          }
+        onDoubleTap: () {
+          uploadUserPicture();
         },
         child: CircleAvatar(
           radius: 60,
@@ -386,7 +341,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                     ),
                   ),
                 ),
-              if (file != null && isImageEnabled)
+              if (file != null)
                 Positioned.fill(
                   child: ClipOval(
                     child: Image.file(
@@ -414,5 +369,3 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
     );
   }
 }
-
-// StreamController<String> imageChanged = StreamController<String>.broadcast();

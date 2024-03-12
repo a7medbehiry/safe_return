@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
@@ -65,35 +63,6 @@ class UserCubit extends Cubit<UserState> {
         UpdateUserFailure(
           errorMessages: const [
             {'message': 'something wrong happen'},
-          ],
-        ),
-      );
-    }
-  }
-
-  userPicture(File imageFile) async {
-    emit(UserPictureLoading());
-
-    try {
-      await UserPictureService(Dio()).uploadProfilePicture(imageFile);
-      emit(UserPictureSuccess());
-    } on DioException catch (e) {
-      String errorMessage = 'Something went wrong';
-
-      if (e.response != null && e.response!.data != null) {
-        errorMessage = e.response!.data.toString();
-      }
-
-      emit(UserPictureFailure(
-        errorMessages: [
-          {'message': errorMessage}
-        ],
-      ));
-    } catch (e) {
-      emit(
-        UserPictureFailure(
-          errorMessages: const [
-            {'message': 'Something went wrong'},
           ],
         ),
       );

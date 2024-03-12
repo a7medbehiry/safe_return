@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -5,8 +7,11 @@ import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 
 class CustomReportsDate extends StatefulWidget {
+  final void Function(DateTime)? onChanged;
+
   const CustomReportsDate({
     Key? key,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -15,10 +20,11 @@ class CustomReportsDate extends StatefulWidget {
 
 class _CustomReportsDateState extends State<CustomReportsDate> {
   TextEditingController dateController = TextEditingController();
+  DateTime? dob;
 
   @override
   void initState() {
-    dateController.text = ""; //set the initial value of text field
+    dateController.text = "";
     super.initState();
   }
 
@@ -31,6 +37,16 @@ class _CustomReportsDateState extends State<CustomReportsDate> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
+      onChanged: (data) {
+        if (data is DateTime) {
+          dob = data as DateTime;
+          if (widget.onChanged != null) {
+            widget.onChanged!(dob!);
+          }
+        } else {
+          log('Invalid data type for date');
+        }
+      },
       controller: dateController,
       readOnly: true,
       prefixIcon: SizedBox(
@@ -77,6 +93,9 @@ class _CustomReportsDateState extends State<CustomReportsDate> {
           dateController.text = formattedDate;
         },
       );
+      if (widget.onChanged != null) {
+        widget.onChanged!(pickedDate);
+      }
     }
   }
 }

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:safe_return/Features/profileView/data/models/get_user_model/get_user_model.dart';
 import '../../Features/auth/data/models/error_message_model.dart';
@@ -258,44 +257,6 @@ class UpdateUserService {
   }
 }
 
-class UserPictureService {
-  final Dio dio;
-  UserPictureService(
-    this.dio,
-  );
-
-  Future<void> uploadProfilePicture(File imageFile) async {
-    try {
-      FormData formData = FormData.fromMap(
-        {
-          'file': await MultipartFile.fromFile(
-            imageFile.path,
-            filename: imageFile.path.split('/').last,
-          ),
-        },
-      );
-
-      Response response = await dio.post(
-        'http://10.0.2.2:3000l/user/profilePic',
-        data: formData,
-        options: Options(
-          headers: {'token': tokenAccess},
-        ),
-      );
-
-      if (response.statusCode == 200) {
-        log('Profile picture uploaded successfully');
-        log(json.encode(response.data));
-      } else {
-        log('Failed to upload profile picture');
-        log(json.encode(response.statusMessage));
-      }
-    } catch (e) {
-      log('Error uploading profile picture: $e');
-    }
-  }
-}
-
 class LogOutService {
   final Dio dio;
   LogOutService(this.dio);
@@ -307,6 +268,55 @@ class LogOutService {
         options: Options(
           headers: {'token': tokenAccess},
         ),
+      );
+      if (response.statusCode == 200) {
+        log(json.encode(response.data));
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'oops there was an error, please try again';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error, please try again');
+    }
+  }
+}
+
+class FindPersonService {
+  final Dio dio;
+  FindPersonService(this.dio);
+
+  Future<void> findForm({
+    required String fName,
+    required String lName,
+    required String phoneNumber,
+    required String name,
+    required int age,
+    required DateTime dob,
+    String? governorate,
+    String? description,
+  }) async {
+    try {
+      Response response = await dio.post(
+        '${baseUrl}foundReport/',
+        options: Options(
+          headers: {
+            'token': tokenAccess,
+          },
+        ),
+        data: json.encode({
+          "firstReporterName": fName,
+          "lastReporterName": lName,
+          "phoneNumber": phoneNumber,
+          "childName": name,
+          "age": age,
+          "date": dob.toIso8601String(),
+          "governorate": governorate,
+          "description": description,
+        }),
       );
       if (response.statusCode == 200) {
         log(json.encode(response.data));

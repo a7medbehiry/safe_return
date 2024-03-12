@@ -14,11 +14,7 @@ import 'custom_profile_text_form_field.dart';
 class CustomProfileTextFieldCondition extends StatefulWidget {
   const CustomProfileTextFieldCondition({
     super.key,
-    required this.isImageEnabled,
-    required this.onButtonClicked,
   });
-  final bool isImageEnabled;
-  final VoidCallback onButtonClicked;
 
   @override
   State<CustomProfileTextFieldCondition> createState() =>
@@ -190,7 +186,6 @@ class _CustomProfileTextFieldConditionState
                   setState(() {
                     if (formKey.currentState!.validate()) {
                       isTextFieldEnabled = !isTextFieldEnabled;
-                      widget.onButtonClicked();
                     }
                   });
                   if (userName.text.length < 2) {
