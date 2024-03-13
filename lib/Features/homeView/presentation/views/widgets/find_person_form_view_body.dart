@@ -46,10 +46,6 @@ class _FindPersonFormViewBodyState extends State<FindPersonFormViewBody> {
           isLoading = true;
         } else if (state is FindFormSuccess) {
           context.goNamed('findPersonFormThankYouView');
-          SnackBarManager.showSnackBar(
-            context,
-            'Form is Confirmed Successfully',
-          );
           isLoading = false;
         } else if (state is FindFormFailure) {
           for (var errorMessage in state.errorMessages) {
