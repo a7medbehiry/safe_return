@@ -72,7 +72,7 @@ class SnackBarManager {
                 ),
               ),
             ),
-            duration: const Duration(seconds: 2),
+            duration: const Duration(seconds: 1),
           ),
         )
         .closed
