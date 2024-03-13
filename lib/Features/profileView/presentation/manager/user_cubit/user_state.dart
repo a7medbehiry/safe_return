@@ -42,9 +42,6 @@ final class UserPictureFailure extends UserState {
   UserPictureFailure({required this.errorMessages});
 }
 
-
-
-
 final class UserLogOutInitial extends UserState {}
 
 final class UserLogOutLoading extends UserState {}

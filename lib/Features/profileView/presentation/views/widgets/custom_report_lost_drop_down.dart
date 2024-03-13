@@ -5,8 +5,9 @@ import '../../../../../core/utils/styles.dart';
 
 class CustomReportLostDropDown extends StatefulWidget {
   final VoidCallback? onEdit;
+  final VoidCallback? onDelete;
 
-  const CustomReportLostDropDown({super.key, this.onEdit});
+  const CustomReportLostDropDown({super.key, this.onEdit, this.onDelete});
 
   @override
   State<CustomReportLostDropDown> createState() =>
@@ -87,6 +88,8 @@ class _CustomReportLostDropDownState extends State<CustomReportLostDropDown> {
                       selectedOption = data;
                       if (data == 'Edit' && widget.onEdit != null) {
                         widget.onEdit!();
+                      } else if (data == 'Delete' && widget.onDelete != null) {
+                        widget.onDelete!();
                       }
                     });
                   },

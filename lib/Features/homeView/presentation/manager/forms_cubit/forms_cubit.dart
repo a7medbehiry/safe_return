@@ -1,8 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
+import 'package:safe_return/Features/homeView/data/models/get_find_form_model/get_find_form_model.dart';
+import 'package:safe_return/Features/homeView/data/models/get_find_form_model/report.dart';
 import 'package:safe_return/core/utils/api_services.dart';
 
 part 'forms_state.dart';
@@ -43,6 +46,37 @@ class FormsCubit extends Cubit<FormsState> {
             {
               'message': 'Something wrong happen',
             },
+          ],
+        ),
+      );
+    }
+  }
+
+  getFindForm(GetFindFormModel findFormModel) async {
+    emit(GetFindFormLoading());
+
+    try {
+      GetFindFormModel findFormModelData =
+          await GetFindFormService(Dio()).getFindForm();
+      if (findFormModelData.reports != null) {
+        log('getUser success: ${findFormModelData.reports}');
+        emit(GetFindFormSuccess(report: findFormModelData.reports!));
+      } else {
+        log('getUser error: User data is null');
+        emit(
+          GetFindFormFailure(
+            errorMessages: const [
+              {'message': 'Failed to get user data'},
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      log('getUser error: $e');
+      emit(
+        GetFindFormFailure(
+          errorMessages: const [
+            {'message': 'Failed to get user data'},
           ],
         ),
       );
