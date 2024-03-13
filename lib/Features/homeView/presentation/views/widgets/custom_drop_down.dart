@@ -5,8 +5,14 @@ import 'package:safe_return/core/utils/styles.dart';
 import '../../../../../constants.dart';
 
 class CustomDropDown extends StatefulWidget {
-  const CustomDropDown({super.key, required this.width, required this.height});
+  const CustomDropDown(
+      {super.key,
+      required this.width,
+      required this.height,
+      required this.onGovernorateSelected});
   final double width, height;
+  final Function(String) onGovernorateSelected;
+
   @override
   State<CustomDropDown> createState() => _CustomDropDownState();
 }
@@ -94,6 +100,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
               setState(
                 () {
                   selectedGovernorate = city!;
+                  widget.onGovernorateSelected(selectedGovernorate!);
                 },
               );
             },

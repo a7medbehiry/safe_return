@@ -6,6 +6,8 @@ import 'package:safe_return/Features/homeView/presentation/views/missing_person_
 import 'package:safe_return/Features/homeView/presentation/views/missing_person_form_view.dart';
 import 'package:safe_return/Features/notificationView/presentation/views/notification_view.dart';
 import 'package:safe_return/Features/openingView/presentation/views/opening_view.dart';
+import 'package:safe_return/Features/profileView/presentation/views/edit_find_person_form_view.dart';
+import 'package:safe_return/Features/profileView/presentation/views/edit_missing_person_form_view.dart';
 import 'package:safe_return/Features/profileView/presentation/views/my_reports_view.dart';
 import 'package:safe_return/Features/profileView/presentation/views/profile_view.dart';
 import 'package:safe_return/core/utils/widgets/custom_navigation_bottom_bar.dart';
@@ -174,6 +176,24 @@ abstract class AppRouter {
                     name: 'myReportsView',
                     builder: (context, state) {
                       return MyReportsView(
+                        key: state.pageKey,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'editMissingPersonFormView',
+                    name: 'editMissingPersonFormView',
+                    builder: (context, state) {
+                      return EditMissingPersonFormView(
+                        key: state.pageKey,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'editFindPersonFormView',
+                    name: 'editFindPersonFormView',
+                    builder: (context, state) {
+                      return EditFindPersonFormView(
                         key: state.pageKey,
                       );
                     },

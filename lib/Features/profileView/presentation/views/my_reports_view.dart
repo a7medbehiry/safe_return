@@ -8,6 +8,7 @@ class MyReportsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: Color(0xffF3F6F6),
       body: MyReportsViewBody(),
     );
   }

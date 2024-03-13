@@ -3,23 +3,25 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_drop_down.dart';
-import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_reports_date.dart';
-import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_text_container.dart';
-import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_text_container_with_radius.dart';
 import 'package:safe_return/constants.dart';
-import '../../../../../core/utils/styles.dart';
-import '../../../../../core/utils/widgets/custom_button.dart';
-import '../../../../../core/utils/widgets/custom_text_form_field.dart';
+import 'package:safe_return/core/utils/styles.dart';
+import 'package:safe_return/core/utils/widgets/custom_button.dart';
+import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
+import '../../../../homeView/presentation/views/widgets/custom_image_picker_function.dart';
+import '../../../../homeView/presentation/views/widgets/custom_reports_date.dart';
+import '../../../../homeView/presentation/views/widgets/custom_text_container.dart';
+import '../../../../homeView/presentation/views/widgets/custom_text_container_with_radius.dart';
 
-class MissingPersonFormViewBody extends StatefulWidget {
-  const MissingPersonFormViewBody({super.key});
+class EditFindPersonFormViewBody extends StatefulWidget {
+  const EditFindPersonFormViewBody({super.key});
 
   @override
-  State<MissingPersonFormViewBody> createState() =>
-      _MissingPersonFormViewBodyState();
+  State<EditFindPersonFormViewBody> createState() =>
+      _EditFindPersonFormViewBodyState();
 }
 
-class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
+class _EditFindPersonFormViewBodyState
+    extends State<EditFindPersonFormViewBody> {
   GlobalKey<FormState> formKey = GlobalKey();
   bool isLoading = false;
 
@@ -40,7 +42,7 @@ class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
           child: Column(
             children: [
               const SizedBox(
-                height: 40,
+                height: 10,
               ),
               CustomTextContainerWithRadius(
                 width: 160,
@@ -51,7 +53,7 @@ class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +76,7 @@ class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
                 ],
               ),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
               CustomTextFormField(
                 onChanged: (data) {},
@@ -90,34 +92,60 @@ class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
                 height: 45,
               ),
               const SizedBox(
-                height: 25,
+                height: 15,
               ),
               CustomTextContainer(
                 width: 330,
                 height: 50,
-                text: 'Information about the missing person',
-                style: Styles.textStyleLight16.copyWith(
+                text: 'Information about the  person you found',
+                style: Styles.textStyleLight14.copyWith(
                   color: Colors.white,
                 ),
               ),
               const SizedBox(
-                height: 25,
+                height: 5,
               ),
-              CustomTextFormField(
-                onChanged: (data) {},
-                keyboardType: TextInputType.number,
-                label: const Text('National ID'),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: SvgPicture.asset(
-                    'assets/FormsViewPhotos/id.svg',
+              const Row(
+                children: [
+                  SizedBox(
+                    width: 130,
                   ),
-                ),
-                width: 330,
-                height: 50,
+                  Text(
+                    'Option',
+                    style: Styles.textStyle12,
+                  ),
+                  SizedBox(
+                    width: 135,
+                  ),
+                  Text(
+                    'Option',
+                    style: Styles.textStyle12,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomTextFormField(
+                    onChanged: (data) {},
+                    label: const Text('Name'),
+                    width: 160,
+                    height: 45,
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  CustomTextFormField(
+                    onChanged: (data) {},
+                    keyboardType: TextInputType.number,
+                    label: const Text('Age'),
+                    width: 160,
+                    height: 45,
+                  ),
+                ],
               ),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -128,19 +156,35 @@ class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
                   const SizedBox(
                     width: 15,
                   ),
-                  CustomDropDown(
-                    width: 160,
-                    height: 45,
-                    onGovernorateSelected: (data) {},
-                  ),
+                  const CustomImagePickerFunction(),
                 ],
               ),
               const SizedBox(
-                height: 20,
+                height: 15,
+              ),
+              CustomDropDown(
+                width: 330,
+                height: 45,
+                onGovernorateSelected: (data) {},
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              CustomTextFormField(
+                onChanged: (data) {},
+                hintText: 'Additional information',
+                width: 330,
+                height: 110,
+                maxLines: 30,
+              ),
+              const SizedBox(
+                height: 15,
               ),
               CustomButton(
-                onTap: () => context.goNamed('missingPersonFormThankYouView'),
-                width: 340,
+                onTap: () {
+                  context.goNamed('myReportsView');
+                },
+                width: 330,
                 height: 50,
                 text: Text(
                   'Confirm',

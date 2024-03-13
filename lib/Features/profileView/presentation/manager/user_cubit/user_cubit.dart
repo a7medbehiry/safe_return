@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
@@ -61,6 +62,25 @@ class UserCubit extends Cubit<UserState> {
     } catch (e) {
       emit(
         UpdateUserFailure(
+          errorMessages: const [
+            {'message': 'something wrong happen'},
+          ],
+        ),
+      );
+    }
+  }
+
+  userPicture({required File picture}) async {
+    emit(UserPictureLoading());
+
+    try {
+      await UserPictureService(Dio()).userPicture(
+        picture: picture,
+      );
+      emit(UserPictureSuccess());
+    } catch (e) {
+      emit(
+        UserPictureFailure(
           errorMessages: const [
             {'message': 'something wrong happen'},
           ],

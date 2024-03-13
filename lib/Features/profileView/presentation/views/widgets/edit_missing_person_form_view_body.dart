@@ -4,22 +4,24 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_drop_down.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_reports_date.dart';
-import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_text_container.dart';
-import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_text_container_with_radius.dart';
 import 'package:safe_return/constants.dart';
-import '../../../../../core/utils/styles.dart';
-import '../../../../../core/utils/widgets/custom_button.dart';
-import '../../../../../core/utils/widgets/custom_text_form_field.dart';
+import 'package:safe_return/core/utils/styles.dart';
+import 'package:safe_return/core/utils/widgets/custom_button.dart';
+import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 
-class MissingPersonFormViewBody extends StatefulWidget {
-  const MissingPersonFormViewBody({super.key});
+import '../../../../homeView/presentation/views/widgets/custom_text_container.dart';
+import '../../../../homeView/presentation/views/widgets/custom_text_container_with_radius.dart';
+
+class EditMissingPersonFormViewBody extends StatefulWidget {
+  const EditMissingPersonFormViewBody({super.key});
 
   @override
-  State<MissingPersonFormViewBody> createState() =>
-      _MissingPersonFormViewBodyState();
+  State<EditMissingPersonFormViewBody> createState() =>
+      _EditMissingPersonFormViewBodyState();
 }
 
-class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
+class _EditMissingPersonFormViewBodyState
+    extends State<EditMissingPersonFormViewBody> {
   GlobalKey<FormState> formKey = GlobalKey();
   bool isLoading = false;
 
@@ -139,7 +141,7 @@ class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
                 height: 20,
               ),
               CustomButton(
-                onTap: () => context.goNamed('missingPersonFormThankYouView'),
+                onTap: () => context.goNamed('myReportsView'),
                 width: 340,
                 height: 50,
                 text: Text(

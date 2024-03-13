@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
@@ -9,19 +11,21 @@ class FormsCubit extends Cubit<FormsState> {
   FormsCubit() : super(FormsInitial());
 
   findForm({
+    required File image,
     required String fName,
     required String lName,
     required String phoneNumber,
     required String name,
     required int age,
     required DateTime dob,
-    String? governorate,
+    required String governorate,
     String? description,
   }) async {
     emit(FindFormLoading());
 
     try {
       await FindPersonService(Dio()).findForm(
+        image: image,
         fName: fName,
         lName: lName,
         phoneNumber: phoneNumber,

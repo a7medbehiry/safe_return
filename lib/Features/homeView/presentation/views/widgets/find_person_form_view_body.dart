@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,6 +28,7 @@ class _FindPersonFormViewBodyState extends State<FindPersonFormViewBody> {
   GlobalKey<FormState> formKey = GlobalKey();
   bool isLoading = false;
 
+  File? image;
   String? fName;
   String? lName;
   String? phoneNumber;
@@ -198,22 +201,33 @@ class _FindPersonFormViewBodyState extends State<FindPersonFormViewBody> {
                       const SizedBox(
                         width: 15,
                       ),
-                      const CustomImagePickerFunction(),
+                      CustomImagePickerFunction(
+                        onImageSelected: (data) {
+                          setState(() {
+                            image = data;
+                          });
+                        },
+                      ),
                     ],
                   ),
                   const SizedBox(
                     height: 15,
                   ),
-                  const CustomDropDown(
+                  CustomDropDown(
                     width: 330,
                     height: 45,
+                    onGovernorateSelected: (data) {
+                      setState(() {
+                        governorate = data;
+                      });
+                    },
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   CustomTextFormField(
                     onChanged: (data) {
-                      governorate = data;
+                      description = data;
                     },
                     hintText: 'Additional information',
                     width: 330,
@@ -225,16 +239,67 @@ class _FindPersonFormViewBodyState extends State<FindPersonFormViewBody> {
                   ),
                   CustomButton(
                     onTap: () async {
-                      BlocProvider.of<FormsCubit>(context).findForm(
-                        fName: fName!,
-                        lName: lName!,
-                        phoneNumber: phoneNumber!,
-                        name: name!,
-                        age: age!,
-                        dob: dob!,
-                        governorate: governorate!,
-                        description: description,
-                      );
+                      if (formKey.currentState!.validate()) {
+                        if (fName == null &&
+                            lName == null &&
+                            phoneNumber == null &&
+                            dob == null &&
+                            image == null &&
+                            governorate == null) {
+                          SnackBarManager.showSnackBarForms(
+                            context,
+                            'Fields Required',
+                          );
+                          return;
+                        } else if (fName == null) {
+                          SnackBarManager.showSnackBarForms(
+                              context, 'First Name Field Required');
+                          return;
+                        } else if (fName!.length < 2) {
+                          SnackBarManager.showSnackBarForms(
+                              context, 'First Name length must be at least 2');
+                          return;
+                        } else if (lName == null) {
+                          SnackBarManager.showSnackBarForms(
+                              context, 'Last Name Field Required');
+                          return;
+                        } else if (lName!.length < 2) {
+                          SnackBarManager.showSnackBarForms(
+                              context, 'Last Name length must be at least 2');
+                          return;
+                        } else if (phoneNumber == null) {
+                          SnackBarManager.showSnackBarForms(
+                              context, 'Phone Number Field Required');
+                          return;
+                        } else if (phoneNumber!.length < 11) {
+                          SnackBarManager.showSnackBarForms(
+                              context, 'In-Valid Phone Number');
+                          return;
+                        } else if (dob == null) {
+                          SnackBarManager.showSnackBarForms(
+                              context, 'Birth Date Field Required');
+                          return;
+                        } else if (image == null) {
+                          SnackBarManager.showSnackBarForms(
+                              context, 'Image Field Required');
+                          return;
+                        } else if (governorate == null) {
+                          SnackBarManager.showSnackBarForms(
+                              context, 'Governorate Field Required');
+                          return;
+                        }
+                        BlocProvider.of<FormsCubit>(context).findForm(
+                          image: image!,
+                          fName: fName!,
+                          lName: lName!,
+                          phoneNumber: phoneNumber!,
+                          name: name!,
+                          age: age!,
+                          dob: dob!,
+                          governorate: governorate!,
+                          description: description,
+                        );
+                      }
                     },
                     width: 330,
                     height: 50,

@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -42,67 +39,19 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
   File? file;
 
   Future<void> uploadUserPicture() async {
-    try {
-      final imagePicker = ImagePicker();
-      final image = await imagePicker.pickImage(source: ImageSource.gallery);
+    final imagePicker = ImagePicker();
+    final image = await imagePicker.pickImage(source: ImageSource.gallery);
 
-      if (image == null) return;
+    if (image == null || !mounted) return;
 
-      final fileName = image.path.split('/').last;
+    setState(() {
+      file = File(image.path);
+    });
 
-      setState(() {
-        file = File(image.path);
-      });
-
-      try {
-        FormData formData = FormData.fromMap(
-          {
-            'image': [
-              await MultipartFile.fromFile(
-                file!.path,
-                filename: fileName,
-              ),
-            ],
-          },
-        );
-
-        log('Image Path: ${image.path}');
-        log('File Name: $fileName');
-
-        Dio dio = Dio();
-        dio.interceptors.add(
-          InterceptorsWrapper(
-            onRequest: (options, handler) {
-              options.validateStatus = (status) => true;
-              handler.next(options);
-            },
-          ),
-        );
-
-        Response response = await dio.patch(
-          '${baseUrl}user/profilePic',
-          data: formData,
-          options: Options(
-            headers: {
-              'token': tokenAccess,
-            },
-          ),
-        );
-
-        log('Response Status Code: ${response.statusCode}');
-
-        if (response.statusCode == 200) {
-          log('Profile picture uploaded successfully');
-          log('Response Data: ${json.encode(response.data)}');
-        } else {
-          log('Failed to upload profile picture');
-          log('Error Message: ${json.encode(response.statusMessage)}');
-        }
-      } catch (e) {
-        log('Error uploading profile picture: $e');
-      }
-    } catch (e) {
-      log('Error picking image: $e');
+    if (mounted) {
+      BlocProvider.of<UserCubit>(context).userPicture(
+        picture: file!,
+      );
     }
   }
 
@@ -129,6 +78,23 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
           email.text = userModel?.user?.email ?? '';
           isLoading = false;
         } else if (state is GetUserFailure) {
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+              context,
+              errorMessage['message'].toString(),
+            );
+          }
+          isLoading = false;
+        }
+        if (state is UserPictureLoading) {
+          isLoading = true;
+        } else if (state is UserPictureSuccess) {
+          SnackBarManager.showSnackBar(
+            context,
+            'Profile Picture Changed Successfully',
+          );
+          isLoading = false;
+        } else if (state is UserPictureFailure) {
           for (var errorMessage in state.errorMessages) {
             SnackBarManager.showSnackBar(
               context,
@@ -325,7 +291,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
       left: 140,
       top: 110,
       child: GestureDetector(
-        onDoubleTap: () {
+        onLongPress: () {
           uploadUserPicture();
         },
         child: CircleAvatar(

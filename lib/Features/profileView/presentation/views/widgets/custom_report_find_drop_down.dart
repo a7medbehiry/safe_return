@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:safe_return/constants.dart';
+import 'package:safe_return/core/utils/styles.dart';
 
-import '../../../../../constants.dart';
-import '../../../../../core/utils/styles.dart';
+class CustomReportFindDropDown extends StatefulWidget {
+  final VoidCallback? onEdit;
 
-class CustomMyReportsDropDown extends StatefulWidget {
-  const CustomMyReportsDropDown({super.key});
+  const CustomReportFindDropDown({super.key, this.onEdit});
 
   @override
-  State<CustomMyReportsDropDown> createState() =>
-      _CustomMyReportsDropDownState();
+  State<CustomReportFindDropDown> createState() =>
+      _CustomReportLostDropDownState();
 }
 
-class _CustomMyReportsDropDownState extends State<CustomMyReportsDropDown> {
+class _CustomReportLostDropDownState extends State<CustomReportFindDropDown> {
   String? selectedOption;
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _CustomMyReportsDropDownState extends State<CustomMyReportsDropDown> {
           children: [
             const CircleAvatar(
               radius: 30,
-              backgroundImage: AssetImage('assets/myReportsPhotos/girl.jpg'),
+              backgroundImage: AssetImage('assets/myReportsPhotos/boy.jpg'),
             ),
             const SizedBox(
               width: 10,
@@ -49,7 +50,7 @@ class _CustomMyReportsDropDownState extends State<CustomMyReportsDropDown> {
                       style: Styles.textStyleReg14,
                     ),
                     Text(
-                      'Lost',
+                      'Found',
                       style: Styles.textStyleBold14,
                     ),
                   ],
@@ -59,17 +60,13 @@ class _CustomMyReportsDropDownState extends State<CustomMyReportsDropDown> {
                   style: Styles.textStyleReg14,
                 ),
                 Text(
-                  'Name: Sohaila Ali',
-                  style: Styles.textStyleReg14,
-                ),
-                Text(
-                  'National ID: 5060701265348',
+                  'Name: Ali',
                   style: Styles.textStyleReg14,
                 ),
               ],
             ),
             const SizedBox(
-              width: 5,
+              width: 90,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -84,6 +81,9 @@ class _CustomMyReportsDropDownState extends State<CustomMyReportsDropDown> {
                   onChanged: (data) {
                     setState(() {
                       selectedOption = data;
+                      if (data == 'Edit' && widget.onEdit != null) {
+                        widget.onEdit!();
+                      }
                     });
                   },
                   items: <String>['Edit', 'Delete']

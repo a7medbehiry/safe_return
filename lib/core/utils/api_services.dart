@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:safe_return/Features/profileView/data/models/get_user_model/get_user_model.dart';
 import '../../Features/auth/data/models/error_message_model.dart';
@@ -257,6 +258,56 @@ class UpdateUserService {
   }
 }
 
+class UserPictureService {
+  final Dio dio;
+  UserPictureService(this.dio) {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          options.validateStatus = (status) => true;
+          handler.next(options);
+        },
+      ),
+    );
+  }
+
+  Future<void> userPicture({required File picture}) async {
+    try {
+      FormData formData = FormData.fromMap(
+        {
+          'image': [
+            await MultipartFile.fromFile(
+              picture.path,
+              filename: picture.path.split('/').last,
+            ),
+          ],
+        },
+      );
+
+      Response response = await dio.patch(
+        '${baseUrl}user/profilePic',
+        data: formData,
+        options: Options(
+          headers: {
+            'token': tokenAccess,
+          },
+        ),
+      );
+      log('Response Status Code: ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+        log('Profile picture uploaded successfully');
+        log('Response Data: ${json.encode(response.data)}');
+      } else {
+        log('Failed to upload profile picture');
+        log('Error Message: ${json.encode(response.statusMessage)}');
+      }
+    } catch (e) {
+      log('Error uploading profile picture: $e');
+    }
+  }
+}
+
 class LogOutService {
   final Dio dio;
   LogOutService(this.dio);
@@ -290,13 +341,14 @@ class FindPersonService {
   FindPersonService(this.dio);
 
   Future<void> findForm({
+    required File image,
     required String fName,
     required String lName,
     required String phoneNumber,
     required String name,
     required int age,
     required DateTime dob,
-    String? governorate,
+    required String governorate,
     String? description,
   }) async {
     try {
@@ -307,16 +359,24 @@ class FindPersonService {
             'token': tokenAccess,
           },
         ),
-        data: json.encode({
-          "firstReporterName": fName,
-          "lastReporterName": lName,
-          "phoneNumber": phoneNumber,
-          "childName": name,
-          "age": age,
-          "date": dob.toIso8601String(),
-          "governorate": governorate,
-          "description": description,
-        }),
+        data: FormData.fromMap(
+          {
+            "image": [
+              await MultipartFile.fromFile(
+                image.path,
+                filename: image.path.split('/').last,
+              ),
+            ],
+            "firstReporterName": fName,
+            "lastReporterName": lName,
+            "phoneNumber": phoneNumber,
+            "childName": name,
+            "age": age,
+            "date": dob.toIso8601String(),
+            "governorate": governorate,
+            "description": description,
+          },
+        ),
       );
       if (response.statusCode == 200) {
         log(json.encode(response.data));
