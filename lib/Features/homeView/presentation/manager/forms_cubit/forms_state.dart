@@ -21,7 +21,7 @@ final class GetFindFormInitial extends FormsState {}
 final class GetFindFormLoading extends FormsState {}
 
 final class GetFindFormSuccess extends FormsState {
-  final List<Report>? report;
+  final List<FindReport>? report;
 
   GetFindFormSuccess({this.report});
 }

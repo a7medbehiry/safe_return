@@ -5,7 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:safe_return/Features/homeView/data/models/get_find_form_model/get_find_form_model.dart';
-import 'package:safe_return/Features/homeView/data/models/get_find_form_model/report.dart';
+import 'package:safe_return/Features/homeView/data/models/get_find_form_model/find_report.dart';
 import 'package:safe_return/core/utils/api_services.dart';
 
 part 'forms_state.dart';

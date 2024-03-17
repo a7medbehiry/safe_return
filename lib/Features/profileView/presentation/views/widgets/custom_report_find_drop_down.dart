@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:safe_return/Features/homeView/data/models/get_find_form_model/get_find_form_model.dart';
-import 'package:safe_return/Features/homeView/data/models/get_find_form_model/report.dart';
+import 'package:safe_return/Features/homeView/data/models/get_find_form_model/find_report.dart';
 import 'package:safe_return/Features/homeView/presentation/manager/forms_cubit/forms_cubit.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
@@ -13,7 +13,7 @@ import '../../../../../core/utils/functions/custom_snack_bar.dart';
 class CustomReportFindDropDown extends StatefulWidget {
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
-  final Report? findFormModel;
+  final FindReport? findFormModel;
   final int currentIndex;
   const CustomReportFindDropDown(
       {super.key,
@@ -31,7 +31,7 @@ class _CustomReportLostDropDownState extends State<CustomReportFindDropDown> {
   String? selectedOption;
 
   GetFindFormModel? findFormModel;
-  List<Report>? reports;
+  List<FindReport>? reports;
   bool isLoading = false;
 
   late Future<void> initialization;
