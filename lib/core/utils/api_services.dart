@@ -505,7 +505,63 @@ class GetOneFindFormService {
   }
 }
 
+class UpdateFindPersonService {
+  final Dio dio;
+  UpdateFindPersonService(this.dio);
 
+  Future<void> updateFindForm({
+    File? image,
+    String? fName,
+    String? lName,
+    String? phoneNumber,
+    String? name,
+    int? age,
+    DateTime? dob,
+    String? governorate,
+    String? description,
+  }) async {
+    try {
+      Response response = await dio.put(
+        '${baseUrl}foundReport/65f0725f596d94b12a719c42',
+        options: Options(
+          headers: {
+            'token': tokenAccess,
+          },
+        ),
+        data: FormData.fromMap(
+          {
+            "image": [
+              await MultipartFile.fromFile(
+                image!.path,
+                filename: image.path.split('/').last,
+              ),
+            ],
+            "firstReporterName": fName,
+            "lastReporterName": lName,
+            "phoneNumber": phoneNumber,
+            "childName": name,
+            "age": age,
+            "date": dob?.toIso8601String(),
+            "governorate": governorate,
+            "description": description,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        log(json.encode(response.data));
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'oops there was an error, please try again';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error, please try again');
+    }
+  }
+}
 
 class GetMissingFormService {
   final Dio dio;

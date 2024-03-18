@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -31,6 +33,25 @@ class _EditFindPersonFormViewBodyState
   GlobalKey<FormState> formKey = GlobalKey();
   bool isLoading = false;
 
+  TextEditingController firstName = TextEditingController();
+  TextEditingController lastName = TextEditingController();
+  TextEditingController number = TextEditingController();
+  TextEditingController childName = TextEditingController();
+  TextEditingController year = TextEditingController();
+  TextEditingController date = TextEditingController();
+  TextEditingController city = TextEditingController();
+  TextEditingController desc = TextEditingController();
+
+  File? image;
+  String? fName;
+  String? lName;
+  String? phoneNumber;
+  String? name;
+  int? age;
+  DateTime? dob;
+  String? governorate;
+  String? description;
+
   GetOneFindFormModel? findOneFormModel;
   FindOneReport? report;
   late Future<void> initialization;
@@ -57,6 +78,17 @@ class _EditFindPersonFormViewBodyState
         } else if (state is GetOneFindFormSuccess) {
           findOneFormModel =
               GetOneFindFormModel(message: 'success', report: state.report);
+          firstName.text = findOneFormModel?.report?.firstReporterName ?? '';
+          lastName.text = findOneFormModel?.report?.lastReporterName ?? '';
+          number.text = findOneFormModel?.report?.phoneNumber ?? '';
+          childName.text = findOneFormModel?.report?.childName ?? '';
+          year.text = findOneFormModel?.report?.age?.toString() ?? '';
+          date.text = findOneFormModel?.report?.date != null
+              ? DateFormat('yyyy-MM-dd').format(findOneFormModel!.report!.date!)
+              : '';
+          city.text = findOneFormModel?.report?.governorate ?? '';
+          desc.text = findOneFormModel?.report?.description ?? '';
+
           isLoading = false;
         } else if (state is GetOneFindFormFailure) {
           for (var errorMessage in state.errorMessages) {
@@ -64,6 +96,22 @@ class _EditFindPersonFormViewBodyState
               context,
               errorMessage['message'].toString(),
             );
+          }
+          isLoading = false;
+        }
+        if (state is UpdateFindFormLoading) {
+          isLoading = true;
+        } else if (state is UpdateFindFormSuccess) {
+          context.goNamed('myReportsView');
+          SnackBarManager.showSnackBar(
+            context,
+            'Find Form Updated Successfully',
+          );
+          isLoading = false;
+        } else if (state is UpdateFindFormFailure) {
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+                context, errorMessage['message'].toString());
           }
           isLoading = false;
         }
@@ -101,7 +149,9 @@ class _EditFindPersonFormViewBodyState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomTextFormField(
-                        onChanged: (data) {},
+                        onChanged: (data) {
+                          fName = data;
+                        },
                         label: Text(
                           '${findOneFormModel?.report?.firstReporterName}',
                         ),
@@ -112,7 +162,9 @@ class _EditFindPersonFormViewBodyState
                         width: 10,
                       ),
                       CustomTextFormField(
-                        onChanged: (data) {},
+                        onChanged: (data) {
+                          lName = data;
+                        },
                         label: Text(
                           '${findOneFormModel?.report?.lastReporterName}',
                         ),
@@ -125,7 +177,9 @@ class _EditFindPersonFormViewBodyState
                     height: 15,
                   ),
                   CustomTextFormField(
-                    onChanged: (data) {},
+                    onChanged: (data) {
+                      phoneNumber = data;
+                    },
                     keyboardType: TextInputType.phone,
                     label: Text(
                       '${findOneFormModel?.report?.phoneNumber}',
@@ -175,7 +229,9 @@ class _EditFindPersonFormViewBodyState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomTextFormField(
-                        onChanged: (data) {},
+                        onChanged: (data) {
+                          name = data;
+                        },
                         label: Text(
                           '${findOneFormModel?.report?.childName}',
                         ),
@@ -186,7 +242,9 @@ class _EditFindPersonFormViewBodyState
                         width: 15,
                       ),
                       CustomTextFormField(
-                        onChanged: (data) {},
+                        onChanged: (data) {
+                          age = int.parse(data);
+                        },
                         keyboardType: TextInputType.number,
                         label: Text(
                           '${findOneFormModel?.report?.age}',
@@ -203,7 +261,9 @@ class _EditFindPersonFormViewBodyState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomReportsDate(
-                        onChanged: (data) {},
+                        onChanged: (data) {
+                          dob = data;
+                        },
                         hintText: DateFormat('yyyy-MM-dd').format(
                             findOneFormModel?.report?.date ?? DateTime.now()),
                       ),
@@ -211,7 +271,11 @@ class _EditFindPersonFormViewBodyState
                         width: 15,
                       ),
                       CustomEditFindFormImagePickerFunction(
-                        onImageSelected: (data) {},
+                        onImageSelected: (data) {
+                          setState(() {
+                            image = data;
+                          });
+                        },
                         src: findOneFormModel?.report?.image?.secureUrl,
                       ),
                     ],
@@ -222,16 +286,20 @@ class _EditFindPersonFormViewBodyState
                   CustomDropDown(
                     width: 330,
                     height: 45,
-                    onGovernorateSelected: (data) {},
+                    onGovernorateSelected: (data) {
+                      governorate = data;
+                    },
                     text: findOneFormModel?.report?.governorate,
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   CustomTextFormField(
-                    onChanged: (data) {},
-                    hintText:
-                        findOneFormModel?.report?.description ?? 'Description',
+                    onChanged: (data) {
+                      description = data;
+                    },
+                    hintText: findOneFormModel?.report?.description ??
+                        'Additional information',
                     width: 330,
                     height: 110,
                     maxLines: 30,
@@ -240,8 +308,27 @@ class _EditFindPersonFormViewBodyState
                     height: 15,
                   ),
                   CustomButton(
-                    onTap: () {
-                      context.goNamed('myReportsView');
+                    onTap: () async {
+                      if (formKey.currentState!.validate()) {
+                        if (image == null) {
+                          SnackBarManager.showSnackBar(
+                            context,
+                            'Please select an image.',
+                          );
+                          return;
+                        }
+                        BlocProvider.of<FormsCubit>(context).updateFindForm(
+                          image: image,
+                          fName: firstName.text,
+                          lName: lastName.text,
+                          phoneNumber: number.text,
+                          name: childName.text,
+                          age: int.parse(year.text),
+                          dob: DateTime.parse(date.text),
+                          governorate: city.text,
+                          description: desc.text,
+                        );
+                      }
                     },
                     width: 330,
                     height: 50,

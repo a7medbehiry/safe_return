@@ -121,7 +121,46 @@ class FormsCubit extends Cubit<FormsState> {
     }
   }
 
-   getMissingForm(GetMissingFormModel missingFormModel) async {
+  updateFindForm({
+    File? image,
+    String? fName,
+    String? lName,
+    String? phoneNumber,
+    String? name,
+    int? age,
+    DateTime? dob,
+    String? governorate,
+    String? description,
+  }) async {
+    emit(UpdateFindFormLoading());
+
+    try {
+      await UpdateFindPersonService(Dio()).updateFindForm(
+        image: image,
+        fName: fName,
+        lName: lName,
+        phoneNumber: phoneNumber,
+        name: name,
+        age: age,
+        dob: dob,
+        governorate: governorate,
+        description: description,
+      );
+      emit(UpdateFindFormSuccess());
+    } catch (e) {
+      emit(
+        UpdateFindFormFailure(
+          errorMessages: const [
+            {
+              'message': 'Something wrong happen',
+            },
+          ],
+        ),
+      );
+    }
+  }
+
+  getMissingForm(GetMissingFormModel missingFormModel) async {
     emit(GetMissingFormLoading());
 
     try {
