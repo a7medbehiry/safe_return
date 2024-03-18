@@ -11,7 +11,8 @@ class CustomReportsDate extends StatefulWidget {
   final String? hintText;
   const CustomReportsDate({
     Key? key,
-    this.onChanged, this.hintText,
+    this.onChanged,
+    this.hintText,
   }) : super(key: key);
 
   @override

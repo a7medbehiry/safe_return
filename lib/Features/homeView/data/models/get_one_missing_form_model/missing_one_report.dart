@@ -1,6 +1,6 @@
 import 'created_by.dart';
 
-class MissingReport {
+class MissingOneReport {
   String? id;
   String? firstReporterName;
   String? lastReporterName;
@@ -14,7 +14,7 @@ class MissingReport {
   DateTime? updatedAt;
   int? v;
 
-  MissingReport({
+  MissingOneReport({
     this.id,
     this.firstReporterName,
     this.lastReporterName,
@@ -29,8 +29,9 @@ class MissingReport {
     this.v,
   });
 
-  factory MissingReport.fromJson(Map<String, dynamic> json) {
-    return MissingReport(
+  factory MissingOneReport.fromJson(
+      Map<String, dynamic> json) {
+    return MissingOneReport(
       id: json['_id'] as String?,
       firstReporterName: json['firstReporterName'] as String?,
       lastReporterName: json['lastReporterName'] as String?,
@@ -42,7 +43,9 @@ class MissingReport {
       found: json['found'] as bool?,
       createdBy: json['createdBy'] == null
           ? null
-          : CreatedBy.fromJson(json['createdBy'] as Map<String, dynamic>),
+          : CreatedBy
+              .fromJson(
+                  json['createdBy'] as Map<String, dynamic>),
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -53,7 +56,8 @@ class MissingReport {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic>
+      toJson() {
     return {
       '_id': id,
       'firstReporterName': firstReporterName,
@@ -63,7 +67,8 @@ class MissingReport {
       'governorate': governorate,
       'date': date?.toIso8601String(),
       'found': found,
-      'createdBy': createdBy?.toJson(),
+      'createdBy': createdBy
+          ?.toJson(),
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
       '__v': v,

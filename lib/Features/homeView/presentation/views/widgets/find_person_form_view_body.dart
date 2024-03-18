@@ -28,8 +28,6 @@ class _FindPersonFormViewBodyState extends State<FindPersonFormViewBody> {
   GlobalKey<FormState> formKey = GlobalKey();
   bool isLoading = false;
 
-   
-
   File? image;
   String? fName;
   String? lName;

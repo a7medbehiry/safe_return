@@ -6,14 +6,16 @@ import 'package:safe_return/Features/profileView/presentation/views/widgets/cust
 class CustomEditFindFormImagePickerFunction extends StatefulWidget {
   final Function(File)? onImageSelected;
   final String? src;
-  const CustomEditFindFormImagePickerFunction({super.key, this.onImageSelected,  this.src});
+  const CustomEditFindFormImagePickerFunction(
+      {super.key, this.onImageSelected, this.src});
 
   @override
   State<CustomEditFindFormImagePickerFunction> createState() =>
       _CustomEditFindFormImagePickerFunctionState();
 }
 
-class _CustomEditFindFormImagePickerFunctionState extends State<CustomEditFindFormImagePickerFunction> {
+class _CustomEditFindFormImagePickerFunctionState
+    extends State<CustomEditFindFormImagePickerFunction> {
   File? _image;
 
   @override

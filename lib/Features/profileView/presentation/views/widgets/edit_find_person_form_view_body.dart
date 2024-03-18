@@ -332,7 +332,7 @@ class _EditFindPersonFormViewBodyState
                           name: name ?? childName.text,
                           age: age ?? int.parse(year.text),
                           dob: dob ?? DateTime.parse(date.text),
-                          governorate:governorate ?? city.text,
+                          governorate: governorate ?? city.text,
                           description: description ?? desc.text,
                         );
                       }
