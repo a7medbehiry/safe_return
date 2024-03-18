@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:safe_return/Features/homeView/presentation/manager/forms_cubit/forms_cubit.dart';
 import 'package:safe_return/Features/homeView/presentation/views/widgets/custom_drop_down.dart';
@@ -12,10 +13,10 @@ import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 import '../../../../../core/utils/functions/custom_snack_bar.dart';
 import '../../../../homeView/data/models/get_one_find_form_model/find_one_report.dart';
 import '../../../../homeView/data/models/get_one_find_form_model/get_one_find_form_model.dart';
-import '../../../../homeView/presentation/views/widgets/custom_image_picker_function.dart';
 import '../../../../homeView/presentation/views/widgets/custom_reports_date.dart';
 import '../../../../homeView/presentation/views/widgets/custom_text_container.dart';
 import '../../../../homeView/presentation/views/widgets/custom_text_container_with_radius.dart';
+import 'custom_edit_find_form_image_picker_function.dart';
 
 class EditFindPersonFormViewBody extends StatefulWidget {
   const EditFindPersonFormViewBody({super.key});
@@ -203,11 +204,16 @@ class _EditFindPersonFormViewBodyState
                     children: [
                       CustomReportsDate(
                         onChanged: (data) {},
+                        hintText: DateFormat('yyyy-MM-dd').format(
+                            findOneFormModel?.report?.date ?? DateTime.now()),
                       ),
                       const SizedBox(
                         width: 15,
                       ),
-                      const CustomImagePickerFunction(),
+                      CustomEditFindFormImagePickerFunction(
+                        onImageSelected: (data) {},
+                        src: findOneFormModel?.report?.image?.secureUrl,
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -217,6 +223,7 @@ class _EditFindPersonFormViewBodyState
                     width: 330,
                     height: 45,
                     onGovernorateSelected: (data) {},
+                    text: findOneFormModel?.report?.governorate,
                   ),
                   const SizedBox(
                     height: 15,
@@ -224,7 +231,7 @@ class _EditFindPersonFormViewBodyState
                   CustomTextFormField(
                     onChanged: (data) {},
                     hintText:
-                        '${findOneFormModel?.report?.description ?? 'Description'}',
+                        findOneFormModel?.report?.description ?? 'Description',
                     width: 330,
                     height: 110,
                     maxLines: 30,

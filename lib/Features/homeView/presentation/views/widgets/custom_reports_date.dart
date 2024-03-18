@@ -8,10 +8,10 @@ import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 
 class CustomReportsDate extends StatefulWidget {
   final void Function(DateTime)? onChanged;
-
+  final String? hintText;
   const CustomReportsDate({
     Key? key,
-    this.onChanged,
+    this.onChanged, this.hintText,
   }) : super(key: key);
 
   @override
@@ -57,7 +57,7 @@ class _CustomReportsDateState extends State<CustomReportsDate> {
           ),
         ),
       ),
-      hintText: 'Date',
+      hintText: widget.hintText,
       width: 160,
       height: 45,
       onTap: () {

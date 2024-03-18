@@ -28,8 +28,7 @@ class FindOneReport {
     this.image,
     this.childName,
     this.age,
-        this.description,
-
+    this.description,
     this.exist,
     this.createdBy,
     this.v,
@@ -51,7 +50,7 @@ class FindOneReport {
           : Image.fromJson(json['image'] as Map<String, dynamic>),
       childName: json['childName'] as String?,
       age: json['age'] as int?,
-       description: json['description'] as String?,
+      description: json['description'] as String?,
       exist: json['exist'] as bool?,
       createdBy: json['createdBy'] == null
           ? null

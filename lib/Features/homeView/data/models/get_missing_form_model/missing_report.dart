@@ -1,4 +1,7 @@
+import 'created_by.dart';
+
 class MissingReport {
+  String? id;
   String? firstReporterName;
   String? lastReporterName;
   String? phoneNumber;
@@ -6,13 +9,13 @@ class MissingReport {
   String? governorate;
   DateTime? date;
   bool? found;
-  String? createdBy;
-  String? id;
+  CreatedBy? createdBy;
   DateTime? createdAt;
   DateTime? updatedAt;
   int? v;
 
   MissingReport({
+    this.id,
     this.firstReporterName,
     this.lastReporterName,
     this.phoneNumber,
@@ -21,14 +24,15 @@ class MissingReport {
     this.date,
     this.found,
     this.createdBy,
-    this.id,
     this.createdAt,
     this.updatedAt,
     this.v,
   });
 
-  factory MissingReport.fromJson(Map<String, dynamic> json) {
+  factory MissingReport.fromJson(
+      Map<String, dynamic> json) {
     return MissingReport(
+      id: json['_id'] as String?,
       firstReporterName: json['firstReporterName'] as String?,
       lastReporterName: json['lastReporterName'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
@@ -37,8 +41,11 @@ class MissingReport {
       date:
           json['date'] == null ? null : DateTime.parse(json['date'] as String),
       found: json['found'] as bool?,
-      createdBy: json['createdBy'] as String?,
-      id: json['_id'] as String?,
+      createdBy: json['createdBy'] == null
+          ? null
+          : CreatedBy
+              .fromJson(
+                  json['createdBy'] as Map<String, dynamic>),
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -49,8 +56,10 @@ class MissingReport {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic>
+      toJson() {
     return {
+      '_id': id,
       'firstReporterName': firstReporterName,
       'lastReporterName': lastReporterName,
       'phoneNumber': phoneNumber,
@@ -58,8 +67,8 @@ class MissingReport {
       'governorate': governorate,
       'date': date?.toIso8601String(),
       'found': found,
-      'createdBy': createdBy,
-      '_id': id,
+      'createdBy': createdBy
+          ?.toJson(),
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
       '__v': v,

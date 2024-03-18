@@ -9,9 +9,11 @@ class CustomDropDown extends StatefulWidget {
       {super.key,
       required this.width,
       required this.height,
-      required this.onGovernorateSelected});
+      required this.onGovernorateSelected,
+      this.text});
   final double width, height;
   final Function(String) onGovernorateSelected;
+  final String? text;
 
   @override
   State<CustomDropDown> createState() => _CustomDropDownState();
@@ -81,8 +83,8 @@ class _CustomDropDownState extends State<CustomDropDown> {
             menuMaxHeight: 250,
             value: selectedGovernorate,
             dropdownColor: Colors.white,
-            hint: const Text(
-              'Governorate',
+            hint: Text(
+              widget.text ?? 'Governorate',
               style: Styles.textStyleReg16,
             ),
             icon: SvgPicture.asset(

@@ -6,8 +6,10 @@ import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:safe_return/Features/homeView/data/models/get_find_form_model/get_find_form_model.dart';
 import 'package:safe_return/Features/homeView/data/models/get_find_form_model/find_report.dart';
+import 'package:safe_return/Features/homeView/data/models/get_missing_form_model/missing_report.dart';
 import 'package:safe_return/core/utils/api_services.dart';
 
+import '../../../data/models/get_missing_form_model/get_missing_form_model.dart';
 import '../../../data/models/get_one_find_form_model/find_one_report.dart';
 import '../../../data/models/get_one_find_form_model/get_one_find_form_model.dart';
 
@@ -111,6 +113,37 @@ class FormsCubit extends Cubit<FormsState> {
       log('getUser error: $e');
       emit(
         GetOneFindFormFailure(
+          errorMessages: const [
+            {'message': 'Failed to get user data'},
+          ],
+        ),
+      );
+    }
+  }
+
+   getMissingForm(GetMissingFormModel missingFormModel) async {
+    emit(GetMissingFormLoading());
+
+    try {
+      GetMissingFormModel missingFormModelData =
+          await GetMissingFormService(Dio()).getMissingForm();
+      if (missingFormModelData.reports != null) {
+        log('getUser success: ${missingFormModelData.reports}');
+        emit(GetMissingFormSuccess(report: missingFormModelData.reports!));
+      } else {
+        log('getUser error: User data is null');
+        emit(
+          GetMissingFormFailure(
+            errorMessages: const [
+              {'message': 'Failed to get user data'},
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      log('getUser error: $e');
+      emit(
+        GetMissingFormFailure(
           errorMessages: const [
             {'message': 'Failed to get user data'},
           ],
