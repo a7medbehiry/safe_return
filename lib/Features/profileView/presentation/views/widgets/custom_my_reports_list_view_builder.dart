@@ -67,6 +67,23 @@ class _CustomMyReportsListViewBuilderState
           }
           isLoading = false;
         }
+        if (state is DeleteMissingLoading) {
+          isLoading = true;
+        } else if (state is DeleteMissingSuccess) {
+          SnackBarManager.showSnackBar(
+            context,
+            'Report Deleted Successfully',
+          );
+          isLoading = false;
+        } else if (state is DeleteMissingFailure) {
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+              context,
+              errorMessage['message'].toString(),
+            );
+          }
+          isLoading = false;
+        }
       },
       builder: (context, state) {
         return ListView.builder(
@@ -80,7 +97,9 @@ class _CustomMyReportsListViewBuilderState
                 CustomReportLostDropDown(
                   missingFormModel: widget.missingFormModel?.reports?[index],
                   onEdit: () => context.goNamed('editMissingPersonFormView'),
-                  onDelete: () {},
+                  onDelete: () {
+                    BlocProvider.of<FormsCubit>(context).deleteMissingCubit();
+                  },
                   currentIndex: index,
                 ),
                 const SizedBox(

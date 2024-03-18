@@ -68,6 +68,20 @@ final class DeleteFindFormFailure extends FormsState {
   DeleteFindFormFailure({required this.errorMessages});
 }
 
+
+final class MissingFormInitial extends FormsState {}
+
+final class MissingFormLoading extends FormsState {}
+
+final class MissingFormSuccess extends FormsState {}
+
+final class MissingFormFailure extends FormsState {
+  final List<Map<String, dynamic>> errorMessages;
+ MissingFormFailure({required this.errorMessages});
+}
+
+
+
 final class GetMissingFormInitial extends FormsState {}
 
 final class GetMissingFormLoading extends FormsState {}
@@ -81,4 +95,16 @@ final class GetMissingFormSuccess extends FormsState {
 final class GetMissingFormFailure extends FormsState {
   final List<Map<String, dynamic>> errorMessages;
   GetMissingFormFailure({required this.errorMessages});
+}
+
+
+final class DeleteMissingInitial extends FormsState {}
+
+final class DeleteMissingLoading extends FormsState {}
+
+final class DeleteMissingSuccess extends FormsState {}
+
+final class DeleteMissingFailure extends FormsState {
+  final List<Map<String, dynamic>> errorMessages;
+  DeleteMissingFailure({required this.errorMessages});
 }

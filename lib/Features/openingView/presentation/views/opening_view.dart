@@ -7,7 +7,10 @@ class OpeningView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: OpeningViewBody(),
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: OpeningViewBody(),
+      ),
     );
   }
 }

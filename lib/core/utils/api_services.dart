@@ -611,6 +611,52 @@ class DeleteFindReportService {
   }
 }
 
+class MissingPersonService {
+  final Dio dio;
+  MissingPersonService(this.dio);
+
+  Future<void> missingForm({
+    required String fName,
+    required String lName,
+    required String phoneNumber,
+    required String nId,
+    required DateTime dob,
+    required String governorate,
+  }) async {
+    try {
+      Response response = await dio.post(
+        '${baseUrl}missingReport/',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'token': tokenAccess,
+          },
+        ),
+        data: json.encode({
+          "firstReporterName": fName,
+          "lastReporterName": lName,
+          "phoneNumber": phoneNumber,
+          "nationalID": nId,
+          "governorate": governorate,
+          "date": dob.toIso8601String(),
+        }),
+      );
+      if (response.statusCode == 201) {
+        log(json.encode(response.data));
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'oops there was an error, please try again';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error, please try again');
+    }
+  }
+}
+
 class GetMissingFormService {
   final Dio dio;
   GetMissingFormService(this.dio) {
@@ -661,6 +707,34 @@ class GetMissingFormService {
       final String errorMessage = e.response?.data['error']['message'] ??
           'Oops, there was an error. Please try again.';
       throw Exception(errorMessage);
+    }
+  }
+}
+
+class DeleteMissingService {
+  final Dio dio;
+  DeleteMissingService(this.dio);
+
+  Future<void> deleteMissing() async {
+    try {
+      Response response = await dio.delete(
+        '${baseUrl}missingReport/65f7356cb8d61b0d289d63f6',
+        options: Options(
+          headers: {'token': tokenAccess},
+        ),
+      );
+      if (response.statusCode == 201) {
+        log(json.encode(response.data));
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage =
+          e.response?.data['error']['message'] ?? 'oops there was an error';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error');
     }
   }
 }

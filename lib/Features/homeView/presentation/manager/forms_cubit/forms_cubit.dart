@@ -177,6 +177,39 @@ class FormsCubit extends Cubit<FormsState> {
     }
   }
 
+  missingForm({
+    required String fName,
+    required String lName,
+    required String phoneNumber,
+    required String nId,
+    required DateTime dob,
+    required String governorate,
+  }) async {
+    emit(MissingFormLoading());
+
+    try {
+      await MissingPersonService(Dio()).missingForm(
+        fName: fName,
+        lName: lName,
+        phoneNumber: phoneNumber,
+        nId: nId,
+        governorate: governorate,
+        dob: dob,
+      );
+      emit(MissingFormSuccess());
+    } catch (e) {
+      emit(
+        MissingFormFailure(
+          errorMessages: const [
+            {
+              'message': 'Something wrong happen',
+            },
+          ],
+        ),
+      );
+    }
+  }
+
   getMissingForm(GetMissingFormModel missingFormModel) async {
     emit(GetMissingFormLoading());
 
@@ -202,6 +235,23 @@ class FormsCubit extends Cubit<FormsState> {
         GetMissingFormFailure(
           errorMessages: const [
             {'message': 'Failed to get user data'},
+          ],
+        ),
+      );
+    }
+  }
+
+  deleteMissingCubit() async {
+    emit(DeleteMissingLoading());
+
+    try {
+      await DeleteMissingService(Dio()).deleteMissing();
+      emit(DeleteMissingSuccess());
+    } catch (e) {
+      emit(
+        DeleteMissingFailure(
+          errorMessages: const [
+            {'message': 'something wrong happen sorry'},
           ],
         ),
       );
