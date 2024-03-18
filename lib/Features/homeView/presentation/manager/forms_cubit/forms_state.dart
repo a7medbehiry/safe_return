@@ -58,6 +58,17 @@ final class UpdateFindFormFailure extends FormsState {
   UpdateFindFormFailure({required this.errorMessages});
 }
 
+final class DeleteFindFormInitial extends FormsState {}
+
+final class DeleteFindFormLoading extends FormsState {}
+
+final class DeleteFindFormSuccess extends FormsState {}
+
+final class DeleteFindFormFailure extends FormsState {
+  final List<Map<String, dynamic>> errorMessages;
+  DeleteFindFormFailure({required this.errorMessages});
+}
+
 
 final class GetMissingFormInitial extends FormsState {}
 

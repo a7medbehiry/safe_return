@@ -160,6 +160,23 @@ class FormsCubit extends Cubit<FormsState> {
     }
   }
 
+  deleteFindForm() async {
+    emit(DeleteFindFormLoading());
+
+    try {
+      await DeleteFindReportService(Dio()).deleteFindReport();
+      emit(DeleteFindFormSuccess());
+    } catch (e) {
+      emit(
+        DeleteFindFormFailure(
+          errorMessages: const [
+            {'message': 'Something wrong happened'},
+          ],
+        ),
+      );
+    }
+  }
+
   getMissingForm(GetMissingFormModel missingFormModel) async {
     emit(GetMissingFormLoading());
 

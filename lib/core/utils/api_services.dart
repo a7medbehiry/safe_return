@@ -563,6 +563,54 @@ class UpdateFindPersonService {
   }
 }
 
+class DeleteFindReportService {
+  final Dio dio;
+  DeleteFindReportService(this.dio) {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          log('Request: ${options.method} ${options.path}');
+          log('Headers: ${options.headers}');
+          log('Body: ${options.data}');
+          return handler.next(options);
+        },
+        onResponse: (response, handler) {
+          log('Response: ${response.statusCode}');
+          log('Data: ${response.data}');
+          return handler.next(response);
+        },
+        onError: (DioException e, handler) {
+          log('DioError: $e');
+          return handler.next(e);
+        },
+      ),
+    );
+  }
+
+  Future<void> deleteFindReport() async {
+    try {
+      Response response = await dio.delete(
+        '${baseUrl}foundReport/65f1095fb8d61b0d289d5b07',
+        options: Options(
+          headers: {'token': tokenAccess},
+        ),
+      );
+      if (response.statusCode == 201) {
+        log(json.encode(response.data));
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'oops there was an error, please try again';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error, please try again');
+    }
+  }
+}
+
 class GetMissingFormService {
   final Dio dio;
   GetMissingFormService(this.dio) {

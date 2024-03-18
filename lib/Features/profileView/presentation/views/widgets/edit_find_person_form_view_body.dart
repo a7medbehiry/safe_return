@@ -88,7 +88,6 @@ class _EditFindPersonFormViewBodyState
               : '';
           city.text = findOneFormModel?.report?.governorate ?? '';
           desc.text = findOneFormModel?.report?.description ?? '';
-
           isLoading = false;
         } else if (state is GetOneFindFormFailure) {
           for (var errorMessage in state.errorMessages) {
