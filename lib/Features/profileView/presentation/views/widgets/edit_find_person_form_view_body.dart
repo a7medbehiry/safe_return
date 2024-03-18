@@ -59,6 +59,14 @@ class _EditFindPersonFormViewBodyState
   @override
   void initState() {
     super.initState();
+    firstName = TextEditingController();
+    lastName = TextEditingController();
+    number = TextEditingController();
+    childName = TextEditingController();
+    year = TextEditingController();
+    date = TextEditingController();
+    city = TextEditingController();
+    desc = TextEditingController();
     initialization = initializeData();
   }
 
@@ -77,7 +85,7 @@ class _EditFindPersonFormViewBodyState
           isLoading = true;
         } else if (state is GetOneFindFormSuccess) {
           findOneFormModel =
-              GetOneFindFormModel(message: 'success', report: state.report);
+              GetOneFindFormModel(message: 'success', report: state.findReport);
           firstName.text = findOneFormModel?.report?.firstReporterName ?? '';
           lastName.text = findOneFormModel?.report?.lastReporterName ?? '';
           number.text = findOneFormModel?.report?.phoneNumber ?? '';
@@ -310,7 +318,7 @@ class _EditFindPersonFormViewBodyState
                     onTap: () async {
                       if (formKey.currentState!.validate()) {
                         if (image == null) {
-                          SnackBarManager.showSnackBar(
+                          SnackBarManager.showSnackBarForms(
                             context,
                             'Please select an image.',
                           );
@@ -318,14 +326,14 @@ class _EditFindPersonFormViewBodyState
                         }
                         BlocProvider.of<FormsCubit>(context).updateFindForm(
                           image: image,
-                          fName: firstName.text,
-                          lName: lastName.text,
-                          phoneNumber: number.text,
-                          name: childName.text,
-                          age: int.parse(year.text),
-                          dob: DateTime.parse(date.text),
-                          governorate: city.text,
-                          description: desc.text,
+                          fName: fName ?? firstName.text,
+                          lName: lName ?? lastName.text,
+                          phoneNumber: phoneNumber ?? number.text,
+                          name: name ?? childName.text,
+                          age: age ?? int.parse(year.text),
+                          dob: dob ?? DateTime.parse(date.text),
+                          governorate:governorate ?? city.text,
+                          description: description ?? desc.text,
                         );
                       }
                     },

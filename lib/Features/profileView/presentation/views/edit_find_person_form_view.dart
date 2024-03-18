@@ -8,6 +8,7 @@ import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 import 'package:safe_return/core/utils/widgets/custom_app_bar.dart';
 
+import '../../../homeView/data/models/get_one_find_form_model/find_one_report.dart';
 import '../../../homeView/data/models/get_one_find_form_model/get_one_find_form_model.dart';
 
 class EditFindPersonFormView extends StatefulWidget {
@@ -30,6 +31,30 @@ class _EditFindPersonFormViewState extends State<EditFindPersonFormView> {
   TextEditingController city = TextEditingController();
   TextEditingController desc = TextEditingController();
 
+  late Future<void> initialization;
+  FindOneReport? report;
+
+  @override
+  void initState() {
+    super.initState();
+    firstName = TextEditingController();
+    lastName = TextEditingController();
+    number = TextEditingController();
+    childName = TextEditingController();
+    year = TextEditingController();
+    date = TextEditingController();
+    city = TextEditingController();
+    desc = TextEditingController();
+    initialization = initializeData();
+  }
+
+  Future<void> initializeData() async {
+    findOneFormModel =
+        GetOneFindFormModel(message: 'initial Message', report: report);
+    await BlocProvider.of<FormsCubit>(context)
+        .getOneFindForm(findOneFormModel!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FormsCubit, FormsState>(
@@ -38,7 +63,7 @@ class _EditFindPersonFormViewState extends State<EditFindPersonFormView> {
           isLoading = true;
         } else if (state is GetOneFindFormSuccess) {
           findOneFormModel =
-              GetOneFindFormModel(message: 'success', report: state.report);
+              GetOneFindFormModel(message: 'success', report: state.findReport);
           firstName.text = findOneFormModel?.report?.firstReporterName ?? '';
           lastName.text = findOneFormModel?.report?.lastReporterName ?? '';
           number.text = findOneFormModel?.report?.phoneNumber ?? '';

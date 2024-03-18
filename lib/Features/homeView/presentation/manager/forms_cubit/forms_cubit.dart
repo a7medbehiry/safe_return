@@ -98,7 +98,7 @@ class FormsCubit extends Cubit<FormsState> {
       );
       if (findOneFormModelData.report != null) {
         log('getUser success: ${findOneFormModelData.report}');
-        emit(GetOneFindFormSuccess(report: findOneFormModelData.report));
+        emit(GetOneFindFormSuccess(findReport: findOneFormModelData.report));
       } else {
         log('getUser error: User data is null');
         emit(
