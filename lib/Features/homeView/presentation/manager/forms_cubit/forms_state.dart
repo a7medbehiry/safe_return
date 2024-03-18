@@ -30,3 +30,18 @@ final class GetFindFormFailure extends FormsState {
   final List<Map<String, dynamic>> errorMessages;
   GetFindFormFailure({required this.errorMessages});
 }
+
+final class GetOneFindFormInitial extends FormsState {}
+
+final class GetOneFindFormLoading extends FormsState {}
+
+final class GetOneFindFormSuccess extends FormsState {
+  final FindOneReport? report;
+
+  GetOneFindFormSuccess({this.report});
+}
+
+final class GetOneFindFormFailure extends FormsState {
+  final List<Map<String, dynamic>> errorMessages;
+  GetOneFindFormFailure({required this.errorMessages});
+}

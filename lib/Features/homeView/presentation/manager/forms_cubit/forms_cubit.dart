@@ -8,6 +8,9 @@ import 'package:safe_return/Features/homeView/data/models/get_find_form_model/ge
 import 'package:safe_return/Features/homeView/data/models/get_find_form_model/find_report.dart';
 import 'package:safe_return/core/utils/api_services.dart';
 
+import '../../../data/models/get_one_find_form_model/find_one_report.dart';
+import '../../../data/models/get_one_find_form_model/get_one_find_form_model.dart';
+
 part 'forms_state.dart';
 
 class FormsCubit extends Cubit<FormsState> {
@@ -75,6 +78,39 @@ class FormsCubit extends Cubit<FormsState> {
       log('getUser error: $e');
       emit(
         GetFindFormFailure(
+          errorMessages: const [
+            {'message': 'Failed to get user data'},
+          ],
+        ),
+      );
+    }
+  }
+
+  getOneFindForm(GetOneFindFormModel findOneFormModel) async {
+    emit(GetOneFindFormLoading());
+
+    try {
+      GetOneFindFormModel findOneFormModelData =
+          await GetOneFindFormService(Dio()).getOneFindForm(
+        id: findOneFormModel.report?.id,
+      );
+      if (findOneFormModelData.report != null) {
+        log('getUser success: ${findOneFormModelData.report}');
+        emit(GetOneFindFormSuccess(report: findOneFormModelData.report));
+      } else {
+        log('getUser error: User data is null');
+        emit(
+          GetOneFindFormFailure(
+            errorMessages: const [
+              {'message': 'Failed to get user data'},
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      log('getUser error: $e');
+      emit(
+        GetOneFindFormFailure(
           errorMessages: const [
             {'message': 'Failed to get user data'},
           ],

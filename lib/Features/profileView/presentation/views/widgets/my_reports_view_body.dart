@@ -26,8 +26,7 @@ class _MyReportsViewBodyState extends State<MyReportsViewBody> {
             height: 10,
           ),
           const Expanded(
-            child: CustomMyReportsListViewBuilder(
-            ),
+            child: CustomMyReportsListViewBuilder(),
           ),
         ],
       ),
