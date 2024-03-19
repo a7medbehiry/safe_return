@@ -7,6 +7,7 @@ import 'package:safe_return/Features/profileView/data/models/get_user_model/get_
 import '../../Features/auth/data/models/error_message_model.dart';
 import '../../Features/homeView/data/models/get_missing_form_model/get_missing_form_model.dart';
 import '../../Features/homeView/data/models/get_one_find_form_model/get_one_find_form_model.dart';
+import '../../Features/homeView/data/models/get_one_missing_form_model/get_one_missing_form_model.dart';
 import '../../constants.dart';
 
 class SignUpService {
@@ -711,6 +712,106 @@ class GetMissingFormService {
   }
 }
 
+class GetOneMissingFormService {
+  final Dio dio;
+  GetOneMissingFormService(this.dio) {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          log('Request: ${options.method} ${options.path}');
+          log('Headers: ${options.headers}');
+          log('Body: ${options.data}');
+          return handler.next(options);
+        },
+        onResponse: (response, handler) {
+          log('Response: ${response.statusCode}');
+          log('Data: ${response.data}');
+          return handler.next(response);
+        },
+        onError: (DioException e, handler) {
+          log('DioError: $e');
+          return handler.next(e);
+        },
+      ),
+    );
+  }
+
+  Future<GetOneMissingFormModel> getOneMissingForm() async {
+    try {
+      Response response = await dio.get(
+        '${baseUrl}missingReport/65f73810b8d61b0d289d6413',
+        options: Options(
+          headers: {
+            'token': tokenAccess,
+          },
+        ),
+      );
+      if (response.statusCode == 201) {
+        log(json.encode(response.data));
+        log('Response status code: ${response.statusCode}');
+        log('Response data: ${json.encode(response.data)}');
+        final Map<String, dynamic> jsonData = response.data;
+        return GetOneMissingFormModel.fromJson(jsonData);
+      } else {
+        log('Response status code: ${response.statusCode}');
+        log(json.encode(response.statusMessage));
+        throw Exception('Failed to get user data');
+      }
+    } on DioException catch (e) {
+      log('DioException: ${e.message}');
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'Oops, there was an error. Please try again.';
+      throw Exception(errorMessage);
+    }
+  }
+}
+
+class UpdateMissingPersonService {
+  final Dio dio;
+  UpdateMissingPersonService(this.dio);
+
+  Future<void> updateMissingForm({
+    String? fName,
+    String? lName,
+    String? phoneNumber,
+    String? nId,
+    DateTime? dob,
+    String? governorate,
+  }) async {
+    try {
+      Response response = await dio.put(
+        '${baseUrl}missingReport/65f73810b8d61b0d289d6413',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'token': tokenAccess,
+          },
+        ),
+        data: json.encode({
+          "firstReporterName": fName,
+          "lastReporterName": lName,
+          "phoneNumber": phoneNumber,
+          "nationalID": nId,
+          "governorate": governorate,
+          "date": dob?.toIso8601String(),
+        }),
+      );
+      if (response.statusCode == 201) {
+        log(json.encode(response.data));
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage =
+          e.response?.data['error']['message'] ?? 'oops there was an error';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error');
+    }
+  }
+}
+
 class DeleteMissingService {
   final Dio dio;
   DeleteMissingService(this.dio);
@@ -718,7 +819,7 @@ class DeleteMissingService {
   Future<void> deleteMissing() async {
     try {
       Response response = await dio.delete(
-        '${baseUrl}missingReport/65f7356cb8d61b0d289d63f6',
+        '${baseUrl}missingReport/65f73810b8d61b0d289d6413',
         options: Options(
           headers: {'token': tokenAccess},
         ),

@@ -12,6 +12,8 @@ import 'package:safe_return/core/utils/api_services.dart';
 import '../../../data/models/get_missing_form_model/get_missing_form_model.dart';
 import '../../../data/models/get_one_find_form_model/find_one_report.dart';
 import '../../../data/models/get_one_find_form_model/get_one_find_form_model.dart';
+import '../../../data/models/get_one_missing_form_model/get_one_missing_form_model.dart';
+import '../../../data/models/get_one_missing_form_model/missing_one_report.dart';
 
 part 'forms_state.dart';
 
@@ -98,7 +100,7 @@ class FormsCubit extends Cubit<FormsState> {
       );
       if (findOneFormModelData.report != null) {
         log('getUser success: ${findOneFormModelData.report}');
-        emit(GetOneFindFormSuccess(findReport: findOneFormModelData.report));
+        emit(GetOneFindFormSuccess(findOneReport: findOneFormModelData.report));
       } else {
         log('getUser error: User data is null');
         emit(
@@ -235,6 +237,71 @@ class FormsCubit extends Cubit<FormsState> {
         GetMissingFormFailure(
           errorMessages: const [
             {'message': 'Failed to get user data'},
+          ],
+        ),
+      );
+    }
+  }
+
+  getOneMissingForm(GetOneMissingFormModel missingOneFormModel) async {
+    emit(GetOneMissingFormLoading());
+
+    try {
+      GetOneMissingFormModel missingOneFormModel =
+          await GetOneMissingFormService(Dio()).getOneMissingForm();
+      if (missingOneFormModel.report != null) {
+        log('get missing form data success: ${missingOneFormModel.report}');
+        emit(GetOneMissingFormSuccess(
+            missingOneReport: missingOneFormModel.report));
+      } else {
+        log('getUser error:  data is null');
+        emit(
+          GetOneMissingFormFailure(
+            errorMessages: const [
+              {'message': 'Failed to get  data'},
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      log('get one missing form error: $e');
+      emit(
+        GetOneMissingFormFailure(
+          errorMessages: const [
+            {'message': 'Failed to get  data'},
+          ],
+        ),
+      );
+    }
+  }
+
+  updateMissingForm({
+    String? fName,
+    String? lName,
+    String? phoneNumber,
+    String? nId,
+    DateTime? dob,
+    String? governorate,
+  }) async {
+    emit(UpdateMissingFormLoading());
+
+    try {
+      await UpdateMissingPersonService(Dio()).updateMissingForm(
+        fName: fName,
+        lName: lName,
+        phoneNumber: phoneNumber,
+        nId: nId,
+        governorate: governorate,
+        dob: dob,
+      );
+      emit(UpdateMissingFormSuccess());
+    } catch (e) {
+      emit(
+        UpdateMissingFormFailure(
+          errorMessages: const [
+            {
+              'message': 'SORRY Something wrong happen',
+            },
           ],
         ),
       );

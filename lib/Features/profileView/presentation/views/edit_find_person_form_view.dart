@@ -62,8 +62,8 @@ class _EditFindPersonFormViewState extends State<EditFindPersonFormView> {
         if (state is GetOneFindFormLoading) {
           isLoading = true;
         } else if (state is GetOneFindFormSuccess) {
-          findOneFormModel =
-              GetOneFindFormModel(message: 'success', report: state.findReport);
+          findOneFormModel = GetOneFindFormModel(
+              message: 'success', report: state.findOneReport);
           firstName.text = findOneFormModel?.report?.firstReporterName ?? '';
           lastName.text = findOneFormModel?.report?.lastReporterName ?? '';
           number.text = findOneFormModel?.report?.phoneNumber ?? '';
