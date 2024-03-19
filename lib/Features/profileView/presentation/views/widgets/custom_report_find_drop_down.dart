@@ -56,7 +56,7 @@ class _CustomReportLostDropDownState extends State<CustomReportFindDropDown> {
           isLoading = true;
         } else if (state is GetFindFormSuccess) {
           findFormModel =
-              GetFindFormModel(message: 'success', reports: state.report);
+              GetFindFormModel(message: 'success', reports: state.findReport);
           isLoading = false;
         } else if (state is GetFindFormFailure) {
           for (var errorMessage in state.errorMessages) {

@@ -61,13 +61,12 @@ class FormsCubit extends Cubit<FormsState> {
 
   getFindForm(GetFindFormModel findFormModel) async {
     emit(GetFindFormLoading());
-
     try {
       GetFindFormModel findFormModelData =
           await GetFindFormService(Dio()).getFindForm();
       if (findFormModelData.reports != null) {
         log('getUser success: ${findFormModelData.reports}');
-        emit(GetFindFormSuccess(report: findFormModelData.reports!));
+        emit(GetFindFormSuccess(findReport: findFormModelData.reports!));
       } else {
         log('getUser error: User data is null');
         emit(

@@ -244,10 +244,20 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                   'assets/profileEndDrawerPhotos/report.svg',
                 ),
                 title: const Text(
-                  'My Reports',
+                  'My Missing Reports',
                   style: Styles.textStyleMed15,
                 ),
-                onTap: () => context.goNamed('myReportsView'),
+                onTap: () => context.goNamed('myMissingReportsView'),
+              ),
+              ListTile(
+                leading: SvgPicture.asset(
+                  'assets/profileEndDrawerPhotos/report.svg',
+                ),
+                title: const Text(
+                  'My Find Reports',
+                  style: Styles.textStyleMed15,
+                ),
+                onTap: () => context.goNamed('myFindReportsView'),
               ),
               ListTile(
                 leading:
@@ -268,7 +278,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                 onTap: () => customAboutUsBottomSheet(context),
               ),
               const SizedBox(
-                height: 240,
+                height: 190,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 100),

@@ -8,7 +8,7 @@ import 'package:safe_return/Features/notificationView/presentation/views/notific
 import 'package:safe_return/Features/openingView/presentation/views/opening_view.dart';
 import 'package:safe_return/Features/profileView/presentation/views/edit_find_person_form_view.dart';
 import 'package:safe_return/Features/profileView/presentation/views/edit_missing_person_form_view.dart';
-import 'package:safe_return/Features/profileView/presentation/views/my_reports_view.dart';
+import 'package:safe_return/Features/profileView/presentation/views/my_missing_reports_view.dart';
 import 'package:safe_return/Features/profileView/presentation/views/profile_view.dart';
 import 'package:safe_return/core/utils/widgets/custom_navigation_bottom_bar.dart';
 import '../../Features/auth/presentation/views/check_mail_view.dart';
@@ -17,6 +17,7 @@ import '../../Features/auth/presentation/views/login_view.dart';
 import '../../Features/auth/presentation/views/reset_password_view.dart';
 import '../../Features/auth/presentation/views/sign_up_view.dart';
 import '../../Features/homeView/presentation/views/find_person_form_thank_you_view.dart';
+import '../../Features/profileView/presentation/views/my_find_reports_view.dart';
 
 abstract class AppRouter {
   static String initR = '/openingView';
@@ -172,10 +173,19 @@ abstract class AppRouter {
                 },
                 routes: [
                   GoRoute(
-                    path: 'myReportsView',
-                    name: 'myReportsView',
+                    path: 'myMissingReportsView',
+                    name: 'myMissingReportsView',
                     builder: (context, state) {
-                      return MyReportsView(
+                      return MyMissingReportsView(
+                        key: state.pageKey,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'myFindReportsView',
+                    name: 'myFindReportsView',
+                    builder: (context, state) {
+                      return MyFindReportsView(
                         key: state.pageKey,
                       );
                     },

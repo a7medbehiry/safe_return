@@ -193,6 +193,7 @@ class _FindPersonFormViewBodyState extends State<FindPersonFormViewBody> {
                         onChanged: (data) {
                           dob = data;
                         },
+                        hintText: 'Date',
                       ),
                       const SizedBox(
                         width: 15,
