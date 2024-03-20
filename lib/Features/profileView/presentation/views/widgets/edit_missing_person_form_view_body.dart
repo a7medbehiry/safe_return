@@ -19,7 +19,11 @@ import '../../../../homeView/presentation/views/widgets/custom_text_container.da
 import '../../../../homeView/presentation/views/widgets/custom_text_container_with_radius.dart';
 
 class EditMissingPersonFormViewBody extends StatefulWidget {
-  const EditMissingPersonFormViewBody({super.key});
+  final String? id;
+  const EditMissingPersonFormViewBody({
+    super.key,
+    this.id,
+  });
 
   @override
   State<EditMissingPersonFormViewBody> createState() =>
@@ -34,7 +38,7 @@ class _EditMissingPersonFormViewBodyState
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
   TextEditingController number = TextEditingController();
-  TextEditingController id = TextEditingController();
+  TextEditingController idController = TextEditingController();
   TextEditingController date = TextEditingController();
   TextEditingController city = TextEditingController();
 
@@ -57,6 +61,16 @@ class _EditMissingPersonFormViewBodyState
     number = TextEditingController();
     date = TextEditingController();
     city = TextEditingController();
+    initialization = initializeData();
+  }
+
+  Future<void> initializeData() async {
+    missingOneFormModel =
+        GetOneMissingFormModel(message: 'initial Message', report: report);
+    await BlocProvider.of<FormsCubit>(context).getOneMissingForm(
+      missingOneFormModel!,
+      id: widget.id,
+    );
   }
 
   @override
@@ -71,7 +85,8 @@ class _EditMissingPersonFormViewBodyState
           firstName.text = missingOneFormModel?.report?.firstReporterName ?? '';
           lastName.text = missingOneFormModel?.report?.lastReporterName ?? '';
           number.text = missingOneFormModel?.report?.phoneNumber ?? '';
-          id.text = missingOneFormModel?.report?.nationalId?.toString() ?? '';
+          idController.text =
+              missingOneFormModel?.report?.nationalId?.toString() ?? '';
           date.text = missingOneFormModel?.report?.date != null
               ? DateFormat('yyyy-MM-dd')
                   .format(missingOneFormModel!.report!.date!)
@@ -90,7 +105,7 @@ class _EditMissingPersonFormViewBodyState
         if (state is UpdateMissingFormLoading) {
           isLoading = true;
         } else if (state is UpdateMissingFormSuccess) {
-          context.goNamed('myReportsView');
+          context.goNamed('myMissingReportsView');
           SnackBarManager.showSnackBar(
             context,
             'Missing Form Updated Successfully',
@@ -249,10 +264,11 @@ class _EditMissingPersonFormViewBodyState
                     onTap: () async {
                       if (formKey.currentState!.validate()) {
                         BlocProvider.of<FormsCubit>(context).updateMissingForm(
+                          id: widget.id,
                           fName: fName ?? firstName.text,
                           lName: lName ?? lastName.text,
                           phoneNumber: phoneNumber ?? number.text,
-                          nId: nId ?? id.text,
+                          nId: nId ?? idController.text,
                           dob: dob ?? DateTime.parse(date.text),
                           governorate: governorate ?? city.text,
                         );

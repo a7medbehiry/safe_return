@@ -28,11 +28,10 @@ class _EditMissingPersonFormViewState extends State<EditMissingPersonFormView> {
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
   TextEditingController number = TextEditingController();
-  TextEditingController id = TextEditingController();
+  TextEditingController idController = TextEditingController();
   TextEditingController date = TextEditingController();
   TextEditingController city = TextEditingController();
 
-  late Future<void> initialization;
   MissingOneReport? report;
 
   @override
@@ -43,17 +42,8 @@ class _EditMissingPersonFormViewState extends State<EditMissingPersonFormView> {
     number = TextEditingController();
     date = TextEditingController();
     city = TextEditingController();
-    initialization = initializeData();
   }
 
-  Future<void> initializeData() async {
-    missingOneFormModel =
-        GetOneMissingFormModel(message: 'initial Message', report: report);
-    await BlocProvider.of<FormsCubit>(context).getOneMissingForm(
-      missingOneFormModel!,
-      id: widget.id,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +57,8 @@ class _EditMissingPersonFormViewState extends State<EditMissingPersonFormView> {
           firstName.text = missingOneFormModel?.report?.firstReporterName ?? '';
           lastName.text = missingOneFormModel?.report?.lastReporterName ?? '';
           number.text = missingOneFormModel?.report?.phoneNumber ?? '';
-          id.text = missingOneFormModel?.report?.nationalId?.toString() ?? '';
+          idController.text =
+              missingOneFormModel?.report?.nationalId?.toString() ?? '';
           date.text = missingOneFormModel?.report?.date != null
               ? DateFormat('yyyy-MM-dd')
                   .format(missingOneFormModel!.report!.date!)
@@ -100,9 +91,11 @@ class _EditMissingPersonFormViewState extends State<EditMissingPersonFormView> {
                 context,
                 title: 'Report of a missing person',
               ),
-              body: const SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: EditMissingPersonFormViewBody(),
+              body: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: EditMissingPersonFormViewBody(
+                  id: widget.id,
+                ),
               ),
             ),
           ),

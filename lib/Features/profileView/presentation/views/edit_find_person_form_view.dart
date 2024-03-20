@@ -35,7 +35,6 @@ class _EditFindPersonFormViewState extends State<EditFindPersonFormView> {
   TextEditingController city = TextEditingController();
   TextEditingController desc = TextEditingController();
 
-  late Future<void> initialization;
   FindOneReport? report;
 
   @override
@@ -49,17 +48,9 @@ class _EditFindPersonFormViewState extends State<EditFindPersonFormView> {
     date = TextEditingController();
     city = TextEditingController();
     desc = TextEditingController();
-    initialization = initializeData();
   }
 
-  Future<void> initializeData() async {
-    findOneFormModel =
-        GetOneFindFormModel(message: 'initial Message', report: report);
-    await BlocProvider.of<FormsCubit>(context).getOneFindForm(
-      findOneFormModel!,
-      id: widget.id,
-    );
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -107,8 +98,10 @@ class _EditFindPersonFormViewState extends State<EditFindPersonFormView> {
                 context,
                 title: 'Report of a missing person found',
               ),
-              body: const SingleChildScrollView(
-                child: EditFindPersonFormViewBody(),
+              body: SingleChildScrollView(
+                child: EditFindPersonFormViewBody(
+                  id: widget.id,
+                ),
               ),
             ),
           ),

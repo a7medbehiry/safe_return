@@ -21,8 +21,10 @@ import '../../../../homeView/presentation/views/widgets/custom_text_container_wi
 import 'custom_edit_find_form_image_picker_function.dart';
 
 class EditFindPersonFormViewBody extends StatefulWidget {
+  final String? id;
   const EditFindPersonFormViewBody({
     super.key,
+    this.id,
   });
 
   @override
@@ -54,6 +56,8 @@ class _EditFindPersonFormViewBodyState
   String? governorate;
   String? description;
 
+  late Future<void> initialization;
+
   GetOneFindFormModel? findOneFormModel;
   FindOneReport? report;
 
@@ -68,6 +72,16 @@ class _EditFindPersonFormViewBodyState
     date = TextEditingController();
     city = TextEditingController();
     desc = TextEditingController();
+    initialization = initializeData();
+  }
+
+  Future<void> initializeData() async {
+    findOneFormModel =
+        GetOneFindFormModel(message: 'initial Message', report: report);
+    await BlocProvider.of<FormsCubit>(context).getOneFindForm(
+      findOneFormModel!,
+      id: widget.id,
+    );
   }
 
   @override
@@ -102,7 +116,7 @@ class _EditFindPersonFormViewBodyState
         if (state is UpdateFindFormLoading) {
           isLoading = true;
         } else if (state is UpdateFindFormSuccess) {
-          context.goNamed('myReportsView');
+          context.goNamed('myFindReportsView');
           SnackBarManager.showSnackBar(
             context,
             'Find Form Updated Successfully',
@@ -320,6 +334,7 @@ class _EditFindPersonFormViewBodyState
                           return;
                         }
                         BlocProvider.of<FormsCubit>(context).updateFindForm(
+                          id: widget.id,
                           image: image,
                           fName: fName ?? firstName.text,
                           lName: lName ?? lastName.text,
