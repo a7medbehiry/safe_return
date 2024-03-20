@@ -50,8 +50,6 @@ class _EditFindPersonFormViewState extends State<EditFindPersonFormView> {
     desc = TextEditingController();
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FormsCubit, FormsState>(

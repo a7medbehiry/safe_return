@@ -4,11 +4,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:safe_return/Features/homeView/data/models/get_find_form_model/get_find_form_model.dart';
 import 'package:safe_return/Features/profileView/data/models/get_user_model/get_user_model.dart';
-import '../../Features/auth/data/models/error_message_model.dart';
 import '../../Features/homeView/data/models/get_missing_form_model/get_missing_form_model.dart';
 import '../../Features/homeView/data/models/get_one_find_form_model/get_one_find_form_model.dart';
 import '../../Features/homeView/data/models/get_one_missing_form_model/get_one_missing_form_model.dart';
 import '../../constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpService {
   final Dio dio;
@@ -39,9 +39,8 @@ class SignUpService {
           "gender": gender.toString().split('.').last,
         }),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         log(json.encode(response.data));
-        ErrorMessageModel.fromJson(jsonDecode(response.data));
       } else {
         log(json.encode(response.statusMessage));
       }
@@ -58,7 +57,27 @@ class SignUpService {
 
 class LoginService {
   final Dio dio;
-  LoginService(this.dio);
+  LoginService(this.dio) {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          log('Request: ${options.method} ${options.path}');
+          log('Headers: ${options.headers}');
+          log('Body: ${options.data}');
+          return handler.next(options);
+        },
+        onResponse: (response, handler) {
+          log('Response: ${response.statusCode}');
+          log('Data: ${response.data}');
+          return handler.next(response);
+        },
+        onError: (DioException e, handler) {
+          log('DioError: $e');
+          return handler.next(e);
+        },
+      ),
+    );
+  }
 
   Future<void> userLogin({
     required String email,
@@ -75,9 +94,9 @@ class LoginService {
           "password": password,
         }),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         log(json.encode(response.data));
-        ErrorMessageModel.fromJson(jsonDecode(response.data));
+        _saveToken(response.data['token']);
       } else {
         log(json.encode(response.statusMessage));
       }
@@ -89,6 +108,20 @@ class LoginService {
       log(e.toString());
       throw Exception('oops there was an error, please try again');
     }
+  }
+
+  _saveToken(String token) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = "token";
+    final value = token;
+    pref.setString(key, value);
+  }
+
+  readToken() async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
+    log('readToken: $token');
   }
 }
 
@@ -190,12 +223,15 @@ class GetUserService {
   }
 
   Future<GetUserModel> getUser() async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.get(
         '${baseUrl}user/',
         options: Options(
           headers: {
-            'token': tokenAccess,
+            'token': token,
           },
         ),
       );
@@ -229,6 +265,9 @@ class UpdateUserService {
     required String governorate,
     required DateTime dob,
   }) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.request(
         '${baseUrl}user/',
@@ -236,7 +275,7 @@ class UpdateUserService {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
-            'token': tokenAccess,
+            'token': token,
           },
         ),
         data: json.encode({
@@ -276,6 +315,9 @@ class UserPictureService {
   }
 
   Future<void> userPicture({required File picture}) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       FormData formData = FormData.fromMap(
         {
@@ -293,7 +335,7 @@ class UserPictureService {
         data: formData,
         options: Options(
           headers: {
-            'token': tokenAccess,
+            'token': token,
           },
         ),
       );
@@ -317,11 +359,16 @@ class LogOutService {
   LogOutService(this.dio);
 
   Future<void> userLogOut() async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.post(
         '${baseUrl}user',
         options: Options(
-          headers: {'token': tokenAccess},
+          headers: {
+            'token': token,
+          },
         ),
       );
       if (response.statusCode == 200) {
@@ -355,12 +402,15 @@ class FindPersonService {
     required String governorate,
     String? description,
   }) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.post(
         '${baseUrl}foundReport/',
         options: Options(
           headers: {
-            'token': tokenAccess,
+            'token': token,
           },
         ),
         data: FormData.fromMap(
@@ -423,12 +473,15 @@ class GetFindFormService {
   }
 
   Future<GetFindFormModel> getFindForm() async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.get(
         '${baseUrl}foundReport/',
         options: Options(
           headers: {
-            'token': tokenAccess,
+            'token': token,
           },
         ),
       );
@@ -477,12 +530,15 @@ class GetOneFindFormService {
   }
 
   Future<GetOneFindFormModel> getOneFindForm({required String? id}) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.get(
         '${baseUrl}foundReport/$id',
         options: Options(
           headers: {
-            'token': tokenAccess,
+            'token': token,
           },
         ),
       );
@@ -522,12 +578,15 @@ class UpdateFindPersonService {
     String? governorate,
     String? description,
   }) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.put(
         '${baseUrl}foundReport/$id',
         options: Options(
           headers: {
-            'token': tokenAccess,
+            'token': token,
           },
         ),
         data: FormData.fromMap(
@@ -590,11 +649,16 @@ class DeleteFindReportService {
   }
 
   Future<void> deleteFindReport({required String? id}) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.delete(
         '${baseUrl}foundReport/$id',
         options: Options(
-          headers: {'token': tokenAccess},
+          headers: {
+            'token': token,
+          },
         ),
       );
       if (response.statusCode == 201) {
@@ -625,13 +689,16 @@ class MissingPersonService {
     required DateTime dob,
     required String governorate,
   }) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.post(
         '${baseUrl}missingReport/',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
-            'token': tokenAccess,
+            'token': token,
           },
         ),
         data: json.encode({
@@ -684,12 +751,15 @@ class GetMissingFormService {
   }
 
   Future<GetMissingFormModel> getMissingForm() async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.get(
         '${baseUrl}missingReport/',
         options: Options(
           headers: {
-            'token': tokenAccess,
+            'token': token,
           },
         ),
       );
@@ -737,13 +807,17 @@ class GetOneMissingFormService {
     );
   }
 
-  Future<GetOneMissingFormModel> getOneMissingForm({required String? id}) async {
+  Future<GetOneMissingFormModel> getOneMissingForm(
+      {required String? id}) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.get(
         '${baseUrl}missingReport/$id',
         options: Options(
           headers: {
-            'token': tokenAccess,
+            'token': token,
           },
         ),
       );
@@ -780,13 +854,16 @@ class UpdateMissingPersonService {
     DateTime? dob,
     String? governorate,
   }) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.put(
         '${baseUrl}missingReport/$id',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
-            'token': tokenAccess,
+            'token': token,
           },
         ),
         data: json.encode({
@@ -819,11 +896,16 @@ class DeleteMissingReportService {
   DeleteMissingReportService(this.dio);
 
   Future<void> deleteMissingReport({required String? id}) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
     try {
       Response response = await dio.delete(
         '${baseUrl}missingReport/$id',
         options: Options(
-          headers: {'token': tokenAccess},
+          headers: {
+            'token': token,
+          },
         ),
       );
       if (response.statusCode == 201) {

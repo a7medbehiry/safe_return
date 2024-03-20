@@ -63,7 +63,9 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
 
   Future<void> initializeData() async {
     userModel = GetUserModel(message: 'initial message', user: User());
-    await BlocProvider.of<UserCubit>(context).getUser(userModel!);
+    await BlocProvider.of<UserCubit>(context).getUser(
+      userModel!,
+    );
   }
 
   @override

@@ -123,7 +123,7 @@ class FormsCubit extends Cubit<FormsState> {
   }
 
   updateFindForm({
-     String? id,
+    String? id,
     File? image,
     String? fName,
     String? lName,
@@ -246,14 +246,15 @@ class FormsCubit extends Cubit<FormsState> {
     }
   }
 
-  getOneMissingForm(GetOneMissingFormModel missingOneFormModel,{String? id}) async {
+  getOneMissingForm(GetOneMissingFormModel missingOneFormModel,
+      {String? id}) async {
     emit(GetOneMissingFormLoading());
 
     try {
       GetOneMissingFormModel missingOneFormModel =
           await GetOneMissingFormService(Dio()).getOneMissingForm(
-            id: id,
-          );
+        id: id,
+      );
       if (missingOneFormModel.report != null) {
         log('get missing form data success: ${missingOneFormModel.report}');
         emit(GetOneMissingFormSuccess(

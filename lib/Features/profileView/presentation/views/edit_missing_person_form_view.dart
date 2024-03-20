@@ -44,7 +44,6 @@ class _EditMissingPersonFormViewState extends State<EditMissingPersonFormView> {
     city = TextEditingController();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FormsCubit, FormsState>(
