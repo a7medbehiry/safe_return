@@ -68,6 +68,9 @@ class _CustomMyMissingReportsListViewBuilderState
             context,
             'Report Deleted Successfully',
           );
+          setState(() {
+            missingFormModel?.reports?.removeAt(state.index);
+          });
           isLoading = false;
         } else if (state is DeleteMissingFailure) {
           for (var errorMessage in state.errorMessages) {
@@ -116,6 +119,7 @@ class _CustomMyMissingReportsListViewBuilderState
                   onDelete: () {
                     BlocProvider.of<FormsCubit>(context).deleteMissingReport(
                       id: missingFormModel?.reports?[index].id,
+                      index: index,
                     );
                   },
                   currentIndex: index,

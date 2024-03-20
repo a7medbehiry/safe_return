@@ -61,7 +61,10 @@ final class DeleteFindFormInitial extends FormsState {}
 
 final class DeleteFindFormLoading extends FormsState {}
 
-final class DeleteFindFormSuccess extends FormsState {}
+final class DeleteFindFormSuccess extends FormsState {
+  final int index;
+  DeleteFindFormSuccess({required this.index});
+}
 
 final class DeleteFindFormFailure extends FormsState {
   final List<Map<String, dynamic>> errorMessages;
@@ -124,7 +127,10 @@ final class DeleteMissingInitial extends FormsState {}
 
 final class DeleteMissingLoading extends FormsState {}
 
-final class DeleteMissingSuccess extends FormsState {}
+final class DeleteMissingSuccess extends FormsState {
+  final int index;
+  DeleteMissingSuccess({required this.index});
+}
 
 final class DeleteMissingFailure extends FormsState {
   final List<Map<String, dynamic>> errorMessages;

@@ -67,6 +67,9 @@ class _CustomMyFindReportsListViewBuilderState
             context,
             'Report Deleted Successfully',
           );
+          setState(() {
+            findFormModel?.reports?.removeAt(state.index);
+          });
           isLoading = false;
         } else if (state is DeleteFindFormFailure) {
           for (var errorMessage in state.errorMessages) {
@@ -115,6 +118,7 @@ class _CustomMyFindReportsListViewBuilderState
                   onDelete: () async {
                     BlocProvider.of<FormsCubit>(context).deleteFindForm(
                       id: findFormModel?.reports?[index].id,
+                      index: index,
                     );
                   },
                   currentIndex: index,

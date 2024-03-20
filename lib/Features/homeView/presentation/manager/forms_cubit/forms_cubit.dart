@@ -159,14 +159,14 @@ class FormsCubit extends Cubit<FormsState> {
     }
   }
 
-  deleteFindForm({required String? id}) async {
+  deleteFindForm({required String? id, required int index}) async {
     emit(DeleteFindFormLoading());
 
     try {
       await DeleteFindReportService(Dio()).deleteFindReport(
         id: id,
       );
-      emit(DeleteFindFormSuccess());
+      emit(DeleteFindFormSuccess(index: index));
     } catch (e) {
       emit(
         DeleteFindFormFailure(
@@ -307,14 +307,16 @@ class FormsCubit extends Cubit<FormsState> {
     }
   }
 
-  deleteMissingReport({required String? id}) async {
+  deleteMissingReport({required String? id, required int index}) async {
     emit(DeleteMissingLoading());
 
     try {
       await DeleteMissingReportService(Dio()).deleteMissingReport(
         id: id,
       );
-      emit(DeleteMissingSuccess());
+      emit(DeleteMissingSuccess(
+        index: index,
+      ));
     } catch (e) {
       emit(
         DeleteMissingFailure(
