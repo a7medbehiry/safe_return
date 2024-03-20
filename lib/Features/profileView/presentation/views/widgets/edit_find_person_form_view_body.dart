@@ -314,8 +314,11 @@ class _EditFindPersonFormViewBodyState
                     onChanged: (data) {
                       description = data;
                     },
-                    hintText: findOneFormModel?.report?.description ??
-                        'Additional information',
+                    hintText:
+                        findOneFormModel?.report?.description?.isNotEmpty ??
+                                false
+                            ? findOneFormModel!.report!.description!
+                            : 'Additional information',
                     width: 330,
                     height: 110,
                     maxLines: 30,
