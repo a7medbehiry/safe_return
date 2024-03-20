@@ -114,7 +114,9 @@ class _CustomMyMissingReportsListViewBuilderState
                   missingFormModel: missingFormModel?.reports?[index],
                   onEdit: () => context.goNamed('editMissingPersonFormView'),
                   onDelete: () {
-                    BlocProvider.of<FormsCubit>(context).deleteMissingCubit();
+                    BlocProvider.of<FormsCubit>(context).deleteMissingReport(
+                      id: missingFormModel?.reports?[index].id,
+                    );
                   },
                   currentIndex: index,
                 ),

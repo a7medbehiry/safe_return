@@ -476,10 +476,10 @@ class GetOneFindFormService {
     );
   }
 
-  Future<GetOneFindFormModel> getOneFindForm({required String? id}) async {
+  Future<GetOneFindFormModel> getOneFindForm() async {
     try {
       Response response = await dio.get(
-        '${baseUrl}foundReport/65f1153ab8d61b0d289d5b32',
+        '${baseUrl}foundReport/65fa2ab0ed9405612cf015e9',
         options: Options(
           headers: {
             'token': tokenAccess,
@@ -588,10 +588,10 @@ class DeleteFindReportService {
     );
   }
 
-  Future<void> deleteFindReport() async {
+  Future<void> deleteFindReport({required String? id}) async {
     try {
       Response response = await dio.delete(
-        '${baseUrl}foundReport/65fa096ded9405612cf014eb',
+        '${baseUrl}foundReport/$id',
         options: Options(
           headers: {'token': tokenAccess},
         ),
@@ -812,14 +812,14 @@ class UpdateMissingPersonService {
   }
 }
 
-class DeleteMissingService {
+class DeleteMissingReportService {
   final Dio dio;
-  DeleteMissingService(this.dio);
+  DeleteMissingReportService(this.dio);
 
-  Future<void> deleteMissing() async {
+  Future<void> deleteMissingReport({required String? id}) async {
     try {
       Response response = await dio.delete(
-        '${baseUrl}missingReport/65f73810b8d61b0d289d6413',
+        '${baseUrl}missingReport/$id',
         options: Options(
           headers: {'token': tokenAccess},
         ),

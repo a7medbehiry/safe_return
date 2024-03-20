@@ -94,9 +94,7 @@ class FormsCubit extends Cubit<FormsState> {
 
     try {
       GetOneFindFormModel findOneFormModelData =
-          await GetOneFindFormService(Dio()).getOneFindForm(
-        id: findOneFormModel.report?.id,
-      );
+          await GetOneFindFormService(Dio()).getOneFindForm();
       if (findOneFormModelData.report != null) {
         log('getUser success: ${findOneFormModelData.report}');
         emit(GetOneFindFormSuccess(findOneReport: findOneFormModelData.report));
@@ -161,11 +159,13 @@ class FormsCubit extends Cubit<FormsState> {
     }
   }
 
-  deleteFindForm() async {
+  deleteFindForm({required String? id}) async {
     emit(DeleteFindFormLoading());
 
     try {
-      await DeleteFindReportService(Dio()).deleteFindReport();
+      await DeleteFindReportService(Dio()).deleteFindReport(
+        id: id,
+      );
       emit(DeleteFindFormSuccess());
     } catch (e) {
       emit(
@@ -307,11 +307,13 @@ class FormsCubit extends Cubit<FormsState> {
     }
   }
 
-  deleteMissingCubit() async {
+  deleteMissingReport({required String? id}) async {
     emit(DeleteMissingLoading());
 
     try {
-      await DeleteMissingService(Dio()).deleteMissing();
+      await DeleteMissingReportService(Dio()).deleteMissingReport(
+        id: id,
+      );
       emit(DeleteMissingSuccess());
     } catch (e) {
       emit(

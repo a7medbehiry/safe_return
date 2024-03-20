@@ -113,7 +113,9 @@ class _CustomMyFindReportsListViewBuilderState
                   findFormModel: findFormModel?.reports?[index],
                   onEdit: () => context.goNamed('editFindPersonFormView'),
                   onDelete: () async {
-                    BlocProvider.of<FormsCubit>(context).deleteFindForm();
+                    BlocProvider.of<FormsCubit>(context).deleteFindForm(
+                      id: findFormModel?.reports?[index].id,
+                    );
                   },
                   currentIndex: index,
                 ),
