@@ -11,6 +11,7 @@ import 'package:safe_return/Features/profileView/presentation/manager/user_cubit
 import 'package:safe_return/Features/profileView/presentation/views/widgets/custom_about_us_bottom_sheet.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../core/utils/functions/custom_snack_bar.dart';
 import '../../../data/models/get_user_model/get_user_model.dart';
 import '../../../data/models/get_user_model/user.dart';
@@ -286,6 +287,9 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                 padding: const EdgeInsets.only(left: 25, right: 100),
                 child: GestureDetector(
                   onTap: () async {
+                    final SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
+                    preferences.remove('email');
                     BlocProvider.of<UserCubit>(context).userLogOut();
                   },
                   child: const CustomLogOut(),

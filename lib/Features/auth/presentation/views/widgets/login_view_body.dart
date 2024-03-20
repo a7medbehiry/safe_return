@@ -10,6 +10,7 @@ import 'package:safe_return/core/utils/styles.dart';
 import 'package:safe_return/core/utils/widgets/custom_button.dart';
 import 'package:safe_return/core/utils/widgets/custom_shield.dart';
 import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../manager/auth_cubit/auth_cubit.dart';
 
@@ -21,6 +22,8 @@ class LoginViewBody extends StatefulWidget {
 }
 
 class _LoginViewBodyState extends State<LoginViewBody> {
+  TextEditingController emailController = TextEditingController();
+
   String? email;
   String? password;
   GlobalKey<FormState> formKey = GlobalKey();
@@ -102,6 +105,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     left: 20,
                     top: 345,
                     child: CustomTextFormField(
+                      controller: emailController,
                       onChanged: (data) {
                         email = data;
                       },
@@ -163,6 +167,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     top: 510,
                     child: CustomButton(
                       onTap: () async {
+                        final SharedPreferences preferences =
+                            await SharedPreferences.getInstance();
+                        preferences.setString('email', emailController.text);
                         if (formKey.currentState!.validate()) {
                           if (EmailValidator.validate(email!) == false) {
                             SnackBarManager.showSnackBar(
