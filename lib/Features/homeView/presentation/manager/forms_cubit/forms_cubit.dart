@@ -89,12 +89,14 @@ class FormsCubit extends Cubit<FormsState> {
     }
   }
 
-  getOneFindForm(GetOneFindFormModel findOneFormModel) async {
+  getOneFindForm(GetOneFindFormModel findOneFormModel, {String? id}) async {
     emit(GetOneFindFormLoading());
 
     try {
       GetOneFindFormModel findOneFormModelData =
-          await GetOneFindFormService(Dio()).getOneFindForm();
+          await GetOneFindFormService(Dio()).getOneFindForm(
+        id: id,
+      );
       if (findOneFormModelData.report != null) {
         log('getUser success: ${findOneFormModelData.report}');
         emit(GetOneFindFormSuccess(findOneReport: findOneFormModelData.report));
@@ -121,6 +123,7 @@ class FormsCubit extends Cubit<FormsState> {
   }
 
   updateFindForm({
+     String? id,
     File? image,
     String? fName,
     String? lName,
@@ -135,6 +138,7 @@ class FormsCubit extends Cubit<FormsState> {
 
     try {
       await UpdateFindPersonService(Dio()).updateFindForm(
+        id: id,
         image: image,
         fName: fName,
         lName: lName,
@@ -242,12 +246,14 @@ class FormsCubit extends Cubit<FormsState> {
     }
   }
 
-  getOneMissingForm(GetOneMissingFormModel missingOneFormModel) async {
+  getOneMissingForm(GetOneMissingFormModel missingOneFormModel,{String? id}) async {
     emit(GetOneMissingFormLoading());
 
     try {
       GetOneMissingFormModel missingOneFormModel =
-          await GetOneMissingFormService(Dio()).getOneMissingForm();
+          await GetOneMissingFormService(Dio()).getOneMissingForm(
+            id: id,
+          );
       if (missingOneFormModel.report != null) {
         log('get missing form data success: ${missingOneFormModel.report}');
         emit(GetOneMissingFormSuccess(
@@ -275,6 +281,7 @@ class FormsCubit extends Cubit<FormsState> {
   }
 
   updateMissingForm({
+    String? id,
     String? fName,
     String? lName,
     String? phoneNumber,
@@ -286,6 +293,7 @@ class FormsCubit extends Cubit<FormsState> {
 
     try {
       await UpdateMissingPersonService(Dio()).updateMissingForm(
+        id: id,
         fName: fName,
         lName: lName,
         phoneNumber: phoneNumber,

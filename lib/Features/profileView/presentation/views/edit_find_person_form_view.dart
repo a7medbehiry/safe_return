@@ -12,7 +12,11 @@ import '../../../homeView/data/models/get_one_find_form_model/find_one_report.da
 import '../../../homeView/data/models/get_one_find_form_model/get_one_find_form_model.dart';
 
 class EditFindPersonFormView extends StatefulWidget {
-  const EditFindPersonFormView({super.key});
+  final String? id;
+  const EditFindPersonFormView({
+    super.key,
+    this.id,
+  });
 
   @override
   State<EditFindPersonFormView> createState() => _EditFindPersonFormViewState();
@@ -51,8 +55,10 @@ class _EditFindPersonFormViewState extends State<EditFindPersonFormView> {
   Future<void> initializeData() async {
     findOneFormModel =
         GetOneFindFormModel(message: 'initial Message', report: report);
-    await BlocProvider.of<FormsCubit>(context)
-        .getOneFindForm(findOneFormModel!);
+    await BlocProvider.of<FormsCubit>(context).getOneFindForm(
+      findOneFormModel!,
+      id: widget.id,
+    );
   }
 
   @override

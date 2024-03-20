@@ -191,20 +191,26 @@ abstract class AppRouter {
                     },
                   ),
                   GoRoute(
-                    path: 'editMissingPersonFormView',
+                    path: r'editMissingPersonFormView/:_id',
                     name: 'editMissingPersonFormView',
                     builder: (context, state) {
+                                            String? id = state.pathParameters['_id'];
+
                       return EditMissingPersonFormView(
                         key: state.pageKey,
+                                                id: id,
+
                       );
                     },
                   ),
                   GoRoute(
-                    path: 'editFindPersonFormView',
+                    path: r'editFindPersonFormView/:_id',
                     name: 'editFindPersonFormView',
                     builder: (context, state) {
+                      String? id = state.pathParameters['_id'];
                       return EditFindPersonFormView(
                         key: state.pageKey,
+                        id: id,
                       );
                     },
                   ),

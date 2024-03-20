@@ -476,10 +476,10 @@ class GetOneFindFormService {
     );
   }
 
-  Future<GetOneFindFormModel> getOneFindForm() async {
+  Future<GetOneFindFormModel> getOneFindForm({required String? id}) async {
     try {
       Response response = await dio.get(
-        '${baseUrl}foundReport/65fa2ab0ed9405612cf015e9',
+        '${baseUrl}foundReport/$id',
         options: Options(
           headers: {
             'token': tokenAccess,
@@ -511,6 +511,7 @@ class UpdateFindPersonService {
   UpdateFindPersonService(this.dio);
 
   Future<void> updateFindForm({
+    required String? id,
     File? image,
     String? fName,
     String? lName,
@@ -523,7 +524,7 @@ class UpdateFindPersonService {
   }) async {
     try {
       Response response = await dio.put(
-        '${baseUrl}foundReport/65f1153ab8d61b0d289d5b32',
+        '${baseUrl}foundReport/$id',
         options: Options(
           headers: {
             'token': tokenAccess,
@@ -736,10 +737,10 @@ class GetOneMissingFormService {
     );
   }
 
-  Future<GetOneMissingFormModel> getOneMissingForm() async {
+  Future<GetOneMissingFormModel> getOneMissingForm({required String? id}) async {
     try {
       Response response = await dio.get(
-        '${baseUrl}missingReport/65f73810b8d61b0d289d6413',
+        '${baseUrl}missingReport/$id',
         options: Options(
           headers: {
             'token': tokenAccess,
@@ -771,6 +772,7 @@ class UpdateMissingPersonService {
   UpdateMissingPersonService(this.dio);
 
   Future<void> updateMissingForm({
+    required String? id,
     String? fName,
     String? lName,
     String? phoneNumber,
@@ -780,7 +782,7 @@ class UpdateMissingPersonService {
   }) async {
     try {
       Response response = await dio.put(
-        '${baseUrl}missingReport/65f73810b8d61b0d289d6413',
+        '${baseUrl}missingReport/$id',
         options: Options(
           headers: {
             'Content-Type': 'application/json',

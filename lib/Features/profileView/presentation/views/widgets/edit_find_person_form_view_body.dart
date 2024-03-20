@@ -21,7 +21,9 @@ import '../../../../homeView/presentation/views/widgets/custom_text_container_wi
 import 'custom_edit_find_form_image_picker_function.dart';
 
 class EditFindPersonFormViewBody extends StatefulWidget {
-  const EditFindPersonFormViewBody({super.key});
+  const EditFindPersonFormViewBody({
+    super.key,
+  });
 
   @override
   State<EditFindPersonFormViewBody> createState() =>
@@ -54,7 +56,6 @@ class _EditFindPersonFormViewBodyState
 
   GetOneFindFormModel? findOneFormModel;
   FindOneReport? report;
-  late Future<void> initialization;
 
   @override
   void initState() {
@@ -67,14 +68,6 @@ class _EditFindPersonFormViewBodyState
     date = TextEditingController();
     city = TextEditingController();
     desc = TextEditingController();
-    initialization = initializeData();
-  }
-
-  Future<void> initializeData() async {
-    findOneFormModel =
-        GetOneFindFormModel(message: 'initial Message', report: report);
-    await BlocProvider.of<FormsCubit>(context)
-        .getOneFindForm(findOneFormModel!);
   }
 
   @override
@@ -160,7 +153,8 @@ class _EditFindPersonFormViewBodyState
                           fName = data;
                         },
                         label: Text(
-                          '${findOneFormModel?.report?.firstReporterName}',
+                          findOneFormModel?.report?.firstReporterName ??
+                              'First Name',
                         ),
                         width: 160,
                         height: 45,
@@ -173,7 +167,8 @@ class _EditFindPersonFormViewBodyState
                           lName = data;
                         },
                         label: Text(
-                          '${findOneFormModel?.report?.lastReporterName}',
+                          findOneFormModel?.report?.lastReporterName ??
+                              'Last Name',
                         ),
                         width: 160,
                         height: 45,
@@ -189,7 +184,7 @@ class _EditFindPersonFormViewBodyState
                     },
                     keyboardType: TextInputType.phone,
                     label: Text(
-                      '${findOneFormModel?.report?.phoneNumber}',
+                      findOneFormModel?.report?.phoneNumber ?? 'Phone Number',
                     ),
                     prefixIcon: Padding(
                       padding: const EdgeInsets.all(12),
@@ -240,7 +235,7 @@ class _EditFindPersonFormViewBodyState
                           name = data;
                         },
                         label: Text(
-                          '${findOneFormModel?.report?.childName}',
+                          findOneFormModel?.report?.childName ?? 'Name',
                         ),
                         width: 160,
                         height: 45,
@@ -254,7 +249,7 @@ class _EditFindPersonFormViewBodyState
                         },
                         keyboardType: TextInputType.number,
                         label: Text(
-                          '${findOneFormModel?.report?.age}',
+                          '${findOneFormModel?.report?.age ?? 'age'}',
                         ),
                         width: 160,
                         height: 45,
@@ -271,8 +266,7 @@ class _EditFindPersonFormViewBodyState
                         onChanged: (data) {
                           dob = data;
                         },
-                        hintText: DateFormat('yyyy-MM-dd').format(
-                            findOneFormModel?.report?.date ?? DateTime.now()),
+                        hintText: '${findOneFormModel?.report?.date ?? 'Date'}',
                       ),
                       const SizedBox(
                         width: 15,
@@ -296,7 +290,8 @@ class _EditFindPersonFormViewBodyState
                     onGovernorateSelected: (data) {
                       governorate = data;
                     },
-                    text: findOneFormModel?.report?.governorate,
+                    text:
+                        findOneFormModel?.report?.governorate ?? 'Governorate',
                   ),
                   const SizedBox(
                     height: 15,

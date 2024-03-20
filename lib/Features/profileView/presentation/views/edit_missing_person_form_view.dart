@@ -12,7 +12,9 @@ import '../../../../core/utils/widgets/custom_app_bar.dart';
 import 'widgets/edit_missing_person_form_view_body.dart';
 
 class EditMissingPersonFormView extends StatefulWidget {
-  const EditMissingPersonFormView({super.key});
+  final String? id;
+
+  const EditMissingPersonFormView({super.key, this.id});
 
   @override
   State<EditMissingPersonFormView> createState() =>
@@ -47,8 +49,10 @@ class _EditMissingPersonFormViewState extends State<EditMissingPersonFormView> {
   Future<void> initializeData() async {
     missingOneFormModel =
         GetOneMissingFormModel(message: 'initial Message', report: report);
-    await BlocProvider.of<FormsCubit>(context)
-        .getOneMissingForm(missingOneFormModel!);
+    await BlocProvider.of<FormsCubit>(context).getOneMissingForm(
+      missingOneFormModel!,
+      id: widget.id,
+    );
   }
 
   @override

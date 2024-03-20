@@ -57,14 +57,6 @@ class _EditMissingPersonFormViewBodyState
     number = TextEditingController();
     date = TextEditingController();
     city = TextEditingController();
-    initialization = initializeData();
-  }
-
-  Future<void> initializeData() async {
-    missingOneFormModel =
-        GetOneMissingFormModel(message: 'initial Message', report: report);
-    await BlocProvider.of<FormsCubit>(context)
-        .getOneMissingForm(missingOneFormModel!);
   }
 
   @override
@@ -149,7 +141,8 @@ class _EditMissingPersonFormViewBodyState
                           fName = data;
                         },
                         label: Text(
-                          "${missingOneFormModel?.report?.firstReporterName}",
+                          missingOneFormModel?.report?.firstReporterName ??
+                              'First Name',
                         ),
                         width: 160,
                         height: 45,
@@ -162,7 +155,8 @@ class _EditMissingPersonFormViewBodyState
                           lName = data;
                         },
                         label: Text(
-                          "${missingOneFormModel?.report?.lastReporterName}",
+                          missingOneFormModel?.report?.lastReporterName ??
+                              'Last Name',
                         ),
                         width: 160,
                         height: 45,
@@ -178,7 +172,8 @@ class _EditMissingPersonFormViewBodyState
                     },
                     keyboardType: TextInputType.phone,
                     label: Text(
-                      "${missingOneFormModel?.report?.phoneNumber}",
+                      missingOneFormModel?.report?.phoneNumber ??
+                          'Phone Number',
                     ),
                     prefixIcon: Padding(
                       padding: const EdgeInsets.all(12),
@@ -209,7 +204,7 @@ class _EditMissingPersonFormViewBodyState
                     },
                     keyboardType: TextInputType.number,
                     label: Text(
-                      "${missingOneFormModel?.report?.nationalId}",
+                      "${missingOneFormModel?.report?.nationalId ?? 'National Id'}",
                     ),
                     prefixIcon: Padding(
                       padding: const EdgeInsets.all(12),
@@ -230,7 +225,8 @@ class _EditMissingPersonFormViewBodyState
                         onChanged: (data) {
                           dob = data;
                         },
-                        hintText: "${missingOneFormModel?.report?.date}",
+                        hintText:
+                            "${missingOneFormModel?.report?.date ?? 'Date'}",
                       ),
                       const SizedBox(
                         width: 15,
@@ -241,7 +237,8 @@ class _EditMissingPersonFormViewBodyState
                         onGovernorateSelected: (data) {
                           governorate = data;
                         },
-                        text: "${missingOneFormModel?.report?.governorate}",
+                        text: missingOneFormModel?.report?.governorate ??
+                            'Governorate',
                       ),
                     ],
                   ),

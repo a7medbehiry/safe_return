@@ -115,7 +115,11 @@ class _CustomMyMissingReportsListViewBuilderState
               children: [
                 CustomReportLostDropDown(
                   missingFormModel: missingFormModel?.reports?[index],
-                  onEdit: () => context.goNamed('editMissingPersonFormView'),
+                  onEdit: () {
+                    String? id = missingFormModel?.reports?[index].id;
+                    context.goNamed('editMissingPersonFormView',
+                        pathParameters: {'_id': id as String});
+                  },
                   onDelete: () {
                     BlocProvider.of<FormsCubit>(context).deleteMissingReport(
                       id: missingFormModel?.reports?[index].id,

@@ -114,7 +114,11 @@ class _CustomMyFindReportsListViewBuilderState
               children: [
                 CustomReportFindDropDown(
                   findFormModel: findFormModel?.reports?[index],
-                  onEdit: () => context.goNamed('editFindPersonFormView'),
+                  onEdit: () {
+                    String? id = findFormModel?.reports?[index].id;
+                    context.goNamed('editFindPersonFormView',
+                        pathParameters: {'_id': id as String});
+                  },
                   onDelete: () async {
                     BlocProvider.of<FormsCubit>(context).deleteFindForm(
                       id: findFormModel?.reports?[index].id,
