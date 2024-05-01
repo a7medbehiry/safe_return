@@ -387,6 +387,31 @@ class LogOutService {
   }
 }
 
+// class GoogleLoginService {
+//   final Dio dio;
+//   GoogleLoginService(this.dio);
+
+//   Future<void> googleLogin() async {
+//     try {
+//       Response response = await dio.get(
+//         'http://10.0.2.2:3000/auth/google',
+//       );
+//       if (response.statusCode == 200) {
+//         log(json.encode(response.data)); 
+//       } else {
+//         log(json.encode(response.statusMessage));
+//       }
+//     } on DioException catch (e) {
+//       final String errorMessage = e.response?.data['error']['message'] ??
+//           'oops there was an error, please try again';
+//       throw Exception(errorMessage);
+//     } catch (e) {
+//       log(e.toString());
+//       throw Exception('oops there was an error, please try again');
+//     }
+//   }
+// }
+
 class FindPersonService {
   final Dio dio;
   FindPersonService(this.dio);

@@ -47,6 +47,7 @@ class DefaultFirebaseOptions {
     projectId: 'project1-c2ae8',
     authDomain: 'project1-c2ae8.firebaseapp.com',
     storageBucket: 'project1-c2ae8.appspot.com',
+    measurementId: 'G-0K2VBWYHNG',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -63,6 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '5454969609',
     projectId: 'project1-c2ae8',
     storageBucket: 'project1-c2ae8.appspot.com',
+    androidClientId: '5454969609-csb7vj1uuhoopenc0ak6n2etok1uu9v0.apps.googleusercontent.com',
+    iosClientId: '5454969609-g8rsbq56vii9p9ih2lavosn24uklq6l0.apps.googleusercontent.com',
     iosBundleId: 'com.example.safeReturn',
   );
 
@@ -72,6 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '5454969609',
     projectId: 'project1-c2ae8',
     storageBucket: 'project1-c2ae8.appspot.com',
+    androidClientId: '5454969609-csb7vj1uuhoopenc0ak6n2etok1uu9v0.apps.googleusercontent.com',
+    iosClientId: '5454969609-g8rsbq56vii9p9ih2lavosn24uklq6l0.apps.googleusercontent.com',
     iosBundleId: 'com.example.safeReturn',
   );
 
@@ -82,5 +87,7 @@ class DefaultFirebaseOptions {
     projectId: 'project1-c2ae8',
     authDomain: 'project1-c2ae8.firebaseapp.com',
     storageBucket: 'project1-c2ae8.appspot.com',
+    measurementId: 'G-XN6DZP0HXP',
   );
+
 }

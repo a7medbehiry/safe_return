@@ -27,6 +27,17 @@ final class LoginFailure extends AuthState {
   LoginFailure({required this.errorMessages});
 }
 
+// final class GoogleLoginInitial extends AuthState {}
+
+// final class GoogleLoginLoading extends AuthState {}
+
+// final class GoogleLoginSuccess extends AuthState {}
+
+// final class GoogleLoginFailure extends AuthState {
+//   final String errorMessages;
+//   GoogleLoginFailure({required this.errorMessages});
+// }
+
 final class ForgetPasswordInitial extends AuthState {}
 
 final class ForgetPasswordLoading extends AuthState {}

@@ -13,6 +13,7 @@ import 'package:safe_return/core/utils/widgets/custom_text_form_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../manager/auth_cubit/auth_cubit.dart';
+import '../../manager/auth_cubit/firebase_service.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -45,6 +46,15 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           }
           isLoading = false;
         }
+
+        // if (state is GoogleLoginLoading) {
+        //   isLoading = true;
+        // } else if (state is GoogleLoginSuccess) {
+        //   isLoading = false;
+        // } else if (state is GoogleLoginFailure) {
+        //   SnackBarManager.showSnackBar(context, state.toString());
+        //   isLoading = false;
+        // }
       },
       builder: (context, state) {
         return SizedBox(
@@ -207,7 +217,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     left: 110,
                     bottom: 150,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () async {
+                        // Uri url =
+                        //     Uri.parse('http://10.0.2.2:3000/auth/facebook');
+                        // if (!await launchUrl(url)) {
+                        //   throw Exception('Could not launch $url');
+                        // }
+                        await FirebaseServiceLogin().signOut();
+                      },
                       child: Column(
                         children: [
                           SvgPicture.asset(
@@ -225,7 +242,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     right: 110,
                     bottom: 150,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () async {
+                        // BlocProvider.of<AuthCubit>(context).googleLogin();
+                        // Uri url = Uri.parse('http://10.0.2.2:3000/auth/google');
+                        // if (!await launchUrl(url)) {
+                        //   throw Exception('Could not launch $url');
+                        // }
+                        FirebaseServiceLogin().signInWithGoogle();
+                      },
                       child: Column(
                         children: [
                           SvgPicture.asset(

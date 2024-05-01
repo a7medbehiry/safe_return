@@ -121,6 +121,21 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  // googleLogin() async {
+  //   emit(GoogleLoginLoading());
+  //   try {
+  //     await GoogleLoginService(Dio()).googleLogin();
+  //     emit(GoogleLoginSuccess());
+  //   } catch (e) {
+      
+  //     emit(
+  //       GoogleLoginFailure(
+  //         errorMessages: 'Google login failed',
+  //       ),
+  //     );
+  //   }
+  // }
+
   userForgetPassword({
     required String email,
   }) async {
