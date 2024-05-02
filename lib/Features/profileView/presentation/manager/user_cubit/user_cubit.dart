@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:safe_return/Features/profileView/data/models/get_user_model/get_user_model.dart';
 import 'package:safe_return/core/utils/api_services.dart';
 
+import '../../../../auth/presentation/manager/auth_cubit/firebase_service.dart';
 import '../../../data/models/get_user_model/user.dart';
 
 part 'user_state.dart';
@@ -99,6 +100,24 @@ class UserCubit extends Cubit<UserState> {
     } catch (e) {
       emit(
         UserLogOutFailure(
+          errorMessages: const [
+            {'message': 'something wrong happen'},
+          ],
+        ),
+      );
+    }
+  }
+
+
+  googleLogOut() async {
+    emit(GoogleLogOutLoading());
+
+    try {
+      await FirebaseServiceLogin().signOut();
+      emit(GoogleLogOutSuccess());
+    } catch (e) {
+      emit(
+        GoogleLogOutFailure(
           errorMessages: const [
             {'message': 'something wrong happen'},
           ],

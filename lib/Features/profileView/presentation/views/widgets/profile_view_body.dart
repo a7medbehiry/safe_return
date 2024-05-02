@@ -106,12 +106,26 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
           }
           isLoading = false;
         }
+
         if (state is UserLogOutLoading) {
           isLoading = true;
         } else if (state is UserLogOutSuccess) {
           context.goNamed('loginView');
           isLoading = false;
         } else if (state is UserLogOutFailure) {
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+                context, errorMessage['message'].toString());
+          }
+          isLoading = false;
+        }
+
+        if (state is GoogleLogOutLoading) {
+          isLoading = true;
+        } else if (state is GoogleLogOutSuccess) {
+          context.goNamed('loginView');
+          isLoading = false;
+        } else if (state is GoogleLogOutFailure) {
           for (var errorMessage in state.errorMessages) {
             SnackBarManager.showSnackBar(
                 context, errorMessage['message'].toString());
@@ -291,6 +305,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                         await SharedPreferences.getInstance();
                     preferences.remove('email');
                     BlocProvider.of<UserCubit>(context).userLogOut();
+                    BlocProvider.of<UserCubit>(context).googleLogOut();
                   },
                   child: const CustomLogOut(),
                 ),

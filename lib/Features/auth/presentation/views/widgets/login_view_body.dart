@@ -47,14 +47,16 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           isLoading = false;
         }
 
-        // if (state is GoogleLoginLoading) {
-        //   isLoading = true;
-        // } else if (state is GoogleLoginSuccess) {
-        //   isLoading = false;
-        // } else if (state is GoogleLoginFailure) {
-        //   SnackBarManager.showSnackBar(context, state.toString());
-        //   isLoading = false;
-        // }
+        if (state is GoogleLoginLoading) {
+          isLoading = true;
+        } else if (state is GoogleLoginSuccess) {
+          context.goNamed('homeView');
+
+          isLoading = false;
+        } else if (state is GoogleLoginFailure) {
+          SnackBarManager.showSnackBar(context, state.toString());
+          isLoading = false;
+        }
       },
       builder: (context, state) {
         return SizedBox(
@@ -218,12 +220,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     bottom: 150,
                     child: GestureDetector(
                       onTap: () async {
-                        // Uri url =
-                        //     Uri.parse('http://10.0.2.2:3000/auth/facebook');
-                        // if (!await launchUrl(url)) {
-                        //   throw Exception('Could not launch $url');
-                        // }
-                        await FirebaseServiceLogin().signOut();
+
                       },
                       child: Column(
                         children: [
@@ -243,12 +240,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     bottom: 150,
                     child: GestureDetector(
                       onTap: () async {
-                        // BlocProvider.of<AuthCubit>(context).googleLogin();
-                        // Uri url = Uri.parse('http://10.0.2.2:3000/auth/google');
-                        // if (!await launchUrl(url)) {
-                        //   throw Exception('Could not launch $url');
-                        // }
-                        FirebaseServiceLogin().signInWithGoogle();
+                        FirebaseServiceLogin().signInWithGoogle(context);
                       },
                       child: Column(
                         children: [

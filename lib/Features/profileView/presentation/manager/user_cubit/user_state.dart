@@ -52,3 +52,14 @@ final class UserLogOutFailure extends UserState {
   final List<Map<String, dynamic>> errorMessages;
   UserLogOutFailure({required this.errorMessages});
 }
+
+final class GoogleLogOutInitial extends UserState {}
+
+final class GoogleLogOutLoading extends UserState {}
+
+final class GoogleLogOutSuccess extends UserState {}
+
+final class GoogleLogOutFailure extends UserState {
+  final List<Map<String, dynamic>> errorMessages;
+  GoogleLogOutFailure({required this.errorMessages});
+}
