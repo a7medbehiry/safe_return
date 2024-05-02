@@ -220,9 +220,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     left: 110,
                     bottom: 150,
                     child: GestureDetector(
-                      onTap: () async {
-                        FirebaseServiceLogin().signOut();
-                      },
+                      onTap: () async {},
                       child: Column(
                         children: [
                           SvgPicture.asset(

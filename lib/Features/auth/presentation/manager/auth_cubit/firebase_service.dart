@@ -43,7 +43,9 @@ class FirebaseServiceLogin {
   }
 
   signOut() async {
-    await FirebaseAuth.instance.signOut();
-    await googleSignIn.disconnect();
+    if (googleSignIn.currentUser != null) {
+      await FirebaseAuth.instance.signOut();
+      await googleSignIn.disconnect();
+    }
   }
 }
