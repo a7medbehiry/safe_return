@@ -54,7 +54,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
           isLoading = false;
         } else if (state is GoogleLoginFailure) {
-          SnackBarManager.showSnackBar(context, state.toString());
+          SnackBarManager.showSnackBar(
+              context, 'Email is found in application database, please Login');
           isLoading = false;
         }
       },
@@ -220,7 +221,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     bottom: 150,
                     child: GestureDetector(
                       onTap: () async {
-
+                        FirebaseServiceLogin().signOut();
                       },
                       child: Column(
                         children: [

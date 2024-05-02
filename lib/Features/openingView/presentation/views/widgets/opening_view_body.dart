@@ -80,8 +80,6 @@ class _OpeningViewBodyState extends State<OpeningViewBody> {
                   : GoRouter.of(context).push('/homeView'),
             );
           },
-          // onTap: () => GoRouter.of(context).push('/loginView'),
-          // onTap: () => GoRouter.of(context).push('/homeView'),
           width: 200,
           height: 45,
           text: Text(
