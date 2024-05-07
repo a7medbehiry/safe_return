@@ -151,7 +151,7 @@ abstract class AppRouter {
             routes: [
               GoRoute(
                 path: '/notificationView',
-                name: 'Notification',
+                name: 'notificationView',
                 builder: (context, state) {
                   return NotificationView(
                     key: state.pageKey,

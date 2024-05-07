@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/styles.dart';
 
@@ -34,77 +35,83 @@ class NotificationViewBody extends StatelessWidget {
               topRight: Radius.circular(16),
             ),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CircleAvatar(
-                radius: 25,
-                backgroundImage:
-                    AssetImage('assets/notificationPhotos/girl.jpg'),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Your ',
-                          style: Styles.textStyleReg15.copyWith(
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'son ',
-                          style: Styles.textStyleBold15.copyWith(
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'has been ',
-                          style: Styles.textStyleReg15.copyWith(
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'found ',
-                          style: Styles.textStyleBold15.copyWith(
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'and the',
-                          style: Styles.textStyleReg15.copyWith(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(
-                    'organization will contact you now',
-                    style: Styles.textStyleReg14.copyWith(
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                '10:15 AM',
-                style: Styles.textStyleBold14.copyWith(
-                  color: Colors.black,
-                  decoration: TextDecoration.underline,
+          child: Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  radius: 25,
+                  backgroundImage:
+                      AssetImage('assets/notificationPhotos/girl.jpg'),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // RichText(
+                      //   text: TextSpan(
+                      //     children: [
+                      //       TextSpan(
+                      //         text: 'Your ',
+                      //         style: Styles.textStyleReg15.copyWith(
+                      //           color: Colors.black,
+                      //         ),
+                      //       ),
+                      //       TextSpan(
+                      //         text: 'son ',
+                      //         style: Styles.textStyleBold15.copyWith(
+                      //           color: Colors.black,
+                      //         ),
+                      //       ),
+                      //       TextSpan(
+                      //         text: 'has been ',
+                      //         style: Styles.textStyleReg15.copyWith(
+                      //           color: Colors.black,
+                      //         ),
+                      //       ),
+                      //       TextSpan(
+                      //         text: 'found ',
+                      //         style: Styles.textStyleBold15.copyWith(
+                      //           color: Colors.black,
+                      //         ),
+                      //       ),
+                      //       TextSpan(
+                      //         text: 'and the',
+                      //         style: Styles.textStyleReg15.copyWith(
+                      //           color: Colors.black,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      Text(
+                        'organization will contact you',
+                        style: Styles.textStyleReg14.copyWith(
+                          color: Colors.black,
+                        ),
+                        softWrap: true,
+                        maxLines: 2,
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  '10:15 AM',
+                  style: Styles.textStyleBold14.copyWith(
+                    color: Colors.black,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+              ],
+            ),
           ),
         ),
         const Padding(

@@ -228,7 +228,7 @@ class GetUserService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        '${baseUrl}user/',
+        'https://safereturnuser.onrender.com/api/v1/user/',
         options: Options(
           headers: {
             'token': token,
