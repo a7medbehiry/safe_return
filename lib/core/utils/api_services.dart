@@ -974,3 +974,38 @@ class DeleteMissingReportService {
     }
   }
 }
+
+
+class PushNotificationsService {
+  final Dio dio;
+  PushNotificationsService(this.dio);
+
+  Future<void> pushNotifications({
+    required String? fcmToken,
+  }) async {
+    try {
+      Response response = await dio.post(
+        '${baseUrl}notification/sendNotification',
+        options: Options(
+          headers: {'Content-Type': 'application/json'},
+        ),
+        data: json.encode({
+          "deviceToken": fcmToken,
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        log(json.encode(response.data));
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'oops there was an error, please try again';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error, please try again');
+    }
+  }
+}
