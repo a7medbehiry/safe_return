@@ -11,11 +11,10 @@ class FirebaseNotifications {
   // Initialize notification for this app or device
   Future<void> initNotifications() async {
     await _firebaseMessaging.requestPermission();
-    String? token = await _firebaseMessaging.getToken();
-    log("$token");
+    String? fcmToken = await _firebaseMessaging.getToken();
+    log("FCM Token: $fcmToken");
     // handleBackgroundNotifications();
-    handleMessage;
-    PushNotificationsService(Dio()).pushNotifications(fcmToken: token);
+    PushNotificationsService(Dio()).pushNotifications(fcmToken: fcmToken);
   }
 
   // handle notifications when received
