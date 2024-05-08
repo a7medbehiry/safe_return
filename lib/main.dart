@@ -16,6 +16,9 @@ void main() async {
   runApp(const SafeReturnApp());
 }
 
+final GlobalKey<ScaffoldMessengerState> snackbarKey =
+    GlobalKey<ScaffoldMessengerState>();
+
 class SafeReturnApp extends StatelessWidget {
   const SafeReturnApp({super.key});
 
@@ -35,6 +38,7 @@ class SafeReturnApp extends StatelessWidget {
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
+        scaffoldMessengerKey: snackbarKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           textTheme: GoogleFonts.poppinsTextTheme(),

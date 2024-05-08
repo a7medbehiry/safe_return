@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safe_return/constants.dart';
+import 'package:safe_return/main.dart';
 
 import '../styles.dart';
 
@@ -77,6 +78,43 @@ class SnackBarManager {
         )
         .closed
         .then((_) {
+      _isSnackBarVisible = false;
+    });
+  }
+
+  static void showSnackBarNotification(String? message) {
+    if (_isSnackBarVisible) {
+      return;
+    }
+
+    _isSnackBarVisible = true;
+
+    SnackBar snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      dismissDirection: DismissDirection.up,
+      margin: const EdgeInsets.only(
+        bottom: 650,
+      ),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      content: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+        child: Container(
+          color: kPrimaryColor,
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            "$message",
+            style: Styles.textStyleMed15,
+          ),
+        ),
+      ),
+      duration: const Duration(seconds: 3),
+    );
+
+    snackbarKey.currentState?.showSnackBar(snackBar).closed.then((_) {
       _isSnackBarVisible = false;
     });
   }

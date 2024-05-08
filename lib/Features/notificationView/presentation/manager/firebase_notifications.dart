@@ -1,9 +1,8 @@
 import 'dart:developer';
 
-import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-import 'package:safe_return/core/utils/api_services.dart';
+import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 
 class FirebaseNotifications {
   // Create instance of FBM
@@ -15,14 +14,16 @@ class FirebaseNotifications {
     String? fcmToken = await _firebaseMessaging.getToken();
     log("FCM Token: $fcmToken");
     handleBackgroundNotifications();
-    PushNotificationsService(Dio()).pushNotifications(
-      fcmToken: fcmToken,
-    );
+    // PushNotificationsService(Dio()).pushNotifications(
+    //   fcmToken: fcmToken,
+    // );
   }
 
   // handle notifications when received
   void handleMessage(RemoteMessage? message) {
     if (message == null) return;
+
+    
   }
 
   //handle notifications in case of app is terminated
@@ -32,6 +33,7 @@ class FirebaseNotifications {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log("Title: ${message.notification!.title}");
       log("Body: ${message.notification!.body}");
+      SnackBarManager.showSnackBarNotification(message.notification?.body);
     });
   }
 }
