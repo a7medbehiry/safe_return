@@ -30,6 +30,7 @@ class FirebaseServiceLogin {
       idToken: googleAuth?.idToken,
     );
 
+
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('email', googleUser.email);
 

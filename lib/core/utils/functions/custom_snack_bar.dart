@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safe_return/constants.dart';
+import 'package:safe_return/core/utils/app_router.dart';
 import 'package:safe_return/main.dart';
 
 import '../styles.dart';
@@ -92,22 +94,32 @@ class SnackBarManager {
     SnackBar snackBar = SnackBar(
       behavior: SnackBarBehavior.floating,
       dismissDirection: DismissDirection.up,
-      margin: const EdgeInsets.only(
-        bottom: 650,
+      margin: EdgeInsets.only(
+        bottom: MediaQuery.of(AppRouter.navigatorKey.currentState!.context)
+                .size
+                .height -
+            400,
       ),
       backgroundColor: Colors.transparent,
       elevation: 0,
-      content: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
-        child: Container(
-          color: kPrimaryColor,
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            "$message",
-            style: Styles.textStyleMed15,
+      content: GestureDetector(
+        onTap: () {
+          AppRouter.navigatorKey.currentState!.context
+              .goNamed('notificationView');
+        },
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+          ),
+          child: Container(
+            color: kPrimaryColor,
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              "$message",
+              style: Styles.textStyleMed15,
+              maxLines: 2,
+            ),
           ),
         ),
       ),

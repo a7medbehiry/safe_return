@@ -22,7 +22,8 @@ import '../../Features/profileView/presentation/views/my_find_reports_view.dart'
 abstract class AppRouter {
   static String initR = '/openingView';
 
-  static final _rootNavigatorKey = GlobalKey<NavigatorState>();
+  static final navigatorKey = GlobalKey<NavigatorState>();
+
   static final _rootNavigatorHomeView =
       GlobalKey<NavigatorState>(debugLabel: 'shellHome');
   static final _rootNavigatorNotificationView =
@@ -31,7 +32,7 @@ abstract class AppRouter {
       GlobalKey<NavigatorState>(debugLabel: 'shellProfile');
   static final router = GoRouter(
     initialLocation: initR,
-    navigatorKey: _rootNavigatorKey,
+    navigatorKey: navigatorKey,
     routes: [
       GoRoute(
         path: '/openingView',

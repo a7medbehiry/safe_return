@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:safe_return/Features/homeView/data/models/get_find_form_model/get_find_form_model.dart';
+import 'package:safe_return/Features/notificationView/data/get_notification_model/get_notification_model.dart';
 import 'package:safe_return/Features/profileView/data/models/get_user_model/get_user_model.dart';
 import '../../Features/homeView/data/models/get_missing_form_model/get_missing_form_model.dart';
 import '../../Features/homeView/data/models/get_one_find_form_model/get_one_find_form_model.dart';
@@ -975,19 +976,27 @@ class DeleteMissingReportService {
   }
 }
 
-
 class PushNotificationsService {
   final Dio dio;
   PushNotificationsService(this.dio);
 
-  Future<void> pushNotifications({
-    required String? fcmToken,
-  }) async {
+  Future<void> pushNotifications() async {
     try {
+      final pref = await SharedPreferences.getInstance();
+      const key = 'token';
+      final token = pref.get(key);
+
+      final SharedPreferences preferences =
+          await SharedPreferences.getInstance();
+      var fcmToken = preferences.getString('fcmToken');
+
       Response response = await dio.post(
-        '${baseUrl}notification/sendNotification',
+        '${baseUrl}notification/registerDeviceToken',
         options: Options(
-          headers: {'Content-Type': 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+            'token': token,
+          },
         ),
         data: json.encode({
           "deviceToken": fcmToken,
@@ -1006,6 +1015,63 @@ class PushNotificationsService {
     } catch (e) {
       log(e.toString());
       throw Exception('oops there was an error, please try again');
+    }
+  }
+}
+
+class GetNotificationsService {
+  final Dio dio;
+  GetNotificationsService(this.dio) {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          log('Request: ${options.method} ${options.path}');
+          log('Headers: ${options.headers}');
+          log('Body: ${options.data}');
+          return handler.next(options);
+        },
+        onResponse: (response, handler) {
+          log('Response: ${response.statusCode}');
+          log('Data: ${response.data}');
+          return handler.next(response);
+        },
+        onError: (DioException e, handler) {
+          log('DioError: $e');
+          return handler.next(e);
+        },
+      ),
+    );
+  }
+
+  Future<GetNotificationsModel> getNotifications() async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
+    try {
+      Response response = await dio.get(
+        '${baseUrl}notification/getAllNotifications',
+        options: Options(
+          headers: {
+            'token': token,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        log(json.encode(response.data));
+        log('Response status code: ${response.statusCode}');
+        log('Response data: ${json.encode(response.data)}');
+        final Map<String, dynamic> jsonData = response.data;
+        return GetNotificationsModel.fromJson(jsonData);
+      } else {
+        log('Response status code: ${response.statusCode}');
+        log(json.encode(response.statusMessage));
+        throw Exception('Failed to get user data');
+      }
+    } on DioException catch (e) {
+      log('DioException: ${e.message}');
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'Oops, there was an error. Please try again.';
+      throw Exception(errorMessage);
     }
   }
 }

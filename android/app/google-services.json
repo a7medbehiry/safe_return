@@ -1,32 +1,13 @@
 {
   "project_info": {
-    "project_number": "920586017544",
-    "project_id": "flutter-c1ba3",
-    "storage_bucket": "flutter-c1ba3.appspot.com"
+    "project_number": "769280217055",
+    "project_id": "safe-return2",
+    "storage_bucket": "safe-return2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:920586017544:android:cb7128a180eb017addaabd",
-        "android_client_info": {
-          "package_name": "com.example.notification"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCgCC9cgbWfBsseh2T2AGRAfA027SHVz1E"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:920586017544:android:2d1b6a7869cea262ddaabd",
+        "mobilesdk_app_id": "1:769280217055:android:96d343d7532eaeed54fe6a",
         "android_client_info": {
           "package_name": "com.example.safe_return"
         }
@@ -34,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCgCC9cgbWfBsseh2T2AGRAfA027SHVz1E"
+          "current_key": "AIzaSyAJFu3f44BBM-nt3Gra0o8JYdZKzPuzdps"
         }
       ],
       "services": {

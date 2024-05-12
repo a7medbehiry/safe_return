@@ -1,196 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:safe_return/Features/notificationView/data/get_notification_model/get_notification_model.dart';
+import 'package:safe_return/Features/notificationView/data/get_notification_model/notification.dart';
+import 'package:safe_return/Features/notificationView/presentation/views/widgets/custom_notifications_list_view_builder.dart';
 import 'package:safe_return/constants.dart';
-import 'package:safe_return/core/utils/styles.dart';
+import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 
+import '../../manager/notifications_cubit/notifications_cubit.dart';
 import 'custom_notification_app_bar.dart';
 
-class NotificationViewBody extends StatelessWidget {
+class NotificationViewBody extends StatefulWidget {
   const NotificationViewBody({super.key});
 
   @override
+  State<NotificationViewBody> createState() => _NotificationViewBodyState();
+}
+
+class _NotificationViewBodyState extends State<NotificationViewBody> {
+  bool isLoading = false;
+
+  GetNotificationsModel? notificationsModel;
+  List<Notifications>? notifications;
+
+  late Future<void> initialization;
+
+  @override
+  void initState() {
+    super.initState();
+    initialization = initializeData();
+  }
+
+  Future<void> initializeData() async {
+    notificationsModel = GetNotificationsModel(
+        message: 'initial message', notifications: notifications);
+    await BlocProvider.of<NotificationsCubit>(context)
+        .getNotifications(notificationsModel!);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        customNotificationAppBar(),
-        const Padding(
-          padding: EdgeInsets.only(
-            top: 10,
-            left: 10,
-            bottom: 5,
-          ),
-          child: Text(
-            'New',
-            style: Styles.textStyleReg18,
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          height: 67,
-          decoration: const BoxDecoration(
-            color: kThirdColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
+    return BlocConsumer<NotificationsCubit, NotificationsState>(
+      listener: (context, state) {
+        if (state is GetNotificationsLoading) {
+          isLoading = true;
+        } else if (state is GetNotificationsSuccess) {
+          setState(() {
+            notificationsModel = GetNotificationsModel(
+                message: 'success', notifications: state.notifications);
+          });
+          isLoading = false;
+        } else if (state is GetNotificationsFailure) {
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+              context,
+              errorMessage['message'].toString(),
+            );
+          }
+          isLoading = false;
+        }
+      },
+      builder: (context, state) {
+        return SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: ModalProgressHUD(
+            progressIndicator: const Center(
+              child: CircularProgressIndicator(
+                color: kPrimaryColor,
+              ),
             ),
-          ),
-          child: Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+            inAsyncCall: isLoading,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CircleAvatar(
-                  radius: 25,
-                  backgroundImage:
-                      AssetImage('assets/notificationPhotos/girl.jpg'),
-                ),
+                customNotificationAppBar(),
                 const SizedBox(
-                  width: 10,
+                  height: 25,
                 ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // RichText(
-                      //   text: TextSpan(
-                      //     children: [
-                      //       TextSpan(
-                      //         text: 'Your ',
-                      //         style: Styles.textStyleReg15.copyWith(
-                      //           color: Colors.black,
-                      //         ),
-                      //       ),
-                      //       TextSpan(
-                      //         text: 'son ',
-                      //         style: Styles.textStyleBold15.copyWith(
-                      //           color: Colors.black,
-                      //         ),
-                      //       ),
-                      //       TextSpan(
-                      //         text: 'has been ',
-                      //         style: Styles.textStyleReg15.copyWith(
-                      //           color: Colors.black,
-                      //         ),
-                      //       ),
-                      //       TextSpan(
-                      //         text: 'found ',
-                      //         style: Styles.textStyleBold15.copyWith(
-                      //           color: Colors.black,
-                      //         ),
-                      //       ),
-                      //       TextSpan(
-                      //         text: 'and the',
-                      //         style: Styles.textStyleReg15.copyWith(
-                      //           color: Colors.black,
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      Text(
-                        'organization will contact you',
-                        style: Styles.textStyleReg14.copyWith(
-                          color: Colors.black,
-                        ),
-                        softWrap: true,
-                        maxLines: 2,
-                      ),
-                    ],
-                  ),
-                ),
-                Text(
-                  '10:15 AM',
-                  style: Styles.textStyleBold14.copyWith(
-                    color: Colors.black,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
+                const Expanded(
+                  child: CustomNotificationsListViewBuilder(),
                 ),
               ],
             ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(
-            top: 10,
-            left: 10,
-            bottom: 5,
-          ),
-          child: Text(
-            'Today',
-            style: Styles.textStyleReg18,
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          height: 67,
-          decoration: const BoxDecoration(
-            color: kThirdColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
-            ),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CircleAvatar(
-                radius: 25,
-                backgroundImage:
-                    AssetImage('assets/notificationPhotos/girl.jpg'),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'We are currently reviewing your ',
-                    style: Styles.textStyleReg14.copyWith(
-                      color: Colors.black,
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'request and will ',
-                          style: Styles.textStyleReg15.copyWith(
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'update you',
-                          style: Styles.textStyleBold15.copyWith(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 17,
-              ),
-              Text(
-                '10:10 AM',
-                style: Styles.textStyleBold14.copyWith(
-                  color: Colors.black,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
 }
