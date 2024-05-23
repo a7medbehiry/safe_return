@@ -76,7 +76,7 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
               children: [
                 customNotificationAppBar(),
                 const SizedBox(
-                  height: 25,
+                  height: 12,
                 ),
                 const Expanded(
                   child: CustomNotificationsListViewBuilder(),

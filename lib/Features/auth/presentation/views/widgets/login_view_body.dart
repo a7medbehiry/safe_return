@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:safe_return/constants.dart';
-import 'package:safe_return/core/utils/api_services.dart';
 import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 import 'package:safe_return/core/utils/styles.dart';
 import 'package:safe_return/core/utils/widgets/custom_button.dart';
@@ -197,7 +195,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             email: email!,
                             password: password!,
                           );
-                          await PushNotificationsService(Dio()).pushNotifications();
                         }
                       },
                       width: 96,

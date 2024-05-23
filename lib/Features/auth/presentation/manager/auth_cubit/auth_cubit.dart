@@ -77,10 +77,14 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LoginLoading());
 
     try {
-      await LoginService(Dio()).userLogin(
+      await LoginService(Dio())
+          .userLogin(
         email: email,
         password: password,
-      );
+      )
+          .whenComplete(() async {
+        await PushNotificationsService(Dio()).pushNotifications();
+      });
       emit(LoginSuccess());
     } catch (e) {
       final errorMessage = _getLoginErrorMessage(e.toString());

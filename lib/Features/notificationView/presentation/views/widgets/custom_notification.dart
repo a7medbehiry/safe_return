@@ -41,6 +41,9 @@ class CustomNotification extends StatelessWidget {
                     )
                   ],
                 ),
+                const SizedBox(
+                  height: 6,
+                ),
                 Text(
                   text,
                   style: Styles.textStyleReg14.copyWith(

@@ -365,14 +365,14 @@ class LogOutService {
     final token = pref.get(key);
     try {
       Response response = await dio.post(
-        '${baseUrl}user',
+        'https://safereturn-2.onrender.com/api/v1/user',
         options: Options(
           headers: {
             'token': token,
           },
         ),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         log(json.encode(response.data));
       } else {
         log(json.encode(response.statusMessage));
@@ -984,14 +984,18 @@ class PushNotificationsService {
     try {
       final pref = await SharedPreferences.getInstance();
       const key = 'token';
-      final token = pref.get(key);
+      final token = pref.getString(key);
 
       final SharedPreferences preferences =
           await SharedPreferences.getInstance();
       var fcmToken = preferences.getString('fcmToken');
 
+      if (token == null || fcmToken == null) {
+        throw Exception('Token or FCM token is null');
+      }
+
       Response response = await dio.post(
-        '${baseUrl}notification/registerDeviceToken',
+        'https://safereturn-2.onrender.com/api/v1/notification/registerDeviceToken',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -1049,7 +1053,7 @@ class GetNotificationsService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        '${baseUrl}notification/getAllNotifications',
+        'https://safereturn-2.onrender.com/api/v1/notification/getAllNotifications',
         options: Options(
           headers: {
             'token': token,
