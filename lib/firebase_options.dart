@@ -85,5 +85,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'safe-return2.appspot.com',
     measurementId: 'G-72LG00Z9DS',
   );
-
 }

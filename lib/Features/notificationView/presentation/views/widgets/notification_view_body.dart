@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:safe_return/Features/notificationView/data/get_notification_model/get_notification_model.dart';
-import 'package:safe_return/Features/notificationView/data/get_notification_model/notification.dart';
 import 'package:safe_return/Features/notificationView/presentation/views/widgets/custom_notifications_list_view_builder.dart';
 import 'package:safe_return/constants.dart';
+import 'package:safe_return/Features/notificationView/data/get_notifications_model/get_notifications_model.dart';
+import 'package:safe_return/Features/notificationView/data/get_notifications_model/notification.dart';
 import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 
 import '../../manager/notifications_cubit/notifications_cubit.dart';

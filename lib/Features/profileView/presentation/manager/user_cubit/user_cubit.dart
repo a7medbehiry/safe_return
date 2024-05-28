@@ -14,12 +14,13 @@ part 'user_state.dart';
 class UserCubit extends Cubit<UserState> {
   UserCubit() : super(UserInitial());
 
-  getUser(GetUserModel userModel, ) async {
+  getUser(
+    GetUserModel userModel,
+  ) async {
     emit(GetUserLoading());
 
     try {
-      GetUserModel userModelData = await GetUserService(Dio()).getUser(
-      );
+      GetUserModel userModelData = await GetUserService(Dio()).getUser();
       if (userModelData.user != null) {
         log('getUser success: ${userModelData.user}');
         emit(GetUserSuccess(user: userModelData.user!));
@@ -107,7 +108,6 @@ class UserCubit extends Cubit<UserState> {
       );
     }
   }
-
 
   googleLogOut() async {
     emit(GoogleLogOutLoading());

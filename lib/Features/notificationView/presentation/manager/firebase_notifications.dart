@@ -16,7 +16,7 @@ class FirebaseNotifications {
     String? fcmToken = await _firebaseMessaging.getToken();
     log("FCM Token: $fcmToken");
     handleBackgroundNotifications();
-    
+
     // PushNotificationsService(Dio()).pushNotifications(
     //   fcmToken: fcmToken,
     // );

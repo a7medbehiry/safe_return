@@ -3,13 +3,14 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:safe_return/Features/homeView/data/models/get_find_form_model/get_find_form_model.dart';
-import 'package:safe_return/Features/notificationView/data/get_notification_model/get_notification_model.dart';
 import 'package:safe_return/Features/profileView/data/models/get_user_model/get_user_model.dart';
 import '../../Features/homeView/data/models/get_missing_form_model/get_missing_form_model.dart';
 import '../../Features/homeView/data/models/get_one_find_form_model/get_one_find_form_model.dart';
 import '../../Features/homeView/data/models/get_one_missing_form_model/get_one_missing_form_model.dart';
 import '../../constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../Features/notificationView/data/get_notifications_model/get_notifications_model.dart';
 
 class SignUpService {
   final Dio dio;
@@ -995,7 +996,7 @@ class PushNotificationsService {
       }
 
       Response response = await dio.post(
-        'https://safereturn-2.onrender.com/api/v1/notification/registerDeviceToken',
+        'https://safereturn-4sgj.onrender.com/api/v1/notification/registerDeviceToken',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -1053,7 +1054,7 @@ class GetNotificationsService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        'https://safereturn-2.onrender.com/api/v1/notification/getAllNotifications',
+        'https://safereturn-4sgj.onrender.com/api/v1/notification/getAllNotifications',
         options: Options(
           headers: {
             'token': token,

@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:safe_return/Features/notificationView/presentation/manager/notifications_cubit/notifications_cubit.dart';
 import 'package:safe_return/Features/notificationView/presentation/views/widgets/custom_notification.dart';
+import 'package:safe_return/Features/notificationView/data/get_notifications_model/get_notifications_model.dart';
+import 'package:safe_return/Features/notificationView/data/get_notifications_model/notification.dart';
 import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 import 'package:safe_return/core/utils/styles.dart';
 
-import '../../../data/get_notification_model/get_notification_model.dart';
-import '../../../data/get_notification_model/notification.dart';
 
 class CustomNotificationsListViewBuilder extends StatefulWidget {
   const CustomNotificationsListViewBuilder({super.key});
