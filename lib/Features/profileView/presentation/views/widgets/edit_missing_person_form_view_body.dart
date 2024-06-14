@@ -38,6 +38,7 @@ class _EditMissingPersonFormViewBodyState
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
   TextEditingController number = TextEditingController();
+  TextEditingController mail = TextEditingController();
   TextEditingController idController = TextEditingController();
   TextEditingController date = TextEditingController();
   TextEditingController city = TextEditingController();
@@ -45,6 +46,7 @@ class _EditMissingPersonFormViewBodyState
   String? fName;
   String? lName;
   String? phoneNumber;
+  String? email;
   String? nId;
   DateTime? dob;
   String? governorate;
@@ -200,6 +202,20 @@ class _EditMissingPersonFormViewBodyState
                     height: 45,
                   ),
                   const SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextFormField(
+                    onChanged: (data) {
+                      email = data;
+                    },
+                    label: const Text('Email'),
+                    prefixIcon: const Icon(
+                      Icons.email,
+                    ),
+                    width: 330,
+                    height: 45,
+                  ),
+                  const SizedBox(
                     height: 25,
                   ),
                   CustomTextContainer(
@@ -268,6 +284,7 @@ class _EditMissingPersonFormViewBodyState
                           fName: fName ?? firstName.text,
                           lName: lName ?? lastName.text,
                           phoneNumber: phoneNumber ?? number.text,
+                          email: email,
                           nId: nId ?? idController.text,
                           dob: dob ?? DateTime.parse(date.text),
                           governorate: governorate ?? city.text,

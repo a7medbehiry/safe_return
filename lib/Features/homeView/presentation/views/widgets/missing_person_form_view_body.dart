@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,6 +29,7 @@ class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
   String? fName;
   String? lName;
   String? phoneNumber;
+  String? email;
   String? nId;
   DateTime? dob;
   String? governorate;
@@ -120,6 +122,20 @@ class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
                     height: 45,
                   ),
                   const SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextFormField(
+                    onChanged: (data) {
+                      email = data;
+                    },
+                    label: const Text('Email'),
+                    prefixIcon: const Icon(
+                      Icons.email,
+                    ),
+                    width: 330,
+                    height: 45,
+                  ),
+                  const SizedBox(
                     height: 25,
                   ),
                   CustomTextContainer(
@@ -185,6 +201,7 @@ class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
                         if (fName == null &&
                             lName == null &&
                             phoneNumber == null &&
+                            email == null &&
                             nId == null &&
                             dob == null &&
                             governorate == null) {
@@ -217,6 +234,14 @@ class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
                           SnackBarManager.showSnackBarForms(
                               context, 'In-Valid Phone Number');
                           return;
+                        } else if (email == null) {
+                          SnackBarManager.showSnackBarForms(
+                              context, 'Email Field Required');
+                          return;
+                        } else if (EmailValidator.validate(email!) == false) {
+                          SnackBarManager.showSnackBarForms(
+                              context, 'In-Valid Email');
+                          return;
                         } else if (nId == null) {
                           SnackBarManager.showSnackBarForms(
                               context, 'nationalID Number Field Required');
@@ -239,6 +264,7 @@ class _MissingPersonFormViewBodyState extends State<MissingPersonFormViewBody> {
                         fName: fName!,
                         lName: lName!,
                         phoneNumber: phoneNumber!,
+                        email: email!,
                         nId: nId!,
                         governorate: governorate!,
                         dob: dob!,

@@ -531,7 +531,7 @@ class GetFindFormService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        '${baseUrl}foundReport/',
+        'http://10.0.2.2:3000/api/v1/foundReport/',
         options: Options(
           headers: {
             'token': token,
@@ -738,6 +738,7 @@ class MissingPersonService {
     required String fName,
     required String lName,
     required String phoneNumber,
+    required String email,
     required String nId,
     required DateTime dob,
     required String governorate,
@@ -747,7 +748,7 @@ class MissingPersonService {
     final token = pref.get(key);
     try {
       Response response = await dio.post(
-        '${baseUrl}missingReport/',
+        'https://safe-return.onrender.com/api/v1/missingReport',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -758,6 +759,7 @@ class MissingPersonService {
           "firstReporterName": fName,
           "lastReporterName": lName,
           "phoneNumber": phoneNumber,
+          "email": email,
           "nationalID": nId,
           "governorate": governorate,
           "date": dob.toIso8601String(),
@@ -809,7 +811,7 @@ class GetMissingFormService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        '${baseUrl}missingReport/',
+        'http://10.0.2.2:3000/api/v1/missingReport/',
         options: Options(
           headers: {
             'token': token,
@@ -867,7 +869,7 @@ class GetOneMissingFormService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        '${baseUrl}missingReport/$id',
+        'http://10.0.2.2:3000/api/v1/missingReport/$id',
         options: Options(
           headers: {
             'token': token,
@@ -903,6 +905,7 @@ class UpdateMissingPersonService {
     String? fName,
     String? lName,
     String? phoneNumber,
+    String? email,
     String? nId,
     DateTime? dob,
     String? governorate,
@@ -912,7 +915,7 @@ class UpdateMissingPersonService {
     final token = pref.get(key);
     try {
       Response response = await dio.put(
-        '${baseUrl}missingReport/$id',
+        'https://safe-return.onrender.com/api/v1/missingReport/$id',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -923,6 +926,7 @@ class UpdateMissingPersonService {
           "firstReporterName": fName,
           "lastReporterName": lName,
           "phoneNumber": phoneNumber,
+          "email": email,
           "nationalID": nId,
           "governorate": governorate,
           "date": dob?.toIso8601String(),

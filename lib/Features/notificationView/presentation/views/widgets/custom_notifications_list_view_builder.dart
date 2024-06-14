@@ -8,7 +8,6 @@ import 'package:safe_return/Features/notificationView/data/get_notifications_mod
 import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 import 'package:safe_return/core/utils/styles.dart';
 
-
 class CustomNotificationsListViewBuilder extends StatefulWidget {
   const CustomNotificationsListViewBuilder({super.key});
 
