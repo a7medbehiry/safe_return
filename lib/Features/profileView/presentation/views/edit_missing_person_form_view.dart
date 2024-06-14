@@ -28,6 +28,7 @@ class _EditMissingPersonFormViewState extends State<EditMissingPersonFormView> {
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
   TextEditingController number = TextEditingController();
+  TextEditingController mail = TextEditingController();
   TextEditingController idController = TextEditingController();
   TextEditingController date = TextEditingController();
   TextEditingController city = TextEditingController();
@@ -40,6 +41,7 @@ class _EditMissingPersonFormViewState extends State<EditMissingPersonFormView> {
     firstName = TextEditingController();
     lastName = TextEditingController();
     number = TextEditingController();
+    mail = TextEditingController();
     date = TextEditingController();
     city = TextEditingController();
   }
@@ -56,6 +58,8 @@ class _EditMissingPersonFormViewState extends State<EditMissingPersonFormView> {
           firstName.text = missingOneFormModel?.report?.firstReporterName ?? '';
           lastName.text = missingOneFormModel?.report?.lastReporterName ?? '';
           number.text = missingOneFormModel?.report?.phoneNumber ?? '';
+                    mail.text = missingOneFormModel?.report?.email ?? '';
+
           idController.text =
               missingOneFormModel?.report?.nationalId?.toString() ?? '';
           date.text = missingOneFormModel?.report?.date != null

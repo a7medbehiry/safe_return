@@ -8,6 +8,7 @@ class MissingOneReport {
   int? nationalId;
   String? governorate;
   DateTime? date;
+  String? email;
   bool? found;
   CreatedBy? createdBy;
   DateTime? createdAt;
@@ -22,6 +23,7 @@ class MissingOneReport {
     this.nationalId,
     this.governorate,
     this.date,
+    this.email,
     this.found,
     this.createdBy,
     this.createdAt,
@@ -29,7 +31,8 @@ class MissingOneReport {
     this.v,
   });
 
-  factory MissingOneReport.fromJson(Map<String, dynamic> json) {
+  factory MissingOneReport.fromJson(
+      Map<String, dynamic> json) {
     return MissingOneReport(
       id: json['_id'] as String?,
       firstReporterName: json['firstReporterName'] as String?,
@@ -39,10 +42,13 @@ class MissingOneReport {
       governorate: json['governorate'] as String?,
       date:
           json['date'] == null ? null : DateTime.parse(json['date'] as String),
+      email: json['email'] as String?,
       found: json['found'] as bool?,
       createdBy: json['createdBy'] == null
           ? null
-          : CreatedBy.fromJson(json['createdBy'] as Map<String, dynamic>),
+          : CreatedBy
+              .fromJson(
+                  json['createdBy'] as Map<String, dynamic>),
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -53,7 +59,8 @@ class MissingOneReport {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic>
+      toJson() {
     return {
       '_id': id,
       'firstReporterName': firstReporterName,
@@ -62,8 +69,10 @@ class MissingOneReport {
       'nationalID': nationalId,
       'governorate': governorate,
       'date': date?.toIso8601String(),
+      'email': email,
       'found': found,
-      'createdBy': createdBy?.toJson(),
+      'createdBy': createdBy
+          ?.toJson(),
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
       '__v': v,

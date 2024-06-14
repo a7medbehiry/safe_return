@@ -6,19 +6,24 @@ class GetOneMissingFormModel {
 
   GetOneMissingFormModel({this.message, this.report});
 
-  factory GetOneMissingFormModel.fromJson(Map<String, dynamic> json) {
+  factory GetOneMissingFormModel.fromJson(
+      Map<String, dynamic> json) {
     return GetOneMissingFormModel(
       message: json['message'] as String?,
       report: json['report'] == null
           ? null
-          : MissingOneReport.fromJson(json['report'] as Map<String, dynamic>),
+          : MissingOneReport
+              .fromJson(
+                  json['report'] as Map<String, dynamic>),
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic>
+      toJson() {
     return {
       'message': message,
-      'report': report?.toJson(),
+      'report': report
+          ?.toJson(),
     };
   }
 }

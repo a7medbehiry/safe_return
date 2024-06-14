@@ -61,6 +61,8 @@ class _EditMissingPersonFormViewBodyState
     firstName = TextEditingController();
     lastName = TextEditingController();
     number = TextEditingController();
+    mail = TextEditingController();
+
     date = TextEditingController();
     city = TextEditingController();
     initialization = initializeData();
@@ -87,6 +89,7 @@ class _EditMissingPersonFormViewBodyState
           firstName.text = missingOneFormModel?.report?.firstReporterName ?? '';
           lastName.text = missingOneFormModel?.report?.lastReporterName ?? '';
           number.text = missingOneFormModel?.report?.phoneNumber ?? '';
+          mail.text = missingOneFormModel?.report?.email ?? '';
           idController.text =
               missingOneFormModel?.report?.nationalId?.toString() ?? '';
           date.text = missingOneFormModel?.report?.date != null
@@ -208,7 +211,7 @@ class _EditMissingPersonFormViewBodyState
                     onChanged: (data) {
                       email = data;
                     },
-                    label: const Text('Email'),
+                    label: Text(missingOneFormModel?.report?.email ?? 'Email'),
                     prefixIcon: const Icon(
                       Icons.email,
                     ),
@@ -284,7 +287,7 @@ class _EditMissingPersonFormViewBodyState
                           fName: fName ?? firstName.text,
                           lName: lName ?? lastName.text,
                           phoneNumber: phoneNumber ?? number.text,
-                          email: email,
+                          email: email ?? mail.text,
                           nId: nId ?? idController.text,
                           dob: dob ?? DateTime.parse(date.text),
                           governorate: governorate ?? city.text,

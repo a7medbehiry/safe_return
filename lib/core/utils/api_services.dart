@@ -811,7 +811,7 @@ class GetMissingFormService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        'http://10.0.2.2:3000/api/v1/missingReport/',
+        'https://safe-return.onrender.com/api/v1/missingReport',
         options: Options(
           headers: {
             'token': token,
@@ -869,7 +869,7 @@ class GetOneMissingFormService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        'http://10.0.2.2:3000/api/v1/missingReport/$id',
+        'https://safe-return.onrender.com/api/v1/missingReport/$id',
         options: Options(
           headers: {
             'token': token,
