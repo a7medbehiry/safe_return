@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "769280217055",
-    "project_id": "safe-return2",
-    "storage_bucket": "safe-return2.appspot.com"
+    "project_number": "413813114386",
+    "project_id": "safe-return-b4cbe",
+    "storage_bucket": "safe-return-b4cbe.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:769280217055:android:96d343d7532eaeed54fe6a",
+        "mobilesdk_app_id": "1:413813114386:android:d88bb17a3715406606bacb",
         "android_client_info": {
           "package_name": "com.example.safe_return"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAJFu3f44BBM-nt3Gra0o8JYdZKzPuzdps"
+          "current_key": "AIzaSyAFUQ9zrLFJAVbcHPsLQ3iPt_Pvnh1-FDo"
         }
       ],
       "services": {

@@ -220,7 +220,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     left: 110,
                     bottom: 150,
                     child: GestureDetector(
-                      onTap: () async {},
+                      onTap: () async {
+                        await signInWithFacebook();
+                      },
                       child: Column(
                         children: [
                           SvgPicture.asset(
