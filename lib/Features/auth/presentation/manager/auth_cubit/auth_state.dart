@@ -38,6 +38,17 @@ final class GoogleLoginFailure extends AuthState {
   GoogleLoginFailure({required this.errorMessages});
 }
 
+final class FaceBookLoginInitial extends AuthState {}
+
+final class FaceBookLoginLoading extends AuthState {}
+
+final class FaceBookLoginSuccess extends AuthState {}
+
+final class FaceBookLoginFailure extends AuthState {
+  final String errorMessages;
+  FaceBookLoginFailure({required this.errorMessages});
+}
+
 final class ForgetPasswordInitial extends AuthState {}
 
 final class ForgetPasswordLoading extends AuthState {}

@@ -113,11 +113,28 @@ class UserCubit extends Cubit<UserState> {
     emit(GoogleLogOutLoading());
 
     try {
-      await FirebaseServiceLogin().signOut();
+      await FirebaseGoogleServiceLogin().signOut();
       emit(GoogleLogOutSuccess());
     } catch (e) {
       emit(
         GoogleLogOutFailure(
+          errorMessages: const [
+            {'message': 'something wrong happen'},
+          ],
+        ),
+      );
+    }
+  }
+
+  facebookLogOut() async {
+    emit(FaceBookLogOutLoading());
+
+    try {
+      await FirebaseFaceBookServiceLogin().signOut();
+      emit(FaceBookLogOutSuccess());
+    } catch (e) {
+      emit(
+        FaceBookLogOutFailure(
           errorMessages: const [
             {'message': 'something wrong happen'},
           ],

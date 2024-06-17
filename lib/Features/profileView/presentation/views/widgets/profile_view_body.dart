@@ -132,6 +132,19 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
           }
           isLoading = false;
         }
+
+        if (state is FaceBookLogOutLoading) {
+          isLoading = true;
+        } else if (state is FaceBookLogOutSuccess) {
+          context.goNamed('loginView');
+          isLoading = false;
+        } else if (state is FaceBookLogOutFailure) {
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+                context, errorMessage['message'].toString());
+          }
+          isLoading = false;
+        }
       },
       builder: (context, state) {
         return SizedBox(
@@ -306,6 +319,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                     preferences.remove('email');
                     BlocProvider.of<UserCubit>(context).userLogOut();
                     BlocProvider.of<UserCubit>(context).googleLogOut();
+                    BlocProvider.of<UserCubit>(context).facebookLogOut();
                   },
                   child: const CustomLogOut(),
                 ),

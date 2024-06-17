@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
@@ -137,9 +139,30 @@ class AuthCubit extends Cubit<AuthState> {
       );
       emit(GoogleLoginSuccess());
     } catch (e) {
+      log("$e");
       emit(
         GoogleLoginFailure(
           errorMessages: 'Google login failed',
+        ),
+      );
+    }
+  }
+
+  facebookLogin({
+    required String accountId,
+    required String? userName,
+  }) async {
+    emit(FaceBookLoginLoading());
+    try {
+      await FaceBookLoginService(Dio()).facebookLogin(
+        accountId: accountId,
+        userName: userName,
+      );
+      emit(FaceBookLoginSuccess());
+    } catch (e) {
+      emit(
+        FaceBookLoginFailure(
+          errorMessages: 'FaceBook login failed',
         ),
       );
     }

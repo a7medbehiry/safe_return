@@ -230,7 +230,7 @@ class GetUserService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        'https://safereturnuser.onrender.com/api/v1/user/',
+        'https://safe-return.onrender.com/api/v1/user/',
         options: Options(
           headers: {
             'token': token,
@@ -399,12 +399,64 @@ class GoogleLoginService {
   }) async {
     try {
       Response response = await dio.post(
-        '${baseUrl}auth/loginWithGmail',
+        'https://safe-return.onrender.com/api/v1/auth/loginWithGmail',
         options: Options(
           headers: {'Content-Type': 'application/json'},
         ),
         data: json.encode({
           "email": email,
+          "userName": userName,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        log(json.encode(response.data));
+        _saveToken(response.data['token']);
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'oops there was an error, please try again';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error, please try again');
+    }
+  }
+
+  _saveToken(String token) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = "token";
+    final value = token;
+    pref.setString(key, value);
+  }
+
+  readToken() async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
+    log('readToken: $token');
+  }
+}
+
+
+class FaceBookLoginService {
+  final Dio dio;
+  FaceBookLoginService(this.dio);
+
+  Future<void> facebookLogin({
+    required String accountId,
+    required String? userName,
+  }) async {
+    try {
+      Response response = await dio.post(
+        'https://safe-return.onrender.com/api/v1/auth/loginWithFacebook',
+        options: Options(
+          headers: {'Content-Type': 'application/json'},
+        ),
+        data: json.encode({
+          "accountId": accountId,
           "userName": userName,
         }),
       );

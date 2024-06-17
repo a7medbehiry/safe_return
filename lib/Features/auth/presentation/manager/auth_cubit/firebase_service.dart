@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth_cubit.dart';
 
-class FirebaseServiceLogin {
+class FirebaseGoogleServiceLogin {
   GoogleSignIn googleSignIn = GoogleSignIn();
 
   void signInWithGoogle(BuildContext context) async {
@@ -54,37 +55,60 @@ class FirebaseServiceLogin {
   }
 }
 
+class FirebaseFaceBookServiceLogin {
+  Future<UserCredential?> signInWithFacebook(BuildContext context) async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
 
-Future<UserCredential> signInWithFacebook() async {
-  // Trigger the sign-in flow
-  final LoginResult loginResult = await FacebookAuth.instance.login();
+    // Check the status of the login result
+    if (loginResult.status == LoginStatus.success) {
+      // Create a credential from the access token
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
 
-  if (loginResult.status == LoginStatus.success) {
-    // Create a credential from the access token
-    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+      // Once signed in, return the UserCredential
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential);
 
-    // Once signed in, return the UserCredential
-    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      // Get the user profile from Facebook Graph API
+      final graphResponse = await Dio().get(
+        'https://graph.facebook.com/v2.12/me',
+        queryParameters: {
+          'fields': 'name,email,picture',
+          'access_token': loginResult.accessToken!.tokenString,
+        },
+      );
 
-    // Get the user profile from Facebook Graph API
-    final graphResponse = await Dio().get(
-      'https://graph.facebook.com/v2.12/me',
-      queryParameters: {
-        'fields': 'name,email,picture',
-        'access_token': loginResult.accessToken!.tokenString,
-      },
-    );
+      final profile = json.decode(graphResponse.data);
 
-    final profile = json.decode(graphResponse.data);
+      String userId = profile['id'];
+      String userName = profile['name'];
+      log('Facebook user ID: $userId');
+      log('Facebook user name: $userName');
 
-    
-    String userId = profile['id'];
-    String userName = profile['name'];
-    print('Facebook user ID: $userId');
-    print('Facebook user name: $userName');
+      // final SharedPreferences preferences =
+      //     await SharedPreferences.getInstance();
+      // preferences.setString('accountId', loginResult.accessToken!.tokenString);
 
-    return userCredential;
-  } else {
-    throw Exception('Failed to sign in with Facebook: ${loginResult.message}');
+      BlocProvider.of<AuthCubit>(context).facebookLogin(
+        accountId: userId,
+        userName: userName,
+      );
+
+      return userCredential;
+    } else if (loginResult.status == LoginStatus.cancelled) {
+      return null;
+    } else if (loginResult.status == LoginStatus.failed) {
+      return null;
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> signOut() async {
+    // Sign out from Firebase
+    await FirebaseAuth.instance.signOut();
+    // Sign out from Facebook
+    await FacebookAuth.instance.logOut();
   }
 }

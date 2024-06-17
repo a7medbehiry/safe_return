@@ -58,6 +58,18 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               context, 'Email is found in application database, please Login');
           isLoading = false;
         }
+
+        if (state is FaceBookLoginLoading) {
+          isLoading = true;
+        } else if (state is FaceBookLoginSuccess) {
+          context.goNamed('homeView');
+
+          isLoading = false;
+        } else if (state is FaceBookLoginFailure) {
+          SnackBarManager.showSnackBar(
+              context, 'Email is found in application database, please Login');
+          isLoading = false;
+        }
       },
       builder: (context, state) {
         return SizedBox(
@@ -221,7 +233,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     bottom: 150,
                     child: GestureDetector(
                       onTap: () async {
-                        await signInWithFacebook();
+                        await FirebaseFaceBookServiceLogin()
+                            .signInWithFacebook(context);
                       },
                       child: Column(
                         children: [
@@ -241,7 +254,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     bottom: 150,
                     child: GestureDetector(
                       onTap: () async {
-                        FirebaseServiceLogin().signInWithGoogle(context);
+                        FirebaseGoogleServiceLogin().signInWithGoogle(context);
                       },
                       child: Column(
                         children: [

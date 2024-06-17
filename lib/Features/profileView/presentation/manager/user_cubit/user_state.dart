@@ -63,3 +63,14 @@ final class GoogleLogOutFailure extends UserState {
   final List<Map<String, dynamic>> errorMessages;
   GoogleLogOutFailure({required this.errorMessages});
 }
+
+final class FaceBookLogOutInitial extends UserState {}
+
+final class FaceBookLogOutLoading extends UserState {}
+
+final class FaceBookLogOutSuccess extends UserState {}
+
+final class FaceBookLogOutFailure extends UserState {
+  final List<Map<String, dynamic>> errorMessages;
+  FaceBookLogOutFailure({required this.errorMessages});
+}
