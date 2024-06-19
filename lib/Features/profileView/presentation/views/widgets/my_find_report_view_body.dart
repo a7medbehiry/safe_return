@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:safe_return/Features/homeView/data/models/get_find_form_model/get_find_form_model.dart';
 import 'package:safe_return/Features/homeView/presentation/manager/forms_cubit/forms_cubit.dart';
-import 'package:safe_return/constants.dart';
 import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
+import 'package:safe_return/core/utils/functions/shimmer_effect.dart';
 import 'package:safe_return/core/utils/widgets/custom_app_bar.dart';
 
 import '../../../../homeView/data/models/get_find_form_model/find_report.dart';
@@ -62,10 +62,37 @@ class _MyFindReportsViewBodyState extends State<MyFindReportsViewBody> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: ModalProgressHUD(
-            progressIndicator: const Center(
-              child: CircularProgressIndicator(
-                color: kPrimaryColor,
-              ),
+            progressIndicator: Column(
+              children: [
+                const SizedBox(
+                  height: 90,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+              ],
             ),
             inAsyncCall: isLoading,
             child: SizedBox(

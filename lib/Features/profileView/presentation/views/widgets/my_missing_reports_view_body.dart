@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:safe_return/Features/profileView/presentation/views/widgets/custom_my_missing_reports_list_view_builder.dart';
+import 'package:safe_return/core/utils/functions/shimmer_effect.dart';
 import 'package:safe_return/core/utils/widgets/custom_app_bar.dart';
-
-import '../../../../../constants.dart';
 import '../../../../../core/utils/functions/custom_snack_bar.dart';
 import '../../../../homeView/data/models/get_missing_form_model/get_missing_form_model.dart';
 import '../../../../homeView/data/models/get_missing_form_model/missing_report.dart';
@@ -63,10 +62,37 @@ class _MyMissingReportsViewBodyState extends State<MyMissingReportsViewBody> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: ModalProgressHUD(
-            progressIndicator: const Center(
-              child: CircularProgressIndicator(
-                color: kPrimaryColor,
-              ),
+            progressIndicator: Column(
+              children: [
+                const SizedBox(
+                  height: 90,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                formsLoadingCard(),
+              ],
             ),
             inAsyncCall: isLoading,
             child: SizedBox(

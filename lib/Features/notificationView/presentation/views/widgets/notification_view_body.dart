@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:safe_return/Features/notificationView/presentation/views/widgets/custom_notifications_list_view_builder.dart';
-import 'package:safe_return/constants.dart';
 import 'package:safe_return/Features/notificationView/data/get_notifications_model/get_notifications_model.dart';
 import 'package:safe_return/Features/notificationView/data/get_notifications_model/notification.dart';
 import 'package:safe_return/core/utils/functions/custom_snack_bar.dart';
 
+import '../../../../../core/utils/functions/shimmer_effect.dart';
 import '../../manager/notifications_cubit/notifications_cubit.dart';
 import 'custom_notification_app_bar.dart';
 
@@ -63,12 +63,39 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
       builder: (context, state) {
         return SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height / 1.03,
           child: ModalProgressHUD(
-            progressIndicator: const Center(
-              child: CircularProgressIndicator(
-                color: kPrimaryColor,
-              ),
+            progressIndicator: Column(
+              children: [
+                const SizedBox(
+                  height: 92.5,
+                ),
+                notificationLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                notificationLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                notificationLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                notificationLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                notificationLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                notificationLoadingCard(),
+                const SizedBox(
+                  height: 15,
+                ),
+                notificationLoadingCard(),
+              ],
             ),
             inAsyncCall: isLoading,
             child: Column(
