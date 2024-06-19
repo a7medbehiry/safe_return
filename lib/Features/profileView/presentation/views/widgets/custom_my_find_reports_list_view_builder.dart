@@ -39,6 +39,17 @@ class _CustomMyFindReportsListViewBuilderState
     await BlocProvider.of<FormsCubit>(context).getFindForm(findFormModel!);
   }
 
+  Future<void> _refresh() {
+    setState(() {
+      initializeData();
+    });
+    return Future.delayed(
+      const Duration(
+        seconds: 2,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FormsCubit, FormsState>(
@@ -83,56 +94,66 @@ class _CustomMyFindReportsListViewBuilderState
       },
       builder: (context, state) {
         if (findFormModel?.reports?.isEmpty == true) {
-          return Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "There are no reports made by you!",
-                    style: Styles.textStyleSemi16,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  SvgPicture.asset('assets/myReportsPhotos/loading.svg'),
-                ],
-              ),
-            ],
-          );
-        }
-        return ListView.builder(
-          itemCount: findFormModel?.reports?.length,
-          padding: EdgeInsets.zero,
-          physics: const BouncingScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return Column(
+          return RefreshIndicator(
+            onRefresh: _refresh,
+            child: Column(
               children: [
-                CustomReportFindDropDown(
-                  findFormModel: findFormModel?.reports?[index],
-                  onEdit: () {
-                    String? id = findFormModel?.reports?[index].id;
-                    context.goNamed('editFindPersonFormView',
-                        pathParameters: {'_id': id as String});
-                  },
-                  onDelete: () async {
-                    BlocProvider.of<FormsCubit>(context).deleteFindForm(
-                      id: findFormModel?.reports?[index].id,
-                      index: index,
-                    );
-                  },
-                  currentIndex: index,
-                ),
                 const SizedBox(
-                  height: 15,
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "There are no reports made by you!",
+                      style: Styles.textStyleSemi16,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    GestureDetector(
+                      onTap: _refresh,
+                      child: SvgPicture.asset(
+                          'assets/myReportsPhotos/loading.svg'),
+                    ),
+                  ],
                 ),
               ],
-            );
-          },
+            ),
+          );
+        }
+        return RefreshIndicator(
+          onRefresh: _refresh,
+          child: ListView.builder(
+            itemCount: findFormModel?.reports?.length,
+            padding: EdgeInsets.zero,
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  CustomReportFindDropDown(
+                    findFormModel: findFormModel?.reports?[index],
+                    onEdit: () {
+                      String? id = findFormModel?.reports?[index].id;
+                      context.goNamed('editFindPersonFormView',
+                          pathParameters: {'_id': id as String});
+                    },
+                    onDelete: () async {
+                      BlocProvider.of<FormsCubit>(context).deleteFindForm(
+                        id: findFormModel?.reports?[index].id,
+                        index: index,
+                      );
+                    },
+                    currentIndex: index,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                ],
+              );
+            },
+          ),
         );
       },
     );

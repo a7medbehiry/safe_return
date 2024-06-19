@@ -38,6 +38,17 @@ class _CustomNotificationsListViewBuilderState
         .getNotifications(notificationsModel!);
   }
 
+  Future<void> _refresh() {
+    setState(() {
+      initializeData();
+    });
+    return Future.delayed(
+      const Duration(
+        seconds: 2,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NotificationsCubit, NotificationsState>(
@@ -81,25 +92,28 @@ class _CustomNotificationsListViewBuilderState
             ],
           );
         }
-        return ListView.builder(
-          itemCount: notificationsModel?.notifications?.length,
-          padding: EdgeInsets.zero,
-          physics: const BouncingScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                CustomNotification(
-                  text: "${notificationsModel?.notifications?[index].body}",
-                  date:
-                      '${notificationsModel?.notifications?[index].date?.split(" ").last}',
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-              ],
-            );
-          },
+        return RefreshIndicator(
+          onRefresh: _refresh,
+          child: ListView.builder(
+            itemCount: notificationsModel?.notifications?.length,
+            padding: EdgeInsets.zero,
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  CustomNotification(
+                    text: "${notificationsModel?.notifications?[index].body}",
+                    date:
+                        '${notificationsModel?.notifications?[index].date?.split(" ").last}',
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                ],
+              );
+            },
+          ),
         );
       },
     );

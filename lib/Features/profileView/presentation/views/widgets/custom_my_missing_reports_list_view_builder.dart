@@ -41,6 +41,17 @@ class _CustomMyMissingReportsListViewBuilderState
         .getMissingForm(missingFormModel!);
   }
 
+  Future<void> _refresh() {
+    setState(() {
+      initializeData();
+    });
+    return Future.delayed(
+      const Duration(
+        seconds: 2,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FormsCubit, FormsState>(
@@ -84,56 +95,66 @@ class _CustomMyMissingReportsListViewBuilderState
       },
       builder: (context, state) {
         if (missingFormModel?.reports?.isEmpty == true) {
-          return Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "There are no reports made by you!",
-                    style: Styles.textStyleSemi16,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  SvgPicture.asset('assets/myReportsPhotos/loading.svg'),
-                ],
-              ),
-            ],
-          );
-        }
-        return ListView.builder(
-          itemCount: missingFormModel?.reports?.length,
-          padding: EdgeInsets.zero,
-          physics: const BouncingScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return Column(
+          return RefreshIndicator(
+            onRefresh: _refresh,
+            child: Column(
               children: [
-                CustomReportLostDropDown(
-                  missingFormModel: missingFormModel?.reports?[index],
-                  onEdit: () {
-                    String? id = missingFormModel?.reports?[index].id;
-                    context.goNamed('editMissingPersonFormView',
-                        pathParameters: {'_id': id as String});
-                  },
-                  onDelete: () {
-                    BlocProvider.of<FormsCubit>(context).deleteMissingReport(
-                      id: missingFormModel?.reports?[index].id,
-                      index: index,
-                    );
-                  },
-                  currentIndex: index,
-                ),
                 const SizedBox(
-                  height: 15,
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "There are no reports made by you!",
+                      style: Styles.textStyleSemi16,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    GestureDetector(
+                      onTap: _refresh,
+                      child: SvgPicture.asset(
+                          'assets/myReportsPhotos/loading.svg'),
+                    ),
+                  ],
                 ),
               ],
-            );
-          },
+            ),
+          );
+        }
+        return RefreshIndicator(
+          onRefresh: _refresh,
+          child: ListView.builder(
+            itemCount: missingFormModel?.reports?.length,
+            padding: EdgeInsets.zero,
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  CustomReportLostDropDown(
+                    missingFormModel: missingFormModel?.reports?[index],
+                    onEdit: () {
+                      String? id = missingFormModel?.reports?[index].id;
+                      context.goNamed('editMissingPersonFormView',
+                          pathParameters: {'_id': id as String});
+                    },
+                    onDelete: () {
+                      BlocProvider.of<FormsCubit>(context).deleteMissingReport(
+                        id: missingFormModel?.reports?[index].id,
+                        index: index,
+                      );
+                    },
+                    currentIndex: index,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                ],
+              );
+            },
+          ),
         );
       },
     );
