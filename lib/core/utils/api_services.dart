@@ -230,7 +230,7 @@ class GetUserService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        'https://safe-return.onrender.com/api/v1/user/',
+        '${baseUrl}user/',
         options: Options(
           headers: {
             'token': token,
@@ -366,7 +366,7 @@ class LogOutService {
     final token = pref.get(key);
     try {
       Response response = await dio.post(
-        'https://safereturn-2.onrender.com/api/v1/user',
+        '${baseUrl}user',
         options: Options(
           headers: {
             'token': token,
@@ -583,7 +583,7 @@ class GetFindFormService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        'http://10.0.2.2:3000/api/v1/foundReport/',
+        '${baseUrl}foundReport/',
         options: Options(
           headers: {
             'token': token,
@@ -800,7 +800,7 @@ class MissingPersonService {
     final token = pref.get(key);
     try {
       Response response = await dio.post(
-        'https://safe-return.onrender.com/api/v1/missingReport',
+        '${baseUrl}missingReport',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -863,7 +863,7 @@ class GetMissingFormService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        'https://safe-return.onrender.com/api/v1/missingReport',
+        '${baseUrl}missingReport',
         options: Options(
           headers: {
             'token': token,
@@ -921,7 +921,7 @@ class GetOneMissingFormService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        'https://safe-return.onrender.com/api/v1/missingReport/$id',
+        '${baseUrl}missingReport/$id',
         options: Options(
           headers: {
             'token': token,
@@ -967,7 +967,7 @@ class UpdateMissingPersonService {
     final token = pref.get(key);
     try {
       Response response = await dio.put(
-        'https://safe-return.onrender.com/api/v1/missingReport/$id',
+        '${baseUrl}missingReport/$id',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -1052,7 +1052,7 @@ class PushNotificationsService {
       }
 
       Response response = await dio.post(
-        'https://safereturn-4sgj.onrender.com/api/v1/notification/registerDeviceToken',
+        '${baseUrl}notification/registerDeviceToken',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -1110,7 +1110,7 @@ class GetNotificationsService {
     final token = pref.get(key);
     try {
       Response response = await dio.get(
-        'https://safereturn-4sgj.onrender.com/api/v1/notification/getAllNotifications',
+        '${baseUrl}notification/getAllNotifications',
         options: Options(
           headers: {
             'token': token,
