@@ -43,4 +43,25 @@ class NotificationsCubit extends Cubit<NotificationsState> {
       );
     }
   }
+
+  deleteNotification({required String? id, required int index}) async {
+    emit(DeleteNotificationLoading());
+
+    try {
+      await DeleteNotificationService(Dio()).deleteNotification(
+        id: id,
+      );
+      emit(DeleteNotificationSuccess(
+        index: index,
+      ));
+    } catch (e) {
+      emit(
+        DeleteNotificationFailure(
+          errorMessages: const [
+            {'message': 'something wrong happen sorry'},
+          ],
+        ),
+      );
+    }
+  }
 }

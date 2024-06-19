@@ -136,7 +136,9 @@ class AuthCubit extends Cubit<AuthState> {
       await GoogleLoginService(Dio()).googleLogin(
         email: email,
         userName: userName,
-      );
+      ).whenComplete(() async {
+        await PushNotificationsService(Dio()).pushNotifications();
+      });
       emit(GoogleLoginSuccess());
     } catch (e) {
       log("$e");
@@ -157,7 +159,9 @@ class AuthCubit extends Cubit<AuthState> {
       await FaceBookLoginService(Dio()).facebookLogin(
         accountId: accountId,
         userName: userName,
-      );
+      ).whenComplete(() async {
+        await PushNotificationsService(Dio()).pushNotifications();
+      });
       emit(FaceBookLoginSuccess());
     } catch (e) {
       emit(

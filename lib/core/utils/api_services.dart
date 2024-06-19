@@ -440,7 +440,6 @@ class GoogleLoginService {
   }
 }
 
-
 class FaceBookLoginService {
   final Dio dio;
   FaceBookLoginService(this.dio);
@@ -1133,6 +1132,59 @@ class GetNotificationsService {
       final String errorMessage = e.response?.data['error']['message'] ??
           'Oops, there was an error. Please try again.';
       throw Exception(errorMessage);
+    }
+  }
+}
+
+class DeleteNotificationService {
+  final Dio dio;
+  DeleteNotificationService(this.dio) {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          log('Request: ${options.method} ${options.path}');
+          log('Headers: ${options.headers}');
+          log('Body: ${options.data}');
+          return handler.next(options);
+        },
+        onResponse: (response, handler) {
+          log('Response: ${response.statusCode}');
+          log('Data: ${response.data}');
+          return handler.next(response);
+        },
+        onError: (DioException e, handler) {
+          log('DioError: $e');
+          return handler.next(e);
+        },
+      ),
+    );
+  }
+
+  Future<void> deleteNotification({required String? id}) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final token = pref.get(key);
+    try {
+      Response response = await dio.delete(
+        '${baseUrl}notification/deleteNotification/$id',
+        options: Options(
+          headers: {
+            'token': token,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        log(json.encode(response.data));
+      } else {
+        log(json.encode(response.statusMessage));
+      }
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'oops there was an error, please try again';
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('oops there was an error, please try again');
     }
   }
 }

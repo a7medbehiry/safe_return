@@ -38,6 +38,17 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
         .getNotifications(notificationsModel!);
   }
 
+  Future<void> _refresh() {
+    setState(() {
+      initializeData();
+    });
+    return Future.delayed(
+      const Duration(
+        seconds: 2,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NotificationsCubit, NotificationsState>(
@@ -65,6 +76,7 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height / 1.03,
           child: ModalProgressHUD(
+            
             progressIndicator: Column(
               children: [
                 const SizedBox(
@@ -98,17 +110,22 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
               ],
             ),
             inAsyncCall: isLoading,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                customNotificationAppBar(),
-                const SizedBox(
-                  height: 12,
-                ),
-                const Expanded(
-                  child: CustomNotificationsListViewBuilder(),
-                ),
-              ],
+            child: RefreshIndicator(
+              onRefresh: _refresh,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  customNotificationAppBar(
+                    onPressed: _refresh,
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  const Expanded(
+                    child: CustomNotificationsListViewBuilder(),
+                  ),
+                ],
+              ),
             ),
           ),
         );

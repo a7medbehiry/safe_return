@@ -68,28 +68,55 @@ class _CustomNotificationsListViewBuilderState
           }
           isLoading = false;
         }
+        if (state is DeleteNotificationLoading) {
+          isLoading = true;
+        } else if (state is DeleteNotificationSuccess) {
+          SnackBarManager.showSnackBar(
+            context,
+            'Report Deleted Successfully',
+          );
+          setState(() {
+            notificationsModel?.notifications?.removeAt(state.index);
+          });
+          isLoading = false;
+        } else if (state is DeleteNotificationFailure) {
+          for (var errorMessage in state.errorMessages) {
+            SnackBarManager.showSnackBar(
+              context,
+              errorMessage['message'].toString(),
+            );
+          }
+          isLoading = false;
+        }
       },
       builder: (context, state) {
         if (notificationsModel?.notifications?.isEmpty == true) {
-          return Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "There are no Notifications yet!",
-                    style: Styles.textStyleSemi16,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  SvgPicture.asset('assets/myReportsPhotos/loading.svg'),
-                ],
-              ),
-            ],
+          return RefreshIndicator(
+            onRefresh: _refresh,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "There are no Notifications yet!",
+                      style: Styles.textStyleSemi16,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    GestureDetector(
+                      onTap: _refresh,
+                      child: SvgPicture.asset(
+                          'assets/myReportsPhotos/loading.svg'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           );
         }
         return RefreshIndicator(
@@ -100,17 +127,26 @@ class _CustomNotificationsListViewBuilderState
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  CustomNotification(
-                    text: "${notificationsModel?.notifications?[index].body}",
-                    date:
-                        '${notificationsModel?.notifications?[index].date?.split(" ").last}',
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ],
+              return GestureDetector(
+                onLongPress: () {
+                  BlocProvider.of<NotificationsCubit>(context)
+                      .deleteNotification(
+                    id: notificationsModel?.notifications?[index].id,
+                    index: index,
+                  );
+                },
+                child: Column(
+                  children: [
+                    CustomNotification(
+                      text: "${notificationsModel?.notifications?[index].body}",
+                      date:
+                          '${notificationsModel?.notifications?[index].date?.split(" ").last}',
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                  ],
+                ),
               );
             },
           ),
