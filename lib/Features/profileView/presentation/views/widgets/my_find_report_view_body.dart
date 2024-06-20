@@ -37,17 +37,6 @@ class _MyFindReportsViewBodyState extends State<MyFindReportsViewBody> {
     await BlocProvider.of<FormsCubit>(context).getFindForm(findFormModel!);
   }
 
-  Future<void> _refresh() {
-    setState(() {
-      initializeData();
-    });
-    return Future.delayed(
-      const Duration(
-        seconds: 2,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FormsCubit, FormsState>(
@@ -91,29 +80,20 @@ class _MyFindReportsViewBodyState extends State<MyFindReportsViewBody> {
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 1.1,
-              child: RefreshIndicator(
-                onRefresh: _refresh,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    customAppBar(
-                      context,
-                      title: 'My Find Reports',
-                      icon: const Icon(
-                        Icons.refresh,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                      onPressed: _refresh,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Expanded(
-                      child: CustomMyFindReportsListViewBuilder(),
-                    ),
-                  ],
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  customAppBar(
+                    context,
+                    title: 'My Find Reports',
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Expanded(
+                    child: CustomMyFindReportsListViewBuilder(),
+                  ),
+                ],
               ),
             ),
           ),

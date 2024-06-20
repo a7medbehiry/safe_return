@@ -38,16 +38,7 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
         .getNotifications(notificationsModel!);
   }
 
-  Future<void> _refresh() {
-    setState(() {
-      initializeData();
-    });
-    return Future.delayed(
-      const Duration(
-        seconds: 2,
-      ),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -91,22 +82,18 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
               ],
             ),
             inAsyncCall: isLoading,
-            child: RefreshIndicator(
-              onRefresh: _refresh,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  customNotificationAppBar(
-                    onPressed: _refresh,
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  const Expanded(
-                    child: CustomNotificationsListViewBuilder(),
-                  ),
-                ],
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                customNotificationAppBar(
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                const Expanded(
+                  child: CustomNotificationsListViewBuilder(),
+                ),
+              ],
             ),
           ),
         );

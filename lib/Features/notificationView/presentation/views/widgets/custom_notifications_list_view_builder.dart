@@ -38,15 +38,8 @@ class _CustomNotificationsListViewBuilderState
         .getNotifications(notificationsModel!);
   }
 
-  Future<void> _refresh() {
-    setState(() {
-      initializeData();
-    });
-    return Future.delayed(
-      const Duration(
-        seconds: 2,
-      ),
-    );
+  Future<void> _refresh() async {
+    await initializeData();
   }
 
   @override
@@ -93,38 +86,43 @@ class _CustomNotificationsListViewBuilderState
         if (notificationsModel?.notifications?.isEmpty == true) {
           return RefreshIndicator(
             onRefresh: _refresh,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "There are no Notifications yet!",
-                      style: Styles.textStyleSemi16,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    GestureDetector(
-                      onTap: _refresh,
-                      child: SvgPicture.asset(
-                          'assets/myReportsPhotos/loading.svg'),
-                    ),
-                  ],
-                ),
-              ],
+            displacement: 25,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "There are no Notifications yet!",
+                        style: Styles.textStyleSemi16,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      GestureDetector(
+                        onTap: _refresh,
+                        child: SvgPicture.asset(
+                            'assets/myReportsPhotos/loading.svg'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           );
         }
         return RefreshIndicator(
           onRefresh: _refresh,
+          displacement: 25,
           child: ListView.builder(
             itemCount: notificationsModel?.notifications?.length,
             padding: EdgeInsets.zero,
-            physics: const BouncingScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return GestureDetector(

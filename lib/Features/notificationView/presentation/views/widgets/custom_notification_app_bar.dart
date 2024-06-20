@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../constants.dart';
 import '../../../../../core/utils/styles.dart';
 
-AppBar customNotificationAppBar({required VoidCallback onPressed}) {
+AppBar customNotificationAppBar() {
   return AppBar(
     backgroundColor: kPrimaryColor,
     centerTitle: true,
@@ -15,15 +15,5 @@ AppBar customNotificationAppBar({required VoidCallback onPressed}) {
         ),
       ),
     ),
-    actions: [
-      IconButton(
-        icon: const Icon(
-          Icons.refresh,
-          color: Colors.white,
-          size: 20,
-        ),
-        onPressed: onPressed,
-      ),
-    ],
   );
 }
