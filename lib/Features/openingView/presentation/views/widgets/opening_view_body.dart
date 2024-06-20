@@ -8,8 +8,8 @@ import '../../../../../core/utils/widgets/custom_button.dart';
 
 class OpeningViewBody extends StatefulWidget {
   const OpeningViewBody({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<OpeningViewBody> createState() => _OpeningViewBodyState();
@@ -17,23 +17,43 @@ class OpeningViewBody extends StatefulWidget {
 
 class _OpeningViewBodyState extends State<OpeningViewBody> {
   String? email;
+  bool openingViewSeen = false;
 
   @override
   void initState() {
     super.initState();
-    getValidationData();
+    _checkOpeningViewStatus();
   }
 
-  Future getValidationData() async {
+  Future<void> _checkOpeningViewStatus() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    var obtainEmail = preferences.getString('email');
-    setState(() {
-      email = obtainEmail;
-    });
+    bool seen = preferences.getBool('openingViewSeen') ?? false;
+    email = preferences.getString('email');
+    
+    if (seen) {
+      if (email == null) {
+        GoRouter.of(context).go('/loginView');
+      } else {
+        GoRouter.of(context).go('/homeView');
+      }
+    } else {
+      setState(() {
+        openingViewSeen = true;
+      });
+    }
+  }
+
+  Future<void> _markOpeningViewSeen() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setBool('openingViewSeen', true);
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!openingViewSeen) {
+      return const SizedBox(); // Show nothing until the decision is made
+    }
+
     return Column(
       children: [
         Stack(
@@ -74,11 +94,12 @@ class _OpeningViewBodyState extends State<OpeningViewBody> {
         ),
         CustomButton(
           onTap: () async {
-            getValidationData().whenComplete(
-              () => email == null
-                  ? GoRouter.of(context).push('/loginView')
-                  : GoRouter.of(context).push('/homeView'),
-            );
+            await _markOpeningViewSeen();
+            if (email == null) {
+              GoRouter.of(context).push('/loginView');
+            } else {
+              GoRouter.of(context).push('/homeView');
+            }
           },
           width: 200,
           height: 45,
