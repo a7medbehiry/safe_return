@@ -12,7 +12,7 @@ class CustomProfileAppBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width / 2.25,
+          width: MediaQuery.of(context).size.width / 2.30,
         ),
         Text(
           'Profile',
