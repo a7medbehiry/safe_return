@@ -29,7 +29,10 @@ class _OpeningViewBodyState extends State<OpeningViewBody> {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     bool seen = preferences.getBool('openingViewSeen') ?? false;
     email = preferences.getString('email');
-    
+
+    // Check if the widget is still mounted before using context or setState
+    if (!mounted) return;
+
     if (seen) {
       if (email == null) {
         GoRouter.of(context).go('/loginView');
@@ -94,7 +97,13 @@ class _OpeningViewBodyState extends State<OpeningViewBody> {
         ),
         CustomButton(
           onTap: () async {
+            // Perform async operation
             await _markOpeningViewSeen();
+
+            // Check if the widget is still mounted before using context
+            if (!context.mounted) return;
+
+            // Perform navigation based on the email value
             if (email == null) {
               GoRouter.of(context).push('/loginView');
             } else {

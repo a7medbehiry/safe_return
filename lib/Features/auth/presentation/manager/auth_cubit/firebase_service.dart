@@ -25,6 +25,7 @@ class FirebaseGoogleServiceLogin {
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
+    // Check if user canceled the login
     if (googleUser == null) {
       return;
     }
@@ -35,19 +36,26 @@ class FirebaseGoogleServiceLogin {
       idToken: googleAuth?.idToken,
     );
 
+    // Obtain shared preferences and store the email
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('email', googleUser.email);
 
+    // Sign in to Firebase with the credential
+    await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // Ensure that the context is still valid before using it
+    if (!context.mounted) {
+      return;
+    }
+
+    // Perform context-dependent operations
     BlocProvider.of<AuthCubit>(context).googleLogin(
       email: googleUser.email,
       userName: googleUser.displayName,
     );
-
-    // Once signed in, return the UserCredential
-    await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  signOut() async {
+  Future<void> signOut() async {
     if (googleSignIn.currentUser != null) {
       await FirebaseAuth.instance.signOut();
       await googleSignIn.disconnect();
@@ -86,20 +94,18 @@ class FirebaseFaceBookServiceLogin {
       log('Facebook user ID: $userId');
       log('Facebook user name: $userName');
 
-      // final SharedPreferences preferences =
-      //     await SharedPreferences.getInstance();
-      // preferences.setString('accountId', loginResult.accessToken!.tokenString);
+      // Ensure that the context is still valid before using it
+      if (!context.mounted) {
+        return null;
+      }
 
+      // Perform context-dependent operations
       BlocProvider.of<AuthCubit>(context).facebookLogin(
         accountId: userId,
         userName: userName,
       );
 
       return userCredential;
-    } else if (loginResult.status == LoginStatus.cancelled) {
-      return null;
-    } else if (loginResult.status == LoginStatus.failed) {
-      return null;
     } else {
       return null;
     }

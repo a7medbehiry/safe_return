@@ -314,9 +314,15 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                 padding: const EdgeInsets.only(left: 25, right: 100),
                 child: GestureDetector(
                   onTap: () async {
+                    // Perform async operations first
                     final SharedPreferences preferences =
                         await SharedPreferences.getInstance();
                     preferences.remove('email');
+
+                    // Check if the widget is still mounted before using context
+                    if (!context.mounted) return;
+
+                    // Perform context-dependent operations
                     BlocProvider.of<UserCubit>(context).userLogOut();
                     BlocProvider.of<UserCubit>(context).googleLogOut();
                     BlocProvider.of<UserCubit>(context).facebookLogOut();

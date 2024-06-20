@@ -192,17 +192,28 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     top: 510,
                     child: CustomButton(
                       onTap: () async {
+                        // Obtain shared preferences and store the email
                         final SharedPreferences preferences =
                             await SharedPreferences.getInstance();
                         preferences.setString('email', emailController.text);
+
+                        // Validate the form and email
                         if (formKey.currentState!.validate()) {
-                          if (EmailValidator.validate(email!) == false) {
+                          if (!EmailValidator.validate(email!)) {
+                            if (!context.mounted) {
+                              return; // Check if the context is still valid
+                            }
                             SnackBarManager.showSnackBar(
-                              context,
-                              'In-Valid Email',
-                            );
+                                context, 'Invalid Email');
                             return;
                           }
+
+                          // Check if the context is still valid before proceeding
+                          if (!context.mounted) {
+                            return;
+                          }
+
+                          // Perform the login operation
                           BlocProvider.of<AuthCubit>(context).userLogin(
                             email: email!,
                             password: password!,
