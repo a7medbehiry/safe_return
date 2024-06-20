@@ -78,31 +78,13 @@ class _MyMissingReportsViewBodyState extends State<MyMissingReportsViewBody> {
                 const SizedBox(
                   height: 90,
                 ),
-                formsLoadingCard(),
-                const SizedBox(
-                  height: 15,
+                ...List.generate(
+                  7,
+                  (_) => Padding(
+                    padding: const EdgeInsets.only(bottom: 15.0),
+                    child: formsLoadingCard(),
+                  ),
                 ),
-                formsLoadingCard(),
-                const SizedBox(
-                  height: 15,
-                ),
-                formsLoadingCard(),
-                const SizedBox(
-                  height: 15,
-                ),
-                formsLoadingCard(),
-                const SizedBox(
-                  height: 15,
-                ),
-                formsLoadingCard(),
-                const SizedBox(
-                  height: 15,
-                ),
-                formsLoadingCard(),
-                const SizedBox(
-                  height: 15,
-                ),
-                formsLoadingCard(),
               ],
             ),
             inAsyncCall: isLoading,

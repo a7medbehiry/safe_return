@@ -76,37 +76,18 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height / 1.03,
           child: ModalProgressHUD(
-            
             progressIndicator: Column(
               children: [
                 const SizedBox(
                   height: 92.5,
                 ),
-                notificationLoadingCard(),
-                const SizedBox(
-                  height: 15,
+                ...List.generate(
+                  7,
+                  (_) => Padding(
+                    padding: const EdgeInsets.only(bottom: 15.0),
+                    child: notificationLoadingCard(),
+                  ),
                 ),
-                notificationLoadingCard(),
-                const SizedBox(
-                  height: 15,
-                ),
-                notificationLoadingCard(),
-                const SizedBox(
-                  height: 15,
-                ),
-                notificationLoadingCard(),
-                const SizedBox(
-                  height: 15,
-                ),
-                notificationLoadingCard(),
-                const SizedBox(
-                  height: 15,
-                ),
-                notificationLoadingCard(),
-                const SizedBox(
-                  height: 15,
-                ),
-                notificationLoadingCard(),
               ],
             ),
             inAsyncCall: isLoading,
