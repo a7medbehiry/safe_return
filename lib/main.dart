@@ -12,7 +12,9 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await FirebaseNotifications().initNotifications();
   runApp(const SafeReturnApp());
 }
@@ -47,8 +49,8 @@ class SafeReturnApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Poppins',
           colorScheme: ColorScheme.fromSeed(
-          seedColor: kPrimaryColor,     
-        ),
+            seedColor: kPrimaryColor,
+          ),
         ),
       ),
     );
