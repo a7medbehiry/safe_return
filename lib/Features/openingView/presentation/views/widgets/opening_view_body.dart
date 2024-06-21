@@ -28,7 +28,7 @@ class _OpeningViewBodyState extends State<OpeningViewBody> {
   Future<void> _checkOpeningViewStatus() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     bool seen = preferences.getBool('openingViewSeen') ?? false;
-    email = preferences.getString('email');
+    email = preferences.getString('email') ?? preferences.getString('id');
 
     // Check if the widget is still mounted before using context or setState
     if (!mounted) return;

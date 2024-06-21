@@ -65,6 +65,9 @@ class FirebaseGoogleServiceLogin {
 
 class FirebaseFaceBookServiceLogin {
   Future<UserCredential?> signInWithFacebook(BuildContext context) async {
+    // Log out from Facebook and Firebase to clear cached credentials
+    await signOut();
+
     // Trigger the sign-in flow
     final LoginResult loginResult = await FacebookAuth.instance.login();
 
@@ -93,6 +96,11 @@ class FirebaseFaceBookServiceLogin {
       String userName = profile['name'];
       log('Facebook user ID: $userId');
       log('Facebook user name: $userName');
+
+      // Obtain shared preferences and store the email
+      final SharedPreferences preferences =
+          await SharedPreferences.getInstance();
+      preferences.setString('id', userId);
 
       // Ensure that the context is still valid before using it
       if (!context.mounted) {

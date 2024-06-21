@@ -318,6 +318,7 @@ class ProfileViewBodyState extends State<ProfileViewBody> {
                     final SharedPreferences preferences =
                         await SharedPreferences.getInstance();
                     preferences.remove('email');
+                    preferences.remove('id');
 
                     // Check if the widget is still mounted before using context
                     if (!context.mounted) return;

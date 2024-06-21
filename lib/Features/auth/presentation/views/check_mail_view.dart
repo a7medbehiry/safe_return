@@ -8,7 +8,9 @@ class CheckMailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: CheckMailViewBody(),
+      body: SingleChildScrollView(
+        child: CheckMailViewBody(),
+      ),
     );
   }
 }
