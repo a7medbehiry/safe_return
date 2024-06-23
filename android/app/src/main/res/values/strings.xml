@@ -3,4 +3,5 @@
 <string name="facebook_app_id">831683281747998</string>
 <string name="app_name">Safe Return</string>
 <string name="fb_login_protocol_scheme">980adc023d058474282ee60b9b286ed2</string>
+<string name="facebook_client_token">4641224a169c9832b53d24c7db5733b4</string>
 </resources>

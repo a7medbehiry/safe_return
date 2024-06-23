@@ -133,10 +133,12 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     emit(GoogleLoginLoading());
     try {
-      await GoogleLoginService(Dio()).googleLogin(
+      await GoogleLoginService(Dio())
+          .googleLogin(
         email: email,
         userName: userName,
-      ).whenComplete(() async {
+      )
+          .whenComplete(() async {
         await PushNotificationsService(Dio()).pushNotifications();
       });
       emit(GoogleLoginSuccess());
@@ -156,10 +158,12 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     emit(FaceBookLoginLoading());
     try {
-      await FaceBookLoginService(Dio()).facebookLogin(
+      await FaceBookLoginService(Dio())
+          .facebookLogin(
         accountId: accountId,
         userName: userName,
-      ).whenComplete(() async {
+      )
+          .whenComplete(() async {
         await PushNotificationsService(Dio()).pushNotifications();
       });
       emit(FaceBookLoginSuccess());
@@ -221,17 +225,38 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  userResetPassword(
-      {required String password,
-      required String confirmPassword,
-      required String token}) async {
+  checkMail({
+    required String resetCode,
+  }) async {
+    emit(CheckMailLoading());
+
+    try {
+      await CheckMailService(Dio()).checkMail(
+        resetCode: resetCode,
+      );
+      emit(CheckMailSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(
+        CheckMailFailure(
+          errorMessages: const [
+            {'message': 'OTP Expired, please try again'},
+          ],
+        ),
+      );
+    }
+  }
+
+  userResetPassword({
+    required String password,
+    required String confirmPassword,
+  }) async {
     emit(ResetPasswordLoading());
 
     try {
       await ResetPasswordService(Dio()).userResetPassword(
         password: password,
         confirmPassword: confirmPassword,
-        token: "Bearer $resetPasswordToken",
       );
       emit(ResetPasswordSuccess());
     } catch (e) {

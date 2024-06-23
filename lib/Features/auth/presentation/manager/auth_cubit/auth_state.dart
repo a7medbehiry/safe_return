@@ -60,6 +60,17 @@ final class ForgetPasswordFailure extends AuthState {
   ForgetPasswordFailure({required this.errorMessages});
 }
 
+final class CheckMailInitial extends AuthState {}
+
+final class CheckMailLoading extends AuthState {}
+
+final class CheckMailSuccess extends AuthState {}
+
+final class CheckMailFailure extends AuthState {
+  final List<Map<String, dynamic>> errorMessages;
+  CheckMailFailure({required this.errorMessages});
+}
+
 final class ResetPasswordInitial extends AuthState {}
 
 final class ResetPasswordLoading extends AuthState {}

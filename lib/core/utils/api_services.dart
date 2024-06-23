@@ -136,7 +136,7 @@ class ForgetPasswordService {
   }) async {
     try {
       Response response = await dio.post(
-        '${baseUrl}auth/forgetpassword',
+        'https://safereturn.onrender.com/api/v1/auth/forgetpassword',
         options: Options(
           headers: {'Content-Type': 'application/json'},
         ),
@@ -146,6 +146,7 @@ class ForgetPasswordService {
       );
       if (response.statusCode == 200) {
         log(json.encode(response.data));
+        _saveToken(response.data['accesstoken']);
       } else {
         log(json.encode(response.statusMessage));
       }
@@ -158,6 +159,54 @@ class ForgetPasswordService {
       throw Exception('oops there was an error, please try again');
     }
   }
+
+  _saveToken(String token) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = "accesstoken";
+    final value = token;
+    pref.setString(key, value);
+  }
+}
+
+class CheckMailService {
+  final Dio dio;
+  CheckMailService(this.dio);
+
+  Future<void> checkMail({
+    required String resetCode,
+  }) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'accesstoken';
+    final accessToken = pref.get(key);
+    try {
+      Response response = await dio.post(
+        'https://safereturn.onrender.com/api/v1/auth/checkResetCode',
+        options: Options(
+          headers: {
+            'accesstoken': accessToken,
+            'Content-Type': 'application/json',
+          },
+        ),
+        data: json.encode({
+          "resetCode": resetCode,
+        }),
+      );
+      if (response.statusCode == 200) {
+        log('Reset Password Success: ${json.encode(response.data)}');
+      } else {
+        log('Reset Password Failure: ${json.encode(response.statusMessage)}');
+        throw Exception(
+            'Reset Password failed with status ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      log(e.toString());
+      log('Dio error: ${e.message}');
+      throw Exception('Oops, there was an error, please try again');
+    } catch (e) {
+      log('Unexpected error: $e');
+      throw Exception('Oops, there was an unexpected error, please try again');
+    }
+  }
 }
 
 class ResetPasswordService {
@@ -167,15 +216,17 @@ class ResetPasswordService {
   Future<void> userResetPassword({
     required String password,
     required String confirmPassword,
-    required String token,
   }) async {
+    final pref = await SharedPreferences.getInstance();
+    const key = 'accesstoken';
+    final accessToken = pref.get(key);
     try {
       Response response = await dio.post(
-        '${baseUrl}auth/resetpassword/$resetPasswordToken',
+        'https://safereturn.onrender.com/api/v1/auth/resetpassword',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': "Bearer $token",
+            'accesstoken': accessToken,
           },
         ),
         data: json.encode({
