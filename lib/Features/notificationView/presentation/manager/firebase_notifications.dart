@@ -17,15 +17,10 @@ class FirebaseNotifications {
     log("FCM Token: $fcmToken");
     handleBackgroundNotifications();
 
-    // PushNotificationsService(Dio()).pushNotifications(
-    //   fcmToken: fcmToken,
-    // );
 
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('fcmToken', "$fcmToken");
 
-    // final SharedPreferences preferences = await SharedPreferences.getInstance();
-    // var fcmToken = preferences.getString('fcmToken');
   }
 
   // handle notifications when received

@@ -98,7 +98,7 @@ class SnackBarManager {
         bottom: MediaQuery.of(AppRouter.navigatorKey.currentState!.context)
                 .size
                 .height -
-            250,
+            270,
       ),
       backgroundColor: Colors.transparent,
       elevation: 0,
