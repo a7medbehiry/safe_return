@@ -143,9 +143,9 @@ class _EditMissingPersonFormViewBodyState
                     height: 40,
                   ),
                   CustomTextContainerWithRadius(
-                    width: 160,
+                    width: 300,
                     height: 40,
-                    text: 'personal',
+                    text: 'Your personal information',
                     style: Styles.textStyleLight16.copyWith(
                       color: Colors.white,
                     ),
