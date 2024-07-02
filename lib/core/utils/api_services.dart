@@ -136,7 +136,7 @@ class ForgetPasswordService {
   }) async {
     try {
       Response response = await dio.post(
-        'https://safereturn.onrender.com/api/v1/auth/forgetpassword',
+        '${baseUrl}auth/forgetpassword',
         options: Options(
           headers: {'Content-Type': 'application/json'},
         ),
@@ -180,7 +180,7 @@ class CheckMailService {
     final accessToken = pref.get(key);
     try {
       Response response = await dio.post(
-        'https://safereturn.onrender.com/api/v1/auth/checkResetCode',
+        '${baseUrl}auth/checkResetCode',
         options: Options(
           headers: {
             'accesstoken': accessToken,
@@ -222,7 +222,7 @@ class ResetPasswordService {
     final accessToken = pref.get(key);
     try {
       Response response = await dio.post(
-        'https://safereturn.onrender.com/api/v1/auth/resetpassword',
+        '${baseUrl}auth/resetpassword',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -450,7 +450,7 @@ class GoogleLoginService {
   }) async {
     try {
       Response response = await dio.post(
-        'https://safe-return.onrender.com/api/v1/auth/loginWithGmail',
+        '${baseUrl}auth/loginWithGmail',
         options: Options(
           headers: {'Content-Type': 'application/json'},
         ),
@@ -501,7 +501,7 @@ class FaceBookLoginService {
   }) async {
     try {
       Response response = await dio.post(
-        'https://safe-return.onrender.com/api/v1/auth/loginWithFacebook',
+        '${baseUrl}auth/loginWithFacebook',
         options: Options(
           headers: {'Content-Type': 'application/json'},
         ),

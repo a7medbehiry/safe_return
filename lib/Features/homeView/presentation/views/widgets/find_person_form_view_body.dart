@@ -74,9 +74,9 @@ class _FindPersonFormViewBodyState extends State<FindPersonFormViewBody> {
                     height: 10,
                   ),
                   CustomTextContainerWithRadius(
-                    width: 160,
+                    width: 300,
                     height: 40,
-                    text: 'personal',
+                    text: 'Your personal information',
                     style: Styles.textStyleLight16.copyWith(
                       color: Colors.white,
                     ),
