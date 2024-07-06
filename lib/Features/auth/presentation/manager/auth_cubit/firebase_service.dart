@@ -38,7 +38,14 @@ class FirebaseGoogleServiceLogin {
 
     // Obtain shared preferences and store the email
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('email', googleUser.email);
+
+    // Check if googleUser.email is not empty
+    if (googleUser.email.isNotEmpty) {
+      preferences.setString('email', googleUser.email);
+    } else {
+      // Remove the 'email' key if googleUser.email is empty
+      preferences.remove('email');
+    }
 
     // Sign in to Firebase with the credential
     await FirebaseAuth.instance.signInWithCredential(credential);
@@ -100,7 +107,14 @@ class FirebaseFaceBookServiceLogin {
       // Obtain shared preferences and store the email
       final SharedPreferences preferences =
           await SharedPreferences.getInstance();
-      preferences.setString('id', userId);
+
+      // Check if userId is not empty
+      if (userId.isNotEmpty) {
+        preferences.setString('email', userId);
+      } else {
+        // Remove the 'email' key if userId is empty
+        preferences.remove('email');
+      }
 
       // Ensure that the context is still valid before using it
       if (!context.mounted) {

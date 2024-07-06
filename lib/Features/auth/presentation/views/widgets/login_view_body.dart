@@ -195,8 +195,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         // Obtain shared preferences and store the email
                         final SharedPreferences preferences =
                             await SharedPreferences.getInstance();
-                        preferences.setString('email', emailController.text);
 
+                        // Check if emailController.text is not empty
+                        if (emailController.text.isNotEmpty) {
+                          preferences.setString('email', emailController.text);
+                        } else {
+                          // Remove the 'email' key if emailController.text is empty
+                          preferences.remove('email');
+                        }
                         // Validate the form and email
                         if (formKey.currentState!.validate()) {
                           if (!EmailValidator.validate(email!)) {
